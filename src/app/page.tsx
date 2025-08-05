@@ -44,8 +44,8 @@ export default function Home() {
   useEffect(() => {
       const fetchData = async () => {
         try {
-          const resArticle = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/articles`);
-          const resProduct = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/products`);
+          const resArticle = await axios.get(`/api/articles`);
+          const resProduct = await axios.get(`/api/products`);
           setArticles(resArticle.data);
           setProducts(resProduct.data);
         } catch (err) {
