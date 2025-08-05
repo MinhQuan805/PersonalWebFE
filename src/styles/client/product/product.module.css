@@ -1,0 +1,114 @@
+.productContainer {
+  padding: 0 50px !important;
+  background: #fff;
+  margin-bottom: 150px !important;
+}
+
+.productCard {
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden !important;
+  background: #ffffff;
+  min-width: 300px !important;
+  width: 100% !important;
+}
+
+.titleHeader {
+  font-size: 40px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.titleHeader div {
+  margin: 40px 0;
+  font-weight: 600;
+  color: #353535;
+  font-family: 'Inter', sans-serif;
+}
+.productContent {
+  padding: 10px;
+}
+
+.productTitle {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 10px !important;
+}
+
+.productLogo {
+    width: 25px !important;
+    height: 25px !important;
+    object-fit: contain !important;
+}
+
+.productLabel {
+    font-size: 25px !important;
+    font-weight: 500 !important;
+    color: #666 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.description {
+  font-size: 15px !important;
+}
+.productButton {
+  border-radius: 24px !important;
+  padding: 6px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  background: #fff !important;
+  border: 1px solid #919191 !important;
+  outline: none !important;
+}
+
+.productButton:hover {
+  color: #40a9ff !important;
+  border-color: #40a9ff !important;
+}
+
+.productImage {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.productImage img {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.productCard:hover {
+  transform: translateY(-4px);
+  transition: all 0.3s ease;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+}
+.action {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.action img {
+  width: 35px;
+  height: 35px;
+}
+@media (max-width: 768px) {
+  .titleHeader {
+    font-size: 30px !important;
+  }
+
+  .productCard {
+    max-width: 500px !important;
+  }
+
+  .productContainer :global(.ant-col) {
+    display: flex;
+    justify-content: center !important;
+  }
+}

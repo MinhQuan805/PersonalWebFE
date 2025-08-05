@@ -1,0 +1,228 @@
+.readingContainer {
+  padding: 40px;
+  max-width: 80%;
+  margin: auto;
+  margin-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+}
+.readingTags {
+  color: rgba(0, 0, 0, 0.45);
+  width: 80%;
+  margin-bottom: 10px !important;
+}
+
+.readingDivider {
+  width: 80%;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.2);
+  margin: 10px 0;
+}
+.readingTitle {
+  width: 80%;
+  font-weight: 700 !important;
+  margin-top: 0 !important;
+}
+
+.readingIntro {
+  font-size: 18px !important;
+  margin-bottom: 40px !important;
+  width: 80%;
+  color: #666 !important;
+}
+
+.readingThumbnail {
+  width: 90%;
+  max-height: 450px;
+  object-fit: cover;
+  margin-bottom: 24px;
+}
+
+.readingContent {
+  width: 100% !important;
+  font-family: "Noto Serif", Regular, Times New Roman !important;
+}
+
+.readingContent div {
+  font-size: 22px !important;
+  margin-top: 20px !important;
+}
+
+
+/* Phần thông tin liên lạc */
+.profileCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background-color: #fff;
+  margin: auto 0px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+.userInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.username {
+  font-size: 14px;
+  color: #888;
+}
+.contactIcons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.contactIcons img {
+  height: 35px;
+  width: 35px;
+}
+
+.articleHighlight {
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.articleRow {
+  width: 100%;
+  max-width: 1000px;
+  margin: 5px 0 !important;
+  transition: all 0.3s ease;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  cursor: pointer;
+  flex-wrap: wrap;
+}
+.articleRow:hover {
+  transform: translateY(-4px);
+}
+
+.articleContent {
+  padding: 10px;
+  width: 100%;
+}
+
+.articleTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #111;
+  overflow: hidden;
+}
+
+.articleButton {
+  border-radius: 24px !important;
+  padding: 6px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  background: #fff;
+  border: 1px solid #919191;
+  outline: none;
+}
+
+.articleButton:hover {
+  color: #40a9ff;
+  border-color: #40a9ff;
+}
+
+.articleImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.articleImage img {
+  width: 250px;
+  height: 180px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.endingSection {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+@media (max-width: 973px) {
+  .articleContent {
+    padding: 10px !important;
+    width: 100% !important;
+    max-width: 500px !important;
+    margin-left: 30px !important;
+  }
+  .articleTitle {
+    margin-bottom: 30px !important;
+    height: 100%;
+    max-height: 100%;
+  }
+  .endingSection {
+    flex-direction: column !important;
+  }
+}
+
+@media (max-width: 769px) {
+  .readingContainer {
+    padding: 0px 0px;
+    max-width: 90%;
+  }
+  .readingContent {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .readingTitle {
+    font-size: 28px !important;
+    width: 90%;
+  }
+  .readingIntro {
+    font-size: 16px !important;
+    width: 90%;
+  }
+  .articleTitle {
+    margin-bottom: 10px !important;
+  }
+  .articleImage img {
+    width: 350px;
+  }
+  .articleContainer {
+    padding: 0 !important;
+  }
+  .articleContent {
+    padding: 10px;
+    margin-left: 0 !important;
+  }
+  .articleHighlight {
+    margin-top: 40px !important;
+  }
+  .articleHighlight {
+    flex-direction: column;
+  }
+  .articleRow {
+    margin-bottom: 20px !important;
+  }
+}

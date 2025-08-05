@@ -1,0 +1,116 @@
+.article-main {
+  background: #fff !important;
+  margin-bottom: 100px !important;
+}
+.highlight-container {
+  padding: 20px 50px;
+  margin-top: 30px;
+}
+
+.article-banner {
+  position: relative;
+  background-image: url('/image/article/article-avatar.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-title {
+  font-size: 60px;
+  font-weight: 700;
+  color: white;
+}
+
+.highlight-row {
+  width: 100%;
+  margin: 30px 0;
+}
+.highlight-box {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.highlight-box:hover {
+  transform: translateY(-4px) !important;
+  transition: all 0.3s ease !important;
+}
+
+.highlight-content {
+  padding: 10px;
+  width: 400px;
+}
+.highlight-col {
+  cursor: pointer;
+}
+
+.highlight-title {
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  margin-bottom: 15px !important;
+  width: 100% !important;
+  height: 100% !important;
+  color: #111 !important;
+}
+
+.highlight-button {
+  border-radius: 24px !important;
+  padding: 6px 20px !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  background: #fff !important;
+  border: 1px solid #919191;
+  outline: none !important;
+}
+.highlight-button:hover {
+  color: #40a9ff !important;
+  border-color: #40a9ff !important;
+}
+.highlight-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.highlight-image img {
+  border-radius: 5px;
+  width: 200px;
+  height: 165px;
+  object-fit: cover;
+}
+.highlight-introduction {
+  font-size: 12px !important;
+}
+.round-search .ant-btn {
+  border-radius: 50% !important;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-search {
+  width: 250px !important;
+}
+.custom-search input {
+  border-radius: 40px 0 0 40px !important;
+}
+.custom-search .ant-input-search-button {
+  border-radius: 0 40px 40px 0 !important;
+}
+
+
+@media (max-width: 573px) {
+  .highlight-container {
+    display: none;
+  }
+  .article-main {
+    padding: 0px;
+  }
+}
