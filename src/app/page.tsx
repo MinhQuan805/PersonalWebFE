@@ -44,8 +44,8 @@ export default function Home() {
   useEffect(() => {
       const fetchData = async () => {
         try {
-          const resArticle = await axios.get(`/api/articles`);
-          const resProduct = await axios.get(`/api/products`);
+          const resArticle = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/articles`);
+          const resProduct = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/products`);
           setArticles(resArticle.data);
           setProducts(resProduct.data);
         } catch (err) {
@@ -80,14 +80,15 @@ export default function Home() {
             <Paragraph className="intro-description">
               Join the millions of companies that use Stripe to accept payments online and in person, embed financial services, power custom revenue.
             </Paragraph>
-            <Button onClick={handleDownload} type="primary" size="large" className="intro-button">
-              Get My Resume
-            </Button>
+            <div className="intro-button">
+              <Button onClick={handleDownload} type="primary" size="large" className="intro-button">
+                Get My Resume
+              </Button>
+            </div>
           </Col>
-
-          <Col xs={0} md={12} className="intro-image-container">
+          <Col xs={24} md={12}>
             <div className="intro-image">
-              <img src="/image/avatar.jpg" alt="Minh Quan" className="intro-image" />
+              <img src="/image/general/logo.png" alt="Minh Quan" className="intro-image" />
             </div>
           </Col>
         </Row>

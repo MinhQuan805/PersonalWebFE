@@ -7,6 +7,15 @@
   max-width: 500px !important;
   margin-left: 20px !important;
 }
+.articleButton {
+  border-radius: 24px !important;
+  padding: 6px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  background: #fff;
+  border: 1px solid #919191;
+  outline: none;
+}
 .articleTitle {
   font-size: 20px;
   font-weight: 600;
@@ -71,16 +80,6 @@
     margin-bottom: 30px !important;
     height: 100%;
     max-height: 100%;
-  }
-
-  .articleButton {
-    border-radius: 24px !important;
-    padding: 6px 20px;
-    font-weight: 600;
-    font-size: 14px;
-    background: #fff;
-    border: 1px solid #919191;
-    outline: none;
   }
 
   .articleButton:hover {

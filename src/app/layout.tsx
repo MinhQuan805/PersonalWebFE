@@ -51,7 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Layout className="layout-main">
           <Header className="header-main">
             <div onClick={move}>
-              <img src={'/image/logo.svg'} alt="logo" style={{ height: 60 }} />
+              <img src={'/image/general/logo.png'} alt="logo" style={{ height: 35 }} />
             </div>
             <div className="navigation-main">
               <Menu
