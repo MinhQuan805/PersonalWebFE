@@ -50,7 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Layout className="layout-main">
           <Header className="header-main">
-            <div onClick={move}>
+            <div onClick={move} style={{ cursor: 'pointer' }}>
               <img src={'/image/general/logo.png'} alt="logo" style={{ height: 35 }} />
             </div>
             <div className="navigation-main">

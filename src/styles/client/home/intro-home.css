@@ -35,7 +35,7 @@
     outline: none !important;
 }
 
-.intro-button:hover {
+.intro-button .ant-btn:hover {
     background: #40a9ff !important;
     border-color: #40a9ff !important;
 }
