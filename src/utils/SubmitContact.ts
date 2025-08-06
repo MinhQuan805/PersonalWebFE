@@ -6,15 +6,15 @@ interface HandleContactProps {
   values: any;
   form: FormInstance;
   api: NotificationInstance;
-  setLoading: (val: boolean) => void;
+  setLoadingContact: (val: boolean) => void;
 }
 export const ContactSubmit = async ({
   values,
   form,
   api,
-  setLoading,
+  setLoadingContact,
 }: HandleContactProps) => {
-  setLoading(true);
+  setLoadingContact(true);
   try {
     await axios.post(`${process.env.NEXT_PUBLIC_API_GET}/contact`, values);
     api.success({
@@ -32,6 +32,6 @@ export const ContactSubmit = async ({
       duration: 4,
     });
   } finally {
-    setLoading(false);
+    setLoadingContact(false);
   }
 };

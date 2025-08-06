@@ -34,27 +34,47 @@ export default function Home() {
   const [currentStep, setCurrentStep] = useState(0);
   const [articles, setArticles] = useState<ArticleType[]>([]);
   const [products, setProducts] = useState<ProductType[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingContact, setLoadingContact] = useState(false);
+  const [loadingProduct, setLoadingProduct] = useState(true);
+  const [loadingArticle, setLoadingArticle] = useState(true);
   const [form] = Form.useForm();
   const [api, contextHolder] = notification.useNotification();
 
   const onFinish = (values: any) => {
-    ContactSubmit({ values, form, api, setLoading });
+    ContactSubmit({ values, form, api, setLoadingContact });
   };
+
+
   useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const resArticle = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/articles`);
-          const resProduct = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/products`);
-          setArticles(resArticle.data);
-          setProducts(resProduct.data);
-        } catch (err) {
-          console.error('Error fetching articles:', err);
-        }
-      };
-  
-      fetchData();
-    }, []);
+    const fetchData = async () => {
+      try {
+        const resProduct = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/products`);
+        setProducts(resProduct.data);
+      } catch (err) {
+        console.error('Error fetching products:', err);
+      } finally {
+        setLoadingProduct(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const resArticle = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/articles`);
+        setArticles(resArticle.data);
+      } catch (err) {
+        console.error('Error fetching articles:', err);
+      } finally {
+        setLoadingArticle(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const router = useRouter();
   const handleDownload = () => {
     const link = document.createElement('a');
@@ -64,6 +84,8 @@ export default function Home() {
   };
 
   const newArticles = articles.slice(0, 4);
+
+
   return (
     <div style={{ backgroundColor: '#fff', marginBottom: 150 }}>
       {/* Intro Section */}
@@ -115,45 +137,47 @@ export default function Home() {
 
       {/* Products Section */}
       <div className="product-home-container">
-        <div className="product-home-section">
-          <div className="transition">
-            <Steps
-              progressDot
-              current={currentStep}
-              onChange={setCurrentStep}
-              direction="horizontal"
-              responsive
-              items={products.map(() => ({ title: '' }))}
-              className="product-home-step"
-            />
-            <Button onClick={() => setCurrentStep((prev) => (prev === 0 ? products.length - 1 : prev - 1))} className="button-transition">
-              <LeftOutlined />
-            </Button>
-            <Button onClick={() => setCurrentStep((prev) => (prev === products.length - 1 ? 0 : prev + 1))} className="button-transition">
-              <RightOutlined />
-            </Button>
-          </div>
-          {products.length > 0 && (
-          <Row gutter={[48, 0]} align="middle">
-            <Col xs={24} lg={10}>
-              <div className="product-home-content">
-                <div className="product-home-header">
-                  <img src={products[currentStep].logo} />
-                  <span className="product-home-label">{products[currentStep].title}</span>
+        <Spin tip="Đang tải sản phẩm..." size="large" spinning={loadingProduct}>
+          <div className="product-home-section">
+            <div className="transition">
+              <Steps
+                progressDot
+                current={currentStep}
+                onChange={setCurrentStep}
+                direction="horizontal"
+                responsive
+                items={products.map(() => ({ title: '' }))}
+                className="product-home-step"
+              />
+              <Button onClick={() => setCurrentStep((prev) => (prev === 0 ? products.length - 1 : prev - 1))} className="button-transition">
+                <LeftOutlined />
+              </Button>
+              <Button onClick={() => setCurrentStep((prev) => (prev === products.length - 1 ? 0 : prev + 1))} className="button-transition">
+                <RightOutlined />
+              </Button>
+            </div>
+            {products.length > 0 && (
+            <Row gutter={[48, 0]} align="middle">
+              <Col xs={24} lg={10}>
+                <div className="product-home-content">
+                  <div className="product-home-header">
+                    <img src={products[currentStep].logo} />
+                    <span className="product-home-label">{products[currentStep].title}</span>
+                  </div>
+                  <Title level={1} className="product-home-title">{products[currentStep].shortDescription}</Title>
+                  <Paragraph className="product-home-description">{products[currentStep].introduction}</Paragraph>
+                  <Button type="primary" size="large" className="product-home-button">Learn more</Button>
                 </div>
-                <Title level={1} className="product-home-title">{products[currentStep].shortDescription}</Title>
-                <Paragraph className="product-home-description">{products[currentStep].introduction}</Paragraph>
-                <Button type="primary" size="large" className="product-home-button">Learn more</Button>
-              </div>
-            </Col>
-            <Col xs={24} lg={14}>
-              <div className="product-home-image">
-                <img src={products[currentStep].thumbnail} />
-              </div>
-            </Col>
-          </Row>
-          )}
-        </div>
+              </Col>
+              <Col xs={24} lg={14}>
+                <div className="product-home-image">
+                  <img src={products[currentStep].thumbnail} />
+                </div>
+              </Col>
+            </Row>
+            )}
+          </div>
+        </Spin>
       </div>
 
       {/* Articles Section */}
@@ -180,7 +204,9 @@ export default function Home() {
         </div>
 
         {/* Featured Articles */}
-        <ArticleHighlight articles={newArticles} style={ArticleStyle}/>
+        <Spin tip="Đang tải bài viết..." size="large" spinning={loadingArticle} style={{margin: 50}}>
+          <ArticleHighlight articles={newArticles} style={ArticleStyle}/>
+        </Spin>
       </div>
 
       {/* Contact Section */}
@@ -210,7 +236,7 @@ export default function Home() {
 
           {/* Right - Form */}
           <Col xs={24} md={14} className="contact-form">
-            <Spin spinning={loading}>
+            <Spin spinning={loadingContact}>
               <Form layout="vertical" form={form} onFinish={onFinish}>
                 <Row gutter={16}>
                   <Col span={12}>
