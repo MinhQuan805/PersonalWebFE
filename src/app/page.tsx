@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { EnvironmentOutlined, LeftOutlined, MailOutlined, PhoneOutlined, RightOutlined } from '@ant-design/icons';
 import { FaLightbulb, FaPencilRuler, FaSeedling, FaShieldAlt, FaLinkedinIn, FaFacebookF } from 'react-icons/fa';
 import { TbBrandGithubFilled } from 'react-icons/tb';
+import './globals.css';
 import '@/styles/client/home/mission-home.css';
 import '@/styles/client/home/product-home.css';
 import ArticleStyle from '@/styles/client/home/articleHighlight.module.css';
