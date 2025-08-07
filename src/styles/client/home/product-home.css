@@ -81,8 +81,8 @@
 
 .product-home-image img {
     width: 100% !important;
-    height: auto !important;
-    object-fit: contain !important;
+    height: 400px !important;
+    object-fit: cover !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
     border-radius: 10px !important;
 }
@@ -124,6 +124,9 @@
         padding: 20px 0 !important;
     }
 
+    .product-home-image img {
+        height: 300px !important;
+    }
     .ant-steps.product-home-step {
         display: none !important;
     }
