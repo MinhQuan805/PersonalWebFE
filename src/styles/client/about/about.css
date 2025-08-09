@@ -1,12 +1,10 @@
 .intro-container {
     background: #fff;
-    padding: 120px 0px;
+    padding: 80px 0px;
     margin: 0px 100px;
 }
 
 .intro-title {
-    font-size: 48px !important;
-    font-weight: 700 !important;
     color: #000 !important;
     margin: 0 0 24px 0 !important;
     line-height: 1.2 !important;
@@ -16,7 +14,7 @@
     font-size: 18px !important;
     font-weight: 400 !important;
     color: #666 !important;
-    margin: 0 0 32px 0 !important;
+    margin: 0 0 20px 0 !important;
     line-height: 1.6 !important;
 }
 
@@ -47,8 +45,8 @@
     border: 8px solid #ffffff;
     border-radius: 50%;
     box-shadow: 0px 4px 10px rgba(87, 87, 87, 0.4);
-    width: 450px;
-    height: 450px;
+    width: 350px;
+    height: 350px;
 }
 
 .intro-icon {
@@ -96,9 +94,6 @@
 }
 
 @media (max-width: 573px) {
-    .intro-container {
-        padding: 100px 40px 0px 40px;
-    }
 
     .intro-title {
         font-size: 28px !important;
@@ -108,7 +103,12 @@
         font-size: 16px !important;
     }
 
-    .intro-image {
-        padding: 20px 0;
+    .intro-image img {
+        width: 300px;
+        height: 300px;
+    }
+    .intro-container {
+        padding: 80px 0px;
+        margin: 0px 50px;
     }
 }

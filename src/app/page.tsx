@@ -92,17 +92,44 @@ export default function Home() {
       {/* Intro Section */}
       {contextHolder}
       <div className="intro-container">
-        <Row gutter={[32, 32]} align="middle">
+        <Row gutter={[32, 32]} align="middle" className="intro-left">
           <Col xs={24} md={12}>
-            <Title level={2} className="intro-title">
-              Hello, welcome bạn<br />Mình là Minh Quân
-            </Title>
-            <Paragraph className="intro-description">
-              Join the millions of companies that use Stripe to accept payments online and in person, embed financial services, power custom revenue models, and build a more profitable business.
-            </Paragraph>
-            <Paragraph className="intro-description">
-              Join the millions of companies that use Stripe to accept payments online and in person, embed financial services, power custom revenue.
-            </Paragraph>
+          <Title className="intro-title">
+            <span style={{ fontSize: 30, fontWeight: 700 }}>Welcome bạn</span>
+          </Title>
+
+          <Title className="intro-title">
+            <span style={{ fontSize: 25, fontWeight: 700 }}>Mình là </span>
+            <span
+              style={{
+                fontSize: 45,
+                fontWeight: "600",
+                background: "linear-gradient(to top, #FFD54F 40%, transparent 40%)",
+                color: "#333b92ff",
+                display: "inline-block"
+              }}
+            >
+              Minh Quân
+            </span>
+          </Title>
+
+          <Title
+            className="intro-title"
+          >
+            <span style={{ fontSize: 25, fontWeight: 700}}>- Sinh viên trường UIT, một người trẻ trên hành trình học hỏi và kiếm thu nhập</span>
+          </Title>
+
+          <Paragraph className="intro-description">
+            Ở những năm tuổi thiếu niên thì mình luôn khát khao tạo nên một điều gì đó thật sự có ý nghĩa và dấu ấn cho những năm tháng của mình.
+          </Paragraph>
+
+          <Paragraph className="intro-description">
+            Nhưng khi lớn lên, va chạm với rất nhiều thử thách và thất bại rất nhiều lần thì mình mới thấy bản thân thật sự nhỏ bé biết bao.
+          </Paragraph>
+
+          <Paragraph className="intro-description">
+            Giờ đây, ở những tuổi 20s, mình đang cặm cụi từng bước một để biến những giấc mơ của mình không chỉ còn trong những trang giấy. Và đây là nơi để mình chia sẻ hành trình đó.
+          </Paragraph>
             <div className="intro-button">
               <Button onClick={handleDownload} type="primary" size="large" className="intro-button">
                 Get My Resume

@@ -1,13 +1,11 @@
-/* Intro */
+/* intro-home.css */
 
 .intro-container {
     background: #fff;
-    padding: 100px 120px 0px 120px;
+    padding: 80px 120px 0px 120px;
 }
 
 .intro-title {
-    font-size: 48px !important;
-    font-weight: 700 !important;
     color: #000 !important;
     margin: 0 0 24px 0 !important;
     line-height: 1.2 !important;
@@ -17,7 +15,7 @@
     font-size: 18px !important;
     font-weight: 400 !important;
     color: #666 !important;
-    margin: 0 0 32px 0 !important;
+    margin: 0 0 20px 0 !important;
     line-height: 1.6 !important;
 }
 .intro-button {
@@ -69,7 +67,7 @@
 
 @media (max-width: 573px) {
     .intro-container {
-        padding: 100px 40px 0px 40px;
+        padding: 100px 10px 0px 10px;
     }
 
     .intro-title {
