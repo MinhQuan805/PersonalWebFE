@@ -15,6 +15,19 @@
     margin-bottom: 0 !important;
 }
 
+.product-home-heading {
+  font-size: 40px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-home-heading div {
+  margin-bottom: 40px;
+  font-weight: 600;
+  color: #353535;
+  font-family: 'Inter', sans-serif;
+}
 .product-home-content {
     padding: 40px 0 !important;
 }

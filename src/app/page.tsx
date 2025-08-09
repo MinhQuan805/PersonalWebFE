@@ -120,7 +120,7 @@ export default function Home() {
           </Title>
 
           <Paragraph className="intro-description">
-            Ở những năm tuổi thiếu niên thì mình luôn khát khao tạo nên một điều gì đó thật sự có ý nghĩa và dấu ấn cho những năm tháng của mình.
+            Ở những năm tuổi thiếu niên thì mình luôn khát khao tạo nên một điều gì đó thật sự có ý nghĩa và tạo dấu ấn cho những năm tháng của mình.
           </Paragraph>
 
           <Paragraph className="intro-description">
@@ -130,11 +130,6 @@ export default function Home() {
           <Paragraph className="intro-description">
             Giờ đây, ở những tuổi 20s, mình đang cặm cụi từng bước một để biến những giấc mơ của mình không chỉ còn trong những trang giấy. Và đây là nơi để mình chia sẻ hành trình đó.
           </Paragraph>
-            <div className="intro-button">
-              <Button onClick={handleDownload} type="primary" size="large" className="intro-button">
-                Get My Resume
-              </Button>
-            </div>
           </Col>
           <Col xs={24} md={12}>
             <div className="intro-image">
@@ -142,6 +137,11 @@ export default function Home() {
             </div>
           </Col>
         </Row>
+        <div className="intro-button">
+          <Button onClick={handleDownload} type="primary" size="large">
+            Get My Resume
+          </Button>
+        </div>
       </div>
 
       {/* Missions Section */}
@@ -165,6 +165,9 @@ export default function Home() {
 
       {/* Products Section */}
       <div className="product-home-container">
+        <div className="product-home-heading">
+          <div>Sản Phẩm</div>
+        </div>
         <Spin tip="Đang tải sản phẩm..." size="large" spinning={loadingProduct}>
           <div className="product-home-section">
             <div className="transition">

@@ -18,21 +18,6 @@
     line-height: 1.6 !important;
 }
 
-.intro-button {
-    background: #1890ff !important;
-    border-color: #1890ff !important;
-    border-radius: 40px !important;
-    padding: 12px 24px !important;
-    height: 45px !important;
-    font-size: 16px !important;
-    font-weight: 500 !important;
-    outline: none !important;
-}
-
-.intro-button:hover {
-    background: #40a9ff !important;
-    border-color: #40a9ff !important;
-}
 
 .intro-image {
     display: flex;

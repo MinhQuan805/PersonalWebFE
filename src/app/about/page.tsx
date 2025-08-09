@@ -46,7 +46,7 @@ export default function Home() {
               <Button href="https://www.facebook.com/quan.minh.780514/" icon={<FaFacebookF style={{ color: '#1890ff' }} />} />
           </div>
           <Paragraph className="intro-description">
-            Ở những năm tuổi thiếu niên thì mình luôn khát khao tạo nên một điều gì đó thật sự có ý nghĩa và dấu ấn cho những năm tháng của mình.
+            Ở những năm tuổi thiếu niên thì mình luôn khát khao tạo nên một điều gì đó thật sự có ý nghĩa và tạo dấu ấn cho những năm tháng của mình.
           </Paragraph>
 
           <Paragraph className="intro-description">

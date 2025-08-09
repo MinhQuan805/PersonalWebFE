@@ -23,6 +23,7 @@
     justify-content: center;
 }
 .intro-button .ant-btn {
+    margin-top: 40px;
     background: #1890ff !important;
     border-color: #1890ff !important;
     border-radius: 40px !important;
