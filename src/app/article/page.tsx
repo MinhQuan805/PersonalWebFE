@@ -3,6 +3,7 @@
 import { Row, Col, Typography, Button, Input, Dropdown, Pagination, Spin } from 'antd';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { sendGAEvent } from '@next/third-parties/google';
 import ArticleStyle from '@/styles/client/home/articleHighlight.module.css';
 import OverrideStyle from '@/styles/client/article/overrideHighlight.module.css';
 import '@/styles/client/article/article-home.css';
@@ -54,31 +55,26 @@ export default function Home() {
     fetchData();
   }, []);
 
-  // BÀI VIẾT NỔI BẬT
   const articlesHighlight = originalArticles.filter(item => item.outstand);
   const articleRow = [];
   for (let i = 0; i < 4; i += 2) {
     articleRow.push(articlesHighlight.slice(i, i + 2));
   }
 
-  // Bộ lọc, sắp xếp và tìm kiếm
   useEffect(() => {
     let result = [...originalArticles];
 
-    // Lọc theo tag
     if (selectedTag) {
       result = result.filter(article =>
         article.tags?.includes(selectedTag)
       );
     }
 
-    // Tìm kiếm theo từ khóa
     if (keyword) {
       const keywordExp = new RegExp(keyword, 'i');
       result = result.filter(article => keywordExp.test(article.title ?? ''));
     }
 
-    // Sắp xếp
     switch (selectedSort) {
       case 'title-asc':
         result.sort((a, b) => (a.title ?? '').localeCompare(b.title ?? ''));
@@ -99,7 +95,7 @@ export default function Home() {
     }
 
     setArticles(result);
-    setPage(1); // Reset về trang đầu khi filter/sort/search thay đổi
+    setPage(1);
   }, [selectedTag, selectedSort, keyword, originalArticles]);
 
   const handleSearch = (value: string) => {
@@ -153,6 +149,11 @@ export default function Home() {
   const currentArticles = articles.slice(startIndex, startIndex + PAGE_SIZE);
 
   const readArticle = async (article: ArticleType) => {
+    // Gửi event khi click
+    sendGAEvent('event', 'read_article', {
+      article_id: article._id,
+      article_title: article.title,
+    });
     await router.push(`/article/read/${article.slug}.${article._id}`);
   };
 
@@ -162,7 +163,6 @@ export default function Home() {
         <h1 className="hero-title">BÀI VIẾT</h1>
       </div>
       <Spin spinning={loading}>
-      {/* Featured Articles */}
         <div className="highlight-container">
           <Title level={4} style={{ marginRight: 'auto' }}>BÀI VIẾT NỔI BẬT</Title>
           {articleRow.map((articleCol, rowIndex) => (
@@ -196,8 +196,10 @@ export default function Home() {
           ))}
         </div>
 
+        {/* Phần danh sách bài viết */}
         <Row gutter={0} className={OverrideStyle.articleMain}>
           <Col md={24} lg={16} className={OverrideStyle.columnLeft}>
+            {/* Bộ lọc */}
             <div className={OverrideStyle.articleHeader}>
               <Title level={4} className={OverrideStyle.articleHeaderLeft}>DÀNH CHO BẠN</Title>
               <div className={OverrideStyle.articleHeaderRight}>
@@ -241,15 +243,15 @@ export default function Home() {
           </Col>
 
           <Col md={24} lg={8}>
-              <div className={OverrideStyle.columnRight}>
-                {products.length > 0 && (
-                  <ProductCard product={products[0]} style={ProductStyle} />
-                )}
-                <SupportCard mesNum={0} />
-              </div>
+            <div className={OverrideStyle.columnRight}>
+              {products.length > 0 && (
+                <ProductCard product={products[0]} style={ProductStyle} />
+              )}
+              <SupportCard mesNum={0} />
+            </div>
           </Col>
         </Row>
-      </ Spin>
+      </Spin>
     </div>
   );
 }

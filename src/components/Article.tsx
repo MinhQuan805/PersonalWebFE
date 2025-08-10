@@ -3,6 +3,7 @@ import React from 'react';
 import { Row, Col, Typography, Button } from 'antd';
 import { ArticleType } from '@/lib/models/article.model';
 import { useRouter } from 'next/navigation';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const { Paragraph } = Typography;
 
@@ -13,9 +14,14 @@ type Props = {
 
 const ArticleHighlight: React.FC<Props> = ({ articles, style }) => {
   const router = useRouter();
-  const readArticle = async (article: any) => {
-    router.push(`/article/read/${article.slug}.${article._id}`)
-  }
+  const readArticle = async (article: ArticleType) => {
+    // Gửi event khi click
+    sendGAEvent('event', 'read_article', {
+      article_id: article._id,
+      article_title: article.title,
+    });
+    await router.push(`/article/read/${article.slug}.${article._id}`);
+  };
   return (
     <div className={style.articleHighlight}>
       {articles.map((article, index) => (

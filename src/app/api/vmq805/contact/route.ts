@@ -15,11 +15,10 @@ export async function POST(req: Request) {
   });
 
   const mailOptions = {
-    from: `"${name}" <${email}>`,
+    from: `"Công việc đến" <${process.env.EMAIL_USER}>`,
     to: process.env.EMAIL_USER,
     subject: subject || `Liên hệ từ ${name}`,
     html: `
-        <h3>Thông tin liên hệ</h3>
         <p><strong>Họ tên:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Tiêu đề:</strong> ${subject}</p>

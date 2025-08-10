@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import ContactCard from '@/components/ContactCard';
 import { RiMenu2Fill } from 'react-icons/ri';
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const { Header, Footer, Content } = Layout;
 const nav = [
@@ -118,6 +119,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </Footer>
         </Layout>
+        <GoogleAnalytics gaId="G-BDX1QPW0N9" />
       </body>
     </html>
   );

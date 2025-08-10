@@ -21,7 +21,7 @@ import type { ProductType } from '@/lib/models/product.model';
 import axios from 'axios';
 const { Title, Paragraph } = Typography;
 import { ContactSubmit } from '@/utils/SubmitContact';
-
+import { sendGAEvent } from '@next/third-parties/google'
 const missions = [
   { icon: <FaLightbulb className="mission-home-icon" />, title: 'Solve', description: 'Ứng dụng công nghệ để giải quyết các vấn đề thực tế một cách hiệu quả.' },
   { icon: <FaPencilRuler className="mission-home-icon" />, title: 'UX', description: 'Phát triển sản phẩm mượt mà, thân thiện và hữu ích cho người dùng.' },
@@ -41,10 +41,28 @@ export default function Home() {
   const [form] = Form.useForm();
   const [api, contextHolder] = notification.useNotification();
 
+  const router = useRouter();
   const onFinish = (values: any) => {
+    sendGAEvent('event', 'contact_form_submitted', { subject: values.subject || '' }) // GA4 event
     ContactSubmit({ values, form, api, setLoadingContact });
   };
 
+  const handleDownload = () => {
+    sendGAEvent('event', 'resume_downloaded') // GA4 event
+    const link = document.createElement('a');
+    link.href = `/files/CV.pdf`; 
+    link.download = 'CV.pdf';
+    link.click();
+  };
+
+  const handleLearnMore = (productTitle: string) => {
+    sendGAEvent('event', 'product_learn_more', { product: productTitle }) // GA4 event
+  };
+
+  const handleArticleClick = () => {
+    sendGAEvent('event', 'article_section_viewed') // GA4 event
+    router.push('/article');
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,7 +75,6 @@ export default function Home() {
         setLoadingProduct(false);
       }
     };
-
     fetchData();
   }, []);
 
@@ -72,17 +89,8 @@ export default function Home() {
         setLoadingArticle(false);
       }
     };
-
     fetchData();
   }, []);
-
-  const router = useRouter();
-  const handleDownload = () => {
-    const link = document.createElement('a');
-    link.href = `/files/CV.pdf`; 
-    link.download = 'CV.pdf';
-    link.click();
-  };
 
   const newArticles = articles.slice(0, 4);
 
@@ -197,7 +205,8 @@ export default function Home() {
                   </div>
                   <Title level={1} className="product-home-title">{products[currentStep].shortDescription}</Title>
                   <Paragraph className="product-home-description">{products[currentStep].introduction}</Paragraph>
-                  <Button type="primary" size="large" className="product-home-button">Learn more</Button>
+                  <Button type="primary" size="large" className="product-home-button" 
+                          onClick={() => handleLearnMore(products[currentStep].title)}>Learn more</Button>
                 </div>
               </Col>
               <Col xs={24} lg={14}>
@@ -222,7 +231,9 @@ export default function Home() {
                   <Paragraph className='product-home-description'>
                     Việc phát triển năng lực là một hành trình dài, và đây là nơi để tôi tiếp tục phá triển kỹ năng của mình
                   </Paragraph>
-                  <Button onClick={() => router.push('/article')}className={ArticleStyle.articleButton} style={{ fontSize: 17, width: 150, height: 40 }}>Tìm hiểu</Button>
+                  <Button 
+                      onClick={handleArticleClick} className={ArticleStyle.articleButton} 
+                      style={{ fontSize: 17, width: 150, height: 40 }}>Tìm hiểu</Button>
                 </div>
               </Col>
               <Col xs={24} md={11}>
