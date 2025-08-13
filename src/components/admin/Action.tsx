@@ -5,9 +5,9 @@ import type { MenuProps } from 'antd';
 import { DeleteOutlined, EditOutlined, MoreOutlined } from '@ant-design/icons';
 import { FaInfoCircle, FaTrashRestore } from 'react-icons/fa';
 
-import api from '../config/api';
+import api from '../../config/api';
 import { useDispatch } from 'react-redux';
-import { displayAlert } from '../redux/action/alert';
+import { displayAlert } from '../../redux/action/alert';
 import { useRouter } from 'next/navigation';
 
 export type ActionProps<T> = {

@@ -1,6 +1,6 @@
 .readingContainer {
   padding: 40px;
-  max-width: 80%;
+  max-width: 70%;
   margin: auto;
   margin-bottom: 150px;
   display: flex;
@@ -41,7 +41,12 @@
 
 .readingContent {
   width: 100% !important;
-  font-family: "Noto Serif", Regular, Times New Roman !important;
+  font-family: 'Times New Roman', Times, serif !important;
+  line-height: 2.3;
+}
+
+.readingContent > * {
+  margin-bottom: 1.2em; 
 }
 
 .readingContent div {

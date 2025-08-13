@@ -1,93 +1,30 @@
-/* Admin Article Styles */
-.ant-form-item {
-  margin-bottom: 16px;
-}
+@media (max-width: 900px) {
+    .btn-text {
+      display: none !important;
+    }
+  }
 
-.ant-upload-list-picture-card .ant-upload-list-item {
-  width: 150px;
-  height: 150px;
+@media (max-width: 700px) {
+    .btn-action-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 }
-
-.ant-upload.ant-upload-select-picture-card {
-  width: 150px;
-  height: 150px;
-}
-
-.ant-radio-group {
-  width: 100%;
-}
-
-.ant-switch {
-  margin-top: 8px;
-}
-
-.ant-date-picker {
-  width: 100%;
-}
-
-.ant-input-number {
-  width: 100%;
-}
-
-/* Form layout improvements */
-.ant-form-vertical .ant-form-item-label {
-  padding-bottom: 8px;
-}
-
-.ant-form-vertical .ant-form-item-label > label {
-  font-weight: 600;
-  color: #333;
-}
-
-/* Button styles */
-.ant-btn {
-  border-radius: 6px;
-  font-weight: 500;
-}
-
-.ant-btn-primary {
-  background: #1890ff;
-  border-color: #1890ff;
-}
-
-.ant-btn-primary:hover {
-  background: #40a9ff;
-  border-color: #40a9ff;
-}
-
-/* Table styles */
-.ant-table {
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.ant-table-thead > tr > th {
-  background: #fafafa;
-  font-weight: 600;
-}
-
-/* Action buttons */
-.action-buttons {
+.btn-controller {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
-
-.action-buttons .ant-btn {
-  padding: 4px 8px;
-  font-size: 12px;
+@media (max-width: 700px) {
+  .introduction-column {
+    display: none !important;
+  }
 }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .ant-col {
-    margin-bottom: 16px;
-  }
-  
-  .ant-form-item {
-    margin-bottom: 12px;
-  }
-  
-  .action-buttons {
-    flex-direction: column;
-  }
+.no-effect-button {
+  border: none;
+  outline: none;
+  background: transparent;
 }

@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   try {
     await connectDB();
-    const articles = await ArticleModel.find({ deleted: false, status: 'active', }).sort({ createdAt: -1 });
+    const articles = await ArticleModel.find({ deleted: false }).sort({ createdAt: -1 });
     return NextResponse.json(articles);
   } catch (err) {
     console.error('API error:', err);
