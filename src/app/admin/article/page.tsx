@@ -63,7 +63,7 @@ export default function Article() {
     }
     try {
       setLoading(true);
-      for (let id of rowSelected) {
+      for (const id of rowSelected) {
         await axios.delete(`${process.env.NEXT_PUBLIC_API_ADMIN}/articles/deleteSoft?id=${id}`);
       }
       openNotification('success', 'Thành công', 'Xóa bài viết thành công');
