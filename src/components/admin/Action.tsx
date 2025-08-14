@@ -4,50 +4,62 @@ import { Button, Dropdown, Popconfirm } from 'antd';
 import type { MenuProps } from 'antd';
 import { DeleteOutlined, EditOutlined, MoreOutlined } from '@ant-design/icons';
 import { FaInfoCircle, FaTrashRestore } from 'react-icons/fa';
-
-import api from '../../config/api';
-import { useDispatch } from 'react-redux';
-import { displayAlert } from '../../redux/action/alert';
 import { useRouter } from 'next/navigation';
+import api from '@/config/api';
+import axios from 'axios';
 
-export type ActionProps<T> = {
-  record: T & { _id: string };
+type NotificationType = 'success' | 'info' | 'warning' | 'error';
+export type ActionProps = {
+  record?: any;
   onChangeData: () => void;
-  action_url: string;
+  url: string;
   recovery: boolean;
+  openNotification: (type: NotificationType, title: string, message: string) => void;
 };
 
-function Action<T>({ record, onChangeData, action_url, recovery = false }: ActionProps<T>) {
+function Action({ record, onChangeData, url, openNotification, recovery = false }: ActionProps) {
   const router = useRouter();
-  const dispatch = useDispatch();
 
+  const action_url = `${process.env.NEXT_PUBLIC_API_ADMIN}/${url}`
   const handleDeleteSoft = async () => {
-    const response = await api.delete(`${action_url}/deleteSoft/${record._id}`);
-    dispatch(displayAlert(response.data.message, response.data.success ? 'success' : 'error'));
+    const res = await api.delete(`${action_url}/deleteSoft/${record._id}`);
+    if (res.data.success) {
+      openNotification('success', 'Thành công', res.data.message);
+    } else {
+      openNotification('error', 'Lỗi', res.data.message);
+    }
     onChangeData();
   };
 
   const handleDeleteHard = async () => {
-    const response = await api.delete(`${action_url}/deleteHard/${record._id}`);
-    dispatch(displayAlert(response.data.message, response.data.success ? 'success' : 'error'));
+    const res = await api.delete(`${url === 'users' ? url : action_url}/deleteHard/${record._id}`);
+    if (res.data.success) {
+      openNotification('success', 'Thành công', res.data.message);
+    } else {
+      openNotification('error', 'Lỗi', res.data.message);
+    }
     onChangeData();
   };
 
   const handleRecovery = async () => {
-    const response = await api.patch(`${action_url}/recovery/${record._id}`);
-    dispatch(displayAlert(response.data.message, response.data.success ? 'success' : 'error'));
+    const res = await api.patch(`${action_url}/recovery/${record._id}`);
+    if (res.data.success) {
+      openNotification('success', 'Thành công', res.data.message);
+    } else {
+      openNotification('error', 'Lỗi', res.data.message);
+    }
     onChangeData();
   };
 
   const handleUpdate = () => {
-    router.push(`${action_url}/update?id=${record._id}`);
+    sessionStorage.setItem('record', JSON.stringify(record));
+    router.push(`/admin/${url}/update`);
   };
 
   const handleDetail = async () => {
-    const response = await api.get(`${action_url}/detail/${record._id}`);
+    const response = await axios.get(`${action_url}/detail/${record._id}`);
     console.log(response.data);
   };
-
   const items: MenuProps['items'] = recovery
     ? [
         {
@@ -78,7 +90,7 @@ function Action<T>({ record, onChangeData, action_url, recovery = false }: Actio
         },
       ]
     : [
-        ...(action_url !== '/user'
+        ...(url !== 'users'
           ? [
               {
                 key: 'detail',
@@ -106,7 +118,7 @@ function Action<T>({ record, onChangeData, action_url, recovery = false }: Actio
           label: (
             <Popconfirm
               title="Bạn có chắc chắn muốn xóa?"
-              onConfirm={action_url === '/user' ? handleDeleteHard : handleDeleteSoft}
+              onConfirm={url === `users` ? handleDeleteHard : handleDeleteSoft}
               okText="Xóa"
               cancelText="Hủy"
             >
@@ -120,20 +132,22 @@ function Action<T>({ record, onChangeData, action_url, recovery = false }: Actio
       ];
 
   return (
-    <Dropdown trigger={['click']} menu={{ items }}>
-      <Button
-        type="text"
-        icon={<MoreOutlined style={{ fontSize: '20px' }} />}
-        style={{
-          border: 'none',
-          boxShadow: 'none',
-          color: 'black',
-          outline: 'none',
-          padding: 0,
-          background: 'transparent',
-        }}
-      />
-    </Dropdown>
+    <>
+      <Dropdown trigger={['click']} menu={{ items }}>
+        <Button
+          type="text"
+          icon={<MoreOutlined style={{ fontSize: '20px' }} />}
+          style={{
+            border: 'none',
+            boxShadow: 'none',
+            color: 'black',
+            outline: 'none',
+            padding: 0,
+            background: 'transparent',
+          }}
+        />
+      </Dropdown>
+    </>
   );
 }
 

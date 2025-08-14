@@ -1,9 +1,39 @@
 /* intro-home.css */
 
 .intro-container {
-    background: #fff;
+    position: relative;
     padding: 80px 120px 0px 120px;
+    background-color: #fff; 
+    overflow: hidden; 
 }
+
+/* Nền tam giác bên trái */
+.intro-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0; 
+    width: 60%;
+    height: 100%;
+    background: url('/image/general/background.jpg') no-repeat center center / cover;
+    clip-path: polygon(0 0, 100% 0, 0 100%); 
+    z-index: 0;
+}
+
+.intro-container > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Nội dung nằm trên */
+.intro-container > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+
 
 .intro-title {
     color: #000 !important;

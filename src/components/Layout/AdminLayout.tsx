@@ -6,12 +6,13 @@ import { usePathname, useRouter } from 'next/navigation';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { FaNewspaper, FaPlus, FaTrash, FaUser } from 'react-icons/fa';
 import '@/styles/admin/layout/AdminLayout.css';
+import { AiOutlineProduct } from 'react-icons/ai';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedKey, setSelectedKey] = useState('/admin/article');
+  const [selectedKey, setSelectedKey] = useState('/admin/articles');
 
   const pathname = usePathname();
   const router = useRouter();
@@ -24,33 +25,58 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     {
       label: 'Bài viết',
       icon: <FaNewspaper />,
-      key: 'article',
+      key: 'articles',
       children: [
         {
           label: 'Danh sách',
           icon: <FaNewspaper />,
-          key: '/admin/article',
-          onClick: () => router.push('/admin/article'),
+          key: '/admin/articles',
+          onClick: () => router.push('/admin/articles'),
         },
         {
           label: 'Tạo mới',
           icon: <FaPlus />,
-          key: '/admin/article/create',
-          onClick: () => router.push('/admin/article/create'),
+          key: '/admin/articles/create',
+          onClick: () => router.push('/admin/articles/create'),
         },
         {
           label: 'Thùng rác',
           icon: <FaTrash />,
-          key: '/admin/article/trash',
-          onClick: () => router.push('/admin/article/trash'),
+          key: '/admin/articles/trash',
+          onClick: () => router.push('/admin/articles/trash'),
+        },
+      ],
+    },
+    {
+      label: 'Sản Phẩm',
+      icon: <AiOutlineProduct />,
+      key: 'products',
+      children: [
+        {
+          label: 'Danh sách',
+          icon: <AiOutlineProduct />,
+          key: '/admin/products',
+          onClick: () => router.push('/admin/products'),
+        },
+        {
+          label: 'Tạo mới',
+          icon: <FaPlus />,
+          key: '/admin/products/create',
+          onClick: () => router.push('/admin/products/create'),
+        },
+        {
+          label: 'Thùng rác',
+          icon: <FaTrash />,
+          key: '/admin/products/trash',
+          onClick: () => router.push('/admin/products/trash'),
         },
       ],
     },
     {
       label: 'Tài khoản',
       icon: <FaUser />,
-      key: '/admin/user',
-      onClick: () => router.push('/admin/user'),
+      key: '/admin/users',
+      onClick: () => router.push('/admin/users'),
     },
   ];
 

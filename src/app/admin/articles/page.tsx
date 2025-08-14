@@ -7,16 +7,15 @@ import type { TableProps, RadioChangeEvent } from 'antd';
 import type { TableRowSelection } from 'antd/es/table/interface';
 import type { SortOrder } from 'antd/es/table/interface';
 import type { ArticleType } from '@/lib/models/article.model';
-import useAppNotification from '@/components/admin/useAppNotification'
+import useAppNotification from '@/components/useAppNotification'
 import Action from '@/components/admin/Action';
 import { useDispatch, useSelector } from 'react-redux';
-import AlertInfo from '@/components/admin/useAppNotification';
+import AlertInfo from '@/components/useAppNotification';
 import { PlusOutlined } from '@ant-design/icons';
 import { FaTrash } from 'react-icons/fa';
 import { useRouter, usePathname } from 'next/navigation';
-import axios from 'axios';
 import '@/styles/admin/article/article.css';
-
+import api from '@/config/api';
 type SizeType = TableProps['size'];
 
 export default function Article() {
@@ -33,9 +32,12 @@ export default function Article() {
   const fetchAPI = async () => {
     setLoading(true);
     try {
-      const resArticle = await axios.get(`${process.env.NEXT_PUBLIC_API_ADMIN}/articles`);
-      setArticles(resArticle.data);
-      setOriginalArticles(resArticle.data);
+      const resArticle = await api.get(`${process.env.NEXT_PUBLIC_API_ADMIN}/articles`);
+      const articleData = resArticle.data.data;
+      if (articleData) {
+        setArticles(articleData);
+        setOriginalArticles(articleData);
+      }
     } catch (err) {
       console.error('Error fetching articles:', err);
       openNotification('error', 'Lỗi', 'Không thể tải danh sách bài viết. Vui lòng thử lại sau.');
@@ -64,7 +66,7 @@ export default function Article() {
     try {
       setLoading(true);
       for (const id of rowSelected) {
-        await axios.delete(`${process.env.NEXT_PUBLIC_API_ADMIN}/articles/deleteSoft?id=${id}`);
+        await api.delete(`${process.env.NEXT_PUBLIC_API_ADMIN}/articles/deleteSoft/${id}`);
       }
       openNotification('success', 'Thành công', 'Xóa bài viết thành công');
       fetchAPI();
@@ -126,8 +128,11 @@ export default function Article() {
     },
     {
       title: 'Hành động',
-      key: 'actions',
+      key: 'actions', 
       width: '10%',
+      render: (_: any, record: ArticleType) => (
+        <Action record={record} onChangeData={fetchAPI} url={`articles`} openNotification={openNotification} recovery={false} />
+      ),
     },
   ];
 
@@ -175,7 +180,7 @@ export default function Article() {
             style={{ color: '#006effff', marginLeft: 20, borderRadius: 45, border: '1px solid #006effff' }}
             size="middle"
             icon={<PlusOutlined />}
-            onClick={() => router.push('/admin/article/create')}
+            onClick={() => router.push('/admin/articles/create')}
           >
             <span className="btn-text">Tạo bài viết mới</span>
           </Button>
@@ -184,7 +189,7 @@ export default function Article() {
             style={{ color: 'black', marginLeft: 20, borderRadius: 40, border: '1px solid black' }}
             size="middle"
             icon={<FaTrash />}
-            onClick={() => router.push('/admin/article/trash')}
+            onClick={() => router.push('/admin/articles/trash')}
           >
             <span className="btn-text">Thùng rác</span>
           </Button>

@@ -7,16 +7,14 @@ export interface ProductType extends Document {
   logo: string;
   position: number;
   shortDescription: string;
+  outstand: boolean;
   thumbnail: string;
   introduction: string;
   content: string;
   github: string;
   website: string;
   slug: string;
-  video: {
-    url: string;
-    thumbnail: string;
-  }[];
+  video: string;
   deleted: boolean;
   createdAt: Date;
   updatedAt: Date;

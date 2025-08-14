@@ -11,7 +11,9 @@ import TextEditor from '@/components/TextEditor';
 import api from '@/config/api'
 import { useRouter } from 'next/navigation';
 import '@/styles/admin/article/article.css';
-import useAppNotification from '@/components/admin/useAppNotification';
+import useAppNotification from '@/components/useAppNotification';
+import { UploadImage } from '@/components/UploadImage';
+import { CreateNewData } from '@/components/admin/Create';
 
 export default function CreateArticle() {
   const router = useRouter();
@@ -20,7 +22,7 @@ export default function CreateArticle() {
   const editorRef = useRef<any>(null);
   const [editorContent, setEditorContent] = useState('');
 
-  const action_url = '/admin/article'
+  const action_url = '/admin/articles'
   const { openNotification, contextHolder } = useAppNotification();
 
   // Upload ảnh
@@ -31,33 +33,7 @@ export default function CreateArticle() {
     setFileList(newFileList);
   };
 
-  const onPreview = async (file: UploadFile) => {
-    let src = file.url as string;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj as File);
-        reader.onload = () => resolve(reader.result as string);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
-  };
-
-  const customUpload = async ({ file, onSuccess, onError }: any) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    try {
-      const response = await api.post(`${action_url}/upload`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      onSuccess(response.data as any, file as any);
-    } catch (err) {
-      onError(err as any);
-    }
-  };
+  const { customUpload, onPreview } = UploadImage(action_url);
 
   const options: CheckboxGroupProps<string>['options'] = [
     { label: 'Hoạt động', value: 'active' },
@@ -65,36 +41,23 @@ export default function CreateArticle() {
     { label: 'Đang hoàn thành', value: 'ongoing' },
   ];
 
-  const CreateNew = async () => {
-    try {
-      const createdAt = form.getFieldValue('createdAt');
-      const data = {
-        title: form.getFieldValue('title'),
-        thumbnail: fileList[0]?.url,
-        outstand: form.getFieldValue('outstand'),
-        introduction: form.getFieldValue('introduction'),
-        content: editorRef.current
-          ? editorRef.current.getContent()
-          : editorContent,
-        position: form.getFieldValue('position'),
-        status: form.getFieldValue('status'),
-        createdAt: createdAt ? createdAt.toDate() : new Date(),
-      };
-      const response = await api.post(`${action_url}/create`, data);
-
-      if (response.data.success) {
-        form.resetFields();
-        openNotification('success', 'Thành công', response.data.message);
-        router.push(action_url);
-      } else {
-        openNotification('error', 'Lỗi', response.data.message);
-      }
-    } catch (error: any) {
-      openNotification(
-        'error',
-        'Lỗi',
-        error.response?.data?.message || 'Có lỗi xảy ra'
-      );
+  const handleCreate = async () => {
+    const createdAt = form.getFieldValue('createdAt');
+    const data = {
+      title: form.getFieldValue('title'),
+      thumbnail: fileList[0]?.url,
+      outstand: form.getFieldValue('outstand'),
+      introduction: form.getFieldValue('introduction'),
+      content: editorRef.current
+        ? editorRef.current.getContent()
+        : editorContent,
+      position: form.getFieldValue('position'),
+      status: form.getFieldValue('status'),
+      createdAt: createdAt ? createdAt.toDate() : new Date(),
+    };
+    const success = await CreateNewData({action_url, data, openNotification});
+    if (success) {
+      router.push(action_url);
     }
   };
 
@@ -104,7 +67,7 @@ export default function CreateArticle() {
       <Form
         layout="vertical"
         form={form}
-        onFinish={CreateNew}
+        onFinish={handleCreate}
         initialValues={{ status: 'ongoing', outstand: false }}
       >
         <div
@@ -198,6 +161,7 @@ export default function CreateArticle() {
             <Form.Item name="content" label="Nội dung">
               <TextEditor
                 editorRef={editorRef}
+                value={editorContent}
                 onContentChange={setEditorContent}
               />
             </Form.Item>

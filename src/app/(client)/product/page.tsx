@@ -1,6 +1,6 @@
 'use client';
 
-import { Row, Col, Typography, Button, Spin } from 'antd';
+import { Row, Col, Button, Spin } from 'antd';
 import styles from '@/styles/client/product/product.module.css';
 import '@/styles/client/main.css'
 import { useState, useEffect } from 'react';
@@ -8,8 +8,6 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import ProductCard from '@/components/ProductCard';
 import { ProductType } from '@/lib/models/product.model';
 import axios from 'axios';
-
-const { Paragraph } = Typography;
 
 export default function Product() {
   const [currentProduct, setCurrentProduct] = useState(0);

@@ -50,7 +50,7 @@ export default function SupportCard({ mesNum }: Props) {
   //   const formData = new FormData();
   //   formData.append('file', file);
   //   try {
-  //     const response = await api.post(`/admin/article/upload`, formData, {
+  //     const response = await api.post(`/admin/articles/upload`, formData, {
   //       headers: { 'Content-Type': 'multipart/form-data' },
   //     });
   //     onSuccess(response.data, file);

@@ -1,16 +1,20 @@
-'use client';
-
 // EditorComponent.tsx
 import { Editor } from '@tinymce/tinymce-react';
+import { useRef } from 'react';
 
-function TextEditor(props: any) {
-  const { editorRef, defaultValue } = props;
+function TextEditor({ value, onContentChange, editorRef }: { 
+  value: string; 
+  onContentChange: (content: string) => void; 
+  editorRef: React.MutableRefObject<any>;
+}) {
   return (
+    <>
       <Editor
-        tinymceScriptSrc='/tinymce/tinymce.min.js'
-        licenseKey='gpl'
-        onInit={(_evt, editor) => editorRef.current = editor as any}
-        value={defaultValue}
+        tinymceScriptSrc="/tinymce/tinymce.min.js"
+        licenseKey="gpl"
+        onInit={(_evt, editor) => (editorRef.current = editor)}
+        value={value}
+        onEditorChange={(newContent) => onContentChange(newContent)}
         init={{
           height: 700,
           menubar: false,
@@ -52,10 +56,11 @@ function TextEditor(props: any) {
 
               input.click();
             }
-          }
+          },
         }}
       />
+    </>
   );
 }
 
-export default TextEditor; 
+export default TextEditor;

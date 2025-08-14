@@ -1,24 +1,21 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
+const baseURL = `${process.env.NEXT_PUBLIC_API_URL}/api` || 'http://localhost:8080/api';
+
+// Tạo instance chung với baseURL
 const api = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api` || 'http://localhost:8080/api',
+  baseURL: `${baseURL}`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-const refreshInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api',
-  headers: { 'Content-Type': 'application/json' },
-});
-
-// Xác thực ở trang admin
-// Interceptor: Gắn token vào mọi request
-
+// Interceptor: Gắn token từ cookie vào mọi request
 api.interceptors.request.use(
   (config) => {
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('accessToken');
+      const token = Cookies.get('accessToken');
       if (token && !config.headers?.Authorization) {
         config.headers['Authorization'] = `Bearer ${token}`;
       }
@@ -28,7 +25,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Interceptor: Bắt lỗi 401 để gọi refreshToken và gửi lại request
+// Interceptor: Xử lý lỗi 401 và refresh token
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -36,27 +33,38 @@ api.interceptors.response.use(
 
     if (
       error.response?.status === 401 &&
-      !originalRequest._retry
+      !originalRequest._retry &&
+      typeof window !== 'undefined' // Đảm bảo chạy trên client
     ) {
       originalRequest._retry = true;
       try {
-        const res = await refreshInstance.get('/auth/refreshToken', {
-          params: {
-            refreshToken: localStorage.getItem('refreshToken')
-          }
+        const refreshToken = Cookies.get('refreshToken');
+        if (!refreshToken) throw new Error('No refresh token available');
+
+        // Gửi refresh token qua POST để bảo mật
+        const res = await api.post('/auth/refreshToken', {
+          refreshToken,
+        }, {
+          // Tránh gửi token cũ trong header khi refresh
+          headers: { Authorization: undefined },
         });
+
         const newAccessToken = res.data.accessToken;
 
-        // Cập nhật localStorage và biến bộ nhớ tạm
-        localStorage.setItem('accessToken', newAccessToken);
+        // Cập nhật cookie
+        Cookies.set('accessToken', newAccessToken, { path: '/', sameSite: 'strict' });
+        Cookies.set('refreshToken', res.data.refreshToken || refreshToken, { path: '/', sameSite: 'strict', httpOnly: true }); // Có thể thêm httpOnly cho refreshToken
 
         // Gắn token mới và gửi lại request
         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
-        // Token không còn hợp lệ, xóa token và báo lỗi
-        localStorage.removeItem('accessToken');
-        // (Tùy chọn) Redirect về trang login tại đây
+        // Xóa token và redirect về login khi refresh thất bại
+        Cookies.remove('accessToken');
+        Cookies.remove('refreshToken');
+        if (typeof window !== 'undefined') {
+          window.location.href = '/admin/auth/login'; // Redirect thủ công
+        }
         return Promise.reject(refreshError);
       }
     }
@@ -65,4 +73,4 @@ api.interceptors.response.use(
   }
 );
 
-export default api; 
+export default api;
