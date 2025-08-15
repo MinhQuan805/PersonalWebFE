@@ -28,25 +28,26 @@
 .readingIntro {
   font-size: 18px !important;
   margin-bottom: 40px !important;
-  width: 80%;
+  width: 90%;
   color: #666 !important;
 }
 
 .readingThumbnail {
-  width: 90%;
+  width: 100%;
   max-height: 450px;
   object-fit: cover;
-  margin-bottom: 24px;
+  margin-bottom: 70px;
 }
 
 .readingContent {
   width: 100% !important;
+  max-width: 100%;
   font-family: 'Times New Roman', Times, serif !important;
-  line-height: 2.3;
+  line-height: 2.1;
 }
 
 .readingContent > * {
-  margin-bottom: 1.2em; 
+  margin-bottom: 1.5em; 
 }
 
 .readingContent div {

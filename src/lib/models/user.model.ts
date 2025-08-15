@@ -18,8 +18,8 @@ const UserSchema = new Schema<UserType>({
   title: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  status: { type: String, default: 'active' }, // Hoạt động theo mặc định
-  role: { type: String, default: 'client' }, // client mặc định
+  status: { type: String, default: 'active' },
+  role: { type: String, default: 'client' },
   deleted: { type: Boolean, default: false },
   accessToken: { type: String, default: '' },
   refreshToken: { type: String, default: '' },

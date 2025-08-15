@@ -206,7 +206,7 @@ export default function Home() {
                   <Title level={1} className="product-home-title">{products[currentStep].shortDescription}</Title>
                   <Paragraph className="product-home-description">{products[currentStep].introduction}</Paragraph>
                   <Button type="primary" size="large" className="product-home-button" 
-                          onClick={() => handleLearnMore(products[currentStep].title)}>Learn more</Button>
+                          onClick={() => handleLearnMore(products[currentStep].title)}>Khám phá</Button>
                 </div>
               </Col>
               <Col xs={24} lg={14}>
@@ -223,17 +223,19 @@ export default function Home() {
       {/* Articles Section */}
       <div className="article-container">
         <div className="article-home-wrapper">
-          <Card className="article-home-card">
+          <Card className="article-home-card" onClick={handleArticleClick}>
             <Row align="middle" gutter={[24, 0]}>
               <Col xs={24} md={13}>
                 <div className="article-home-content">
                   <Title level={2}>Hành trình tích lũy kiến thức và tài chính của tôi</Title>
                   <Paragraph className='product-home-description'>
-                    Việc phát triển năng lực là một hành trình dài, và đây là nơi để tôi tiếp tục phá triển kỹ năng của mình
+                    Việc phát triển năng lực là một hành trình dài, và đây là nơi để tôi chia sẻ hành trình phát triển kỹ năng của mình
                   </Paragraph>
-                  <Button 
-                      onClick={handleArticleClick} className={ArticleStyle.articleButton} 
-                      style={{ fontSize: 17, width: 150, height: 40 }}>Tìm hiểu</Button>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button 
+                        onClick={handleArticleClick} className={ArticleStyle.articleButton} 
+                        style={{ fontSize: 17, width: 150, height: 40 }}>Cùng đồng hành</Button>
+                  </div>
                 </div>
               </Col>
               <Col xs={24} md={11}>

@@ -1,9 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import alertReducer from '@/redux/reducer/alertReducer';
 
 export const store = configureStore({
   reducer: {
-    alert: alertReducer,
   },
 });
 

@@ -27,6 +27,7 @@
 }
 
 .article-home-card {
+  cursor: pointer;
   border-radius: 16px !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -43,6 +44,7 @@
   }
   .article-home-content {
     padding: 0px !important;
+    margin-bottom: 20px;
   }
 }
 @media (max-width: 576px) {

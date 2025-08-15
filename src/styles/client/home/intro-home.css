@@ -111,5 +111,9 @@
 
     .intro-image {
         padding: 20px 0;
+        display: none;
+    }
+    .intro-container::after {
+        width: 100%;
     }
 }
