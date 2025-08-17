@@ -6,7 +6,7 @@ import '@/styles/globals.css';
 import '@/styles/client/layout/ClientLayout.css'
 import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import ContactCard from '@/components/ContactCard';
+import ContactCard from '@/components/client/ContactCard';
 import { RiMenu2Fill } from 'react-icons/ri';
 import { GoogleAnalytics } from '@next/third-parties/google'
 
@@ -25,9 +25,10 @@ const nav = [
     link: '/product',
   },
   {
-    name: 'About me',
-    link: '/about'
-  }
+    name: 'Dịch vụ',
+    link: '/service'
+  },
+  
 ]
 const navItems = nav.map((item) => ({
   key: item.link,

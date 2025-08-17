@@ -1,0 +1,58 @@
+{
+  "intro": {
+    "greeting": "Welcome bạn",
+    "name": "Minh Quân",
+    "highlight": "Sinh viên trường UIT, một người trẻ trên hành trình học hỏi và kiếm thu nhập",
+    "description": [
+      "Ở những năm tuổi thiếu niên thì mình luôn khát khao tạo nên một điều gì đó thật sự có ý nghĩa và tạo dấu ấn cho những năm tháng của mình.",
+      "Nhưng khi lớn lên, va chạm với rất nhiều thử thách và thất bại rất nhiều lần thì mình mới thấy bản thân thật sự nhỏ bé biết bao.",
+      "Giờ đây, ở những tuổi 20s, mình đang cặm cụi từng bước một để biến những giấc mơ của mình không chỉ còn trong những trang giấy. Và đây là nơi để mình chia sẻ hành trình đó."
+    ],
+    "resumeFile": "/files/CV.pdf",
+    "avatar": "/image/general/avatar.jpg"
+  },
+  "about": {
+    "role": "Ux/Ui Designer",
+    "name": "Minh Quân",
+    "bio": [
+      "Mình là một sinh viên UIT, đang tìm kiếm cơ hội để phát triển và chia sẻ hành trình học hỏi.",
+      "Đam mê công nghệ, thích tạo ra sản phẩm mang giá trị và kết nối với mọi người."
+    ],
+    "logo": "/image/general/logo.png",
+    "info": {
+      "birthday": "05/08/2006",
+      "age": 19,
+      "address": "Quận Bình Thạnh, Thành Phố Hồ Chí Minh",
+      "phone": "0946008580",
+      "email": "minhquan8052006@gmail.com",
+      "freelance": "Available"
+    },
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/qu%C3%A2n-v%C3%B5-821704325/",
+      "github": "https://github.com/MinhQuan805",
+      "facebook": "https://www.facebook.com/quan.minh.780514/"
+    }
+  },
+  "testimonials": [
+    {
+      "quote": "ZenG managed our project with impressive efficiency and clarity. Deadlines were met, communication was smooth, and the outcome was exactly what we hoped for.",
+      "name": "Mas Shin",
+      "role": "DEV THEMESFALT"
+    },
+    {
+      "quote": "Working with ZenG was a breeze. They understood our needs quickly and delivered beyond expectations.",
+      "name": "Anna Lee",
+      "role": "MARKETING MANAGER"
+    },
+    {
+      "quote": "Professional, reliable, and highly skilled team. We’ll definitely work with ZenG again.",
+      "name": "David Kim",
+      "role": "CEO, STARTUP INC."
+    }
+  ],
+  "quotes": [
+    "Luôn khát khao tạo nên điều gì đó thật sự có ý nghĩa.",
+    "Thất bại nhiều lần mới thấy bản thân nhỏ bé biết bao.",
+    "Cặm cụi từng bước một để biến giấc mơ thành hiện thực."
+  ]
+}

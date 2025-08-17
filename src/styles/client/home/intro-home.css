@@ -117,3 +117,83 @@
         width: 100%;
     }
 }
+
+
+.about-container {
+  padding: 60px 20px;
+  background: #f7f7ff; /* giống ảnh bạn gửi */
+  border-radius: 12px;
+}
+
+.about-avatar-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.about-avatar {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 8px solid #fff;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.about-social {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.about-social .ant-btn {
+  background: #111;
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-role {
+  margin-top: 40px;
+  font-size: 15px;
+  color: #777;
+}
+
+.about-name {
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+.about-bio {
+  padding: 10px 0;
+}
+
+.about-bio-heading {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.about-bio-heading .about-bio-icon {
+  background: #f7c948;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.about-info p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #333;
+}

@@ -3,7 +3,7 @@ import style from '@/styles/client/article/reading.module.css';
 const ContactCard: React.FC= () => {
   return (
     <div className={style.profileCard}>
-        <img className={style.avatar} src="/image/avatar.jpg" alt="avatar" />
+        <img className={style.avatar} src="/image/general/avatar.jpg" alt="avatar" />
         <div className={style.userInfo}>
             <div className={style.name}>Minh Quân</div>
             <div className={style.username}>@minhquan805</div>

@@ -5,11 +5,11 @@ import style from '@/styles/client/article/reading.module.css';
 import type { ArticleType } from '@/lib/models/article.model';
 import { useRouter } from 'next/navigation';
 import '@/styles/client/main.css'
-import SupportCard from '@/components/SupportCard';
+import SupportCard from '@/components/client/SupportCard';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Spin } from 'antd';
-import ContactCard from '@/components/ContactCard';
+import ContactCard from '@/components/client/ContactCard';
 
 const { Title, Paragraph } = Typography;
 

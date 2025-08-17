@@ -9,13 +9,13 @@ import OverrideStyle from '@/styles/client/article/overrideHighlight.module.css'
 import '@/styles/client/article/article-home.css';
 import '@/styles/client/main.css';
 import ProductStyle from '@/styles/client/product/product.module.css';
-import ArticleHighlight from '@/components/Article';
+import ArticleHighlight from '@/components/client/Article';
 import { ArticleType } from '@/lib/models/article.model';
 import { ProductType } from '@/lib/models/product.model'
-import ProductCard from '@/components/ProductCard';
+import ProductCard from '@/components/client/ProductCard';
 import { FaFilter } from 'react-icons/fa';
 import { TbArrowsSort } from 'react-icons/tb';
-import SupportCard from '@/components/SupportCard';
+import SupportCard from '@/components/client/SupportCard';
 import axios from 'axios';
 
 const { Title, Paragraph } = Typography;

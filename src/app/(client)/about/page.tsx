@@ -11,7 +11,7 @@ export default function Home() {
       <Row gutter={[80, 80]} align="middle">
         <Col xs={24} md={10} className="intro-image-container">
           <div className="intro-image">
-            <img src="/image/avatar.jpg" alt="Minh Quan" className="intro-image" />
+            <img src="/image/general/avatar.jpg" alt="Minh Quan" className="intro-image" />
           </div>
         </Col>
         <Col xs={24} md={14}>

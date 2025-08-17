@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Row, Col, Typography, Button, Steps, Input, Form, Spin, notification} from 'antd';
+import { Card, Row, Col, Typography, Button, Steps, Input, Form, Spin, notification, Tabs } from 'antd';
 import { useEffect, useState } from 'react';
 import { EnvironmentOutlined, LeftOutlined, MailOutlined, PhoneOutlined, RightOutlined } from '@ant-design/icons';
 import { FaLightbulb, FaPencilRuler, FaSeedling, FaShieldAlt, FaLinkedinIn, FaFacebookF } from 'react-icons/fa';
@@ -10,26 +10,30 @@ import '@/styles/client/home/mission-home.css';
 import '@/styles/client/home/product-home.css';
 import ArticleStyle from '@/styles/client/home/articleHighlight.module.css';
 import '@/styles/client/home/article-home.css';
-import '@/styles/client/home/contact-home.css'; 
+import '@/styles/client/home/contact-home.css';
 import '@/styles/client/home/intro-home.css';
+import '@/styles/client/home/pricing-home.css';
 import '@/styles/client/main.css';
-import ArticleHighlight from '@/components/Article';
+import ArticleHighlight from '@/components/client/Article';
 import { useRouter } from 'next/navigation';
-import SupportCard from '@/components/SupportCard';
 import type { ArticleType } from '@/lib/models/article.model';
 import type { ProductType } from '@/lib/models/product.model';
 import axios from 'axios';
-const { Title, Paragraph } = Typography;
 import { ContactSubmit } from '@/utils/SubmitContact';
-import { sendGAEvent } from '@next/third-parties/google'
+import { sendGAEvent } from '@next/third-parties/google';
+
+// Import dữ liệu cá nhân
+import personal from '@/data/personal.json';
+import Testimonials from '@/components/client/Testimonial';
+
+const { Title, Paragraph } = Typography;
+
 const missions = [
   { icon: <FaLightbulb className="mission-home-icon" />, title: 'Solve', description: 'Ứng dụng công nghệ để giải quyết các vấn đề thực tế một cách hiệu quả.' },
   { icon: <FaPencilRuler className="mission-home-icon" />, title: 'UX', description: 'Phát triển sản phẩm mượt mà, thân thiện và hữu ích cho người dùng.' },
   { icon: <FaSeedling className="mission-home-icon" />, title: 'Grow', description: 'Liên tục học hỏi, cập nhật công nghệ và nâng cao kỹ năng.' },
   { icon: <FaShieldAlt className="mission-home-icon" />, title: 'Secure', description: 'Đảm bảo chất lượng mã, hiệu suất ổn định và bảo mật dữ liệu.' }
-];  
-
-// Dữ liệu mẫu
+];
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -42,25 +46,26 @@ export default function Home() {
   const [api, contextHolder] = notification.useNotification();
 
   const router = useRouter();
+
   const onFinish = (values: any) => {
-    sendGAEvent('event', 'contact_form_submitted', { subject: values.subject || '' }) // GA4 event
+    sendGAEvent('event', 'contact_form_submitted', { subject: values.subject || '' });
     ContactSubmit({ values, form, api, setLoadingContact });
   };
 
   const handleDownload = () => {
-    sendGAEvent('event', 'resume_downloaded') // GA4 event
+    sendGAEvent('event', 'resume_downloaded');
     const link = document.createElement('a');
-    link.href = `/files/CV.pdf`; 
+    link.href = personal.intro.resumeFile;
     link.download = 'CV.pdf';
     link.click();
   };
 
   const handleLearnMore = (productTitle: string) => {
-    sendGAEvent('event', 'product_learn_more', { product: productTitle }) // GA4 event
+    sendGAEvent('event', 'product_learn_more', { product: productTitle });
   };
 
   const handleArticleClick = () => {
-    sendGAEvent('event', 'article_section_viewed') // GA4 event
+    sendGAEvent('event', 'article_section_viewed');
     router.push('/article');
   };
 
@@ -94,54 +99,44 @@ export default function Home() {
 
   const newArticles = articles.slice(0, 4);
 
-
   return (
     <div style={{ backgroundColor: '#fff', marginBottom: 150 }}>
-      {/* Intro Section */}
       {contextHolder}
+
+      {/* Intro Section */}
       <div className="intro-container">
         <Row gutter={[32, 32]} align="middle" className="intro-left">
           <Col xs={24} md={12}>
-          <Title className="intro-title">
-            <span style={{ fontSize: 30, fontWeight: 700 }}>Welcome bạn</span>
-          </Title>
+            <Title className="intro-title">
+              <span style={{ fontSize: 30, fontWeight: 700 }}>{personal.intro.greeting}</span>
+            </Title>
 
-          <Title className="intro-title">
-            <span style={{ fontSize: 25, fontWeight: 700 }}>Mình là </span>
-            <span
-              style={{
-                fontSize: 45,
-                fontWeight: "600",
-                background: "linear-gradient(to top, #FFD54F 40%, transparent 40%)",
-                color: "#333b92ff",
-                display: "inline-block"
-              }}
-            >
-              Minh Quân
-            </span>
-          </Title>
+            <Title className="intro-title">
+              <span style={{ fontSize: 25, fontWeight: 700 }}>Mình là </span>
+              <span
+                style={{
+                  fontSize: 45,
+                  fontWeight: "600",
+                  background: "linear-gradient(to top, #FFD54F 40%, transparent 40%)",
+                  color: "#333b92ff",
+                  display: "inline-block"
+                }}
+              >
+                {personal.intro.name}
+              </span>
+            </Title>
 
-          <Title
-            className="intro-title"
-          >
-            <span style={{ fontSize: 25, fontWeight: 700}}>- Sinh viên trường UIT, một người trẻ trên hành trình học hỏi và kiếm thu nhập</span>
-          </Title>
+            <Title className="intro-title">
+              <span style={{ fontSize: 25, fontWeight: 700 }}>- {personal.intro.highlight}</span>
+            </Title>
 
-          <Paragraph className="intro-description">
-            Ở những năm tuổi thiếu niên thì mình luôn khát khao tạo nên một điều gì đó thật sự có ý nghĩa và tạo dấu ấn cho những năm tháng của mình.
-          </Paragraph>
-
-          <Paragraph className="intro-description">
-            Nhưng khi lớn lên, va chạm với rất nhiều thử thách và thất bại rất nhiều lần thì mình mới thấy bản thân thật sự nhỏ bé biết bao.
-          </Paragraph>
-
-          <Paragraph className="intro-description">
-            Giờ đây, ở những tuổi 20s, mình đang cặm cụi từng bước một để biến những giấc mơ của mình không chỉ còn trong những trang giấy. Và đây là nơi để mình chia sẻ hành trình đó.
-          </Paragraph>
+            {personal.intro.description.map((d, i) => (
+              <Paragraph key={i} className="intro-description">{d}</Paragraph>
+            ))}
           </Col>
           <Col xs={24} md={12}>
             <div className="intro-image">
-              <img src="/image/general/logo.png" alt="Minh Quan" className="intro-image" />
+              <img src={personal.intro.avatar} alt={personal.intro.name} className="intro-image" />
             </div>
           </Col>
         </Row>
@@ -150,6 +145,50 @@ export default function Home() {
             Get My Resume
           </Button>
         </div>
+      </div>
+
+      {/* About Section */}
+      <div className="about-container" data-aos="fade-up" data-aos-delay="100" style={{ marginTop: 100 }}>
+        <Row gutter={[32, 32]} align="middle">
+          <Col xs={24} lg={8} style={{ textAlign: "center" }}>
+            <div className="about-avatar-wrapper">
+              <img src={personal.about.logo} alt="Profile" className="about-avatar" />
+              <div className="about-social">
+                <Button shape="circle" href={personal.about.socials.linkedin} icon={<FaLinkedinIn />} />
+                <Button shape="circle" href={personal.about.socials.github}><TbBrandGithubFilled style={{ height: 20, width: 20 }} /></Button>
+                <Button shape="circle" href={personal.about.socials.facebook} icon={<FaFacebookF />} />
+              </div>
+            </div>
+            <Paragraph className="about-role">{personal.about.role}</Paragraph>
+            <Title level={3} className="about-name">{personal.about.name}</Title>
+          </Col>
+
+          <Col xs={24} lg={16}>
+            <div className="about-bio">
+              <div className="about-bio-heading">
+                <span className="about-bio-icon">●</span>
+                <Title level={3}>Biography</Title>
+              </div>
+              {personal.about.bio.map((b, i) => (
+                <Paragraph key={i}>{b}</Paragraph>
+              ))}
+
+              <Row gutter={[32, 16]} className="about-info">
+                <Col xs={24} sm={12}>
+                  <p><strong>Name:</strong> {personal.about.name}</p>
+                  <p><strong>Birthday:</strong> {personal.about.info.birthday}</p>
+                  <p><strong>Age:</strong> {personal.about.info.age} years</p>
+                  <p><strong>Address:</strong> {personal.about.info.address}</p>
+                </Col>
+                <Col xs={24} sm={12}>
+                  <p><strong>Phone:</strong> {personal.about.info.phone}</p>
+                  <p><strong>Email:</strong> {personal.about.info.email}</p>
+                  <p><strong>Freelance:</strong> {personal.about.info.freelance}</p>
+                </Col>
+              </Row>
+            </div>
+          </Col>
+        </Row>
       </div>
 
       {/* Missions Section */}
@@ -196,25 +235,25 @@ export default function Home() {
               </Button>
             </div>
             {products.length > 0 && (
-            <Row gutter={[48, 0]} align="middle">
-              <Col xs={24} lg={10}>
-                <div className="product-home-content">
-                  <div className="product-home-header">
-                    <img src={products[currentStep].logo} />
-                    <span className="product-home-label">{products[currentStep].title}</span>
+              <Row gutter={[48, 0]} align="middle">
+                <Col xs={24} lg={10}>
+                  <div className="product-home-content">
+                    <div className="product-home-header">
+                      <img src={products[currentStep].logo} />
+                      <span className="product-home-label">{products[currentStep].title}</span>
+                    </div>
+                    <Title level={1} className="product-home-title">{products[currentStep].shortDescription}</Title>
+                    <Paragraph className="product-home-description">{products[currentStep].introduction}</Paragraph>
+                    <Button type="primary" size="large" className="product-home-button"
+                      onClick={() => handleLearnMore(products[currentStep].title)}>Khám phá</Button>
                   </div>
-                  <Title level={1} className="product-home-title">{products[currentStep].shortDescription}</Title>
-                  <Paragraph className="product-home-description">{products[currentStep].introduction}</Paragraph>
-                  <Button type="primary" size="large" className="product-home-button" 
-                          onClick={() => handleLearnMore(products[currentStep].title)}>Khám phá</Button>
-                </div>
-              </Col>
-              <Col xs={24} lg={14}>
-                <div className="product-home-image">
-                  <img src={products[currentStep].thumbnail} />
-                </div>
-              </Col>
-            </Row>
+                </Col>
+                <Col xs={24} lg={14}>
+                  <div className="product-home-image">
+                    <img src={products[currentStep].thumbnail} />
+                  </div>
+                </Col>
+              </Row>
             )}
           </div>
         </Spin>
@@ -232,9 +271,9 @@ export default function Home() {
                     Việc phát triển năng lực là một hành trình dài, và đây là nơi để tôi chia sẻ hành trình phát triển kỹ năng của mình
                   </Paragraph>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button 
-                        onClick={handleArticleClick} className={ArticleStyle.articleButton} 
-                        style={{ fontSize: 17, width: 150, height: 40 }}>Cùng đồng hành</Button>
+                    <Button
+                      onClick={handleArticleClick} className={ArticleStyle.articleButton}
+                      style={{ fontSize: 17, width: 150, height: 40 }}>Cùng đồng hành</Button>
                   </div>
                 </div>
               </Col>
@@ -248,37 +287,105 @@ export default function Home() {
         </div>
 
         {/* Featured Articles */}
-        <Spin tip="Đang tải bài viết..." size="large" spinning={loadingArticle} style={{margin: 50}}>
-          <ArticleHighlight articles={newArticles} style={ArticleStyle}/>
+        <Spin tip="Đang tải bài viết..." size="large" spinning={loadingArticle} style={{ margin: 50 }}>
+          <ArticleHighlight articles={newArticles} style={ArticleStyle} />
         </Spin>
       </div>
+
+      <Testimonials />
+
+      {/* Pricing Section */}
+      <div className="pricing-container">
+        <Title level={2} className="pricing-title">My Pricing</Title>
+
+        <Tabs defaultActiveKey="1" centered className="pricing-tabs">
+          {/* Standard Plan */}
+          <Tabs.TabPane tab="Standard Plan" key="1">
+            <Card className="pricing-card">
+              <Row gutter={[32, 16]} align="middle">
+                <Col xs={24} md={12}>
+                  <Title level={3}>Standard Plan</Title>
+                  <ul className="pricing-features">
+                    <li>✔ 60 keywords</li>
+                    <li>✔ 6,000 monthly website visitors</li>
+                    <li>✔ 8 blogs / month</li>
+                    <li>✔ 10 quality backlinks / month</li>
+                  </ul>
+                </Col>
+                <Col xs={24} md={12} style={{ textAlign: "center" }}>
+                  <div className="pricing-price">
+                    <span className="price-amount">$29</span>
+                    <span className="price-unit">/per hour</span>
+                  </div>
+                  <Button 
+                    type="primary" size="large" shape="round" className="pricing-button" 
+                    onClick={() => {
+                      document.querySelector(".contact-container")?.scrollIntoView({ behavior: "smooth" });
+                    }}>
+                    Get Started !
+                  </Button>
+                </Col>
+              </Row>
+            </Card>
+          </Tabs.TabPane>
+
+          {/* Premium Plan */}
+          <Tabs.TabPane tab="Premium Plan" key="2">
+            <Card className="pricing-card">
+              <Row gutter={[32, 16]} align="middle">
+                <Col xs={24} md={12}>
+                  <Title level={3}>Premium Plan</Title>
+                  <ul className="pricing-features">
+                    <li>✔ 150 keywords</li>
+                    <li>✔ 20,000 monthly website visitors</li>
+                    <li>✔ 20 blogs / month</li>
+                    <li>✔ 30 quality backlinks / month</li>
+                  </ul>
+                </Col>
+                <Col xs={24} md={12} style={{ textAlign: "center" }}>
+                  <div className="pricing-price">
+                    <span className="price-amount">$59</span>
+                    <span className="price-unit">/per hour</span>
+                  </div>
+                  <Button 
+                    type="primary" size="large" shape="round" className="pricing-button" 
+                    onClick={() => {
+                      document.querySelector(".contact-container")?.scrollIntoView({ behavior: "smooth" });
+                    }}>
+                    Get Started !
+                  </Button>
+                </Col>
+              </Row>
+            </Card>
+          </Tabs.TabPane>
+        </Tabs>
+      </div>
+
 
       {/* Contact Section */}
       <div className="contact-container">
         <Row className="contact-wrapper">
-          {/* Left - Contact Info */}
           <Col xs={24} md={10} className="contact-info">
             <h2>Thông tin liên hệ</h2>
             <div className="contact-detail">
               <PhoneOutlined />
-              <span>0946008580</span>
+              <span>{personal.about.info.phone}</span>
             </div>
             <div className="contact-detail">
               <MailOutlined />
-              <span>minhquan8052006@gmail.com</span>
+              <span>{personal.about.info.email}</span>
             </div>
             <div className="contact-detail">
               <EnvironmentOutlined />
-              <span>Quận Bình Thành, Thành Phố Hồ Chí Minh</span>
+              <span>{personal.about.info.address}</span>
             </div>
             <div className="contact-icons">
-              <Button href="https://www.linkedin.com/in/qu%C3%A2n-v%C3%B5-821704325/" icon={<FaLinkedinIn style={{ color: '#fff' }} />} />
-              <Button href="https://github.com/MinhQuan805"><TbBrandGithubFilled style={{ color: '#fff', height: 20, width: 20 }} /></Button>
-              <Button href="https://www.facebook.com/quan.minh.780514/" icon={<FaFacebookF style={{ color: '#fff' }} />} />
+              <Button href={personal.about.socials.linkedin} icon={<FaLinkedinIn style={{ color: '#fff' }} />} />
+              <Button href={personal.about.socials.github}><TbBrandGithubFilled style={{ color: '#fff', height: 20, width: 20 }} /></Button>
+              <Button href={personal.about.socials.facebook} icon={<FaFacebookF style={{ color: '#fff' }} />} />
             </div>
           </Col>
 
-          {/* Right - Form */}
           <Col xs={24} md={14} className="contact-form">
             <Spin spinning={loadingContact}>
               <Form layout="vertical" form={form} onFinish={onFinish}>

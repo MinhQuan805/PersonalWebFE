@@ -1,0 +1,63 @@
+.pricing-container {
+  padding: 80px 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  margin: 80px auto;
+}
+
+.pricing-title {
+  text-align: center;
+  margin-bottom: 40px !important;
+}
+
+.pricing-tabs .ant-tabs-nav {
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.pricing-card {
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center; 
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pricing-features li {
+  margin: 12px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.pricing-price {
+  margin-bottom: 20px;
+}
+
+.price-amount {
+  font-size: 40px;
+  font-weight: 700;
+  color: #000;
+}
+
+.price-unit {
+  font-size: 16px;
+  margin-left: 5px;
+  color: #555;
+}
+
+.pricing-button {
+  background: #3ba9f0;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+}
+.pricing-button:hover {
+  background: #3ba9f0 !important;
+}

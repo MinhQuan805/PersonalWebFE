@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Button, Col, DatePicker, Form, Input, Radio, Row, Switch, Upload, InputNumber } from 'antd';
 import type { UploadProps, UploadFile } from 'antd/es/upload/interface';
 import type { CheckboxGroupProps } from 'antd/es/checkbox';
-import TextEditor from '@/components/TextEditor';
+import TextEditor from '@/components/admin/TextEditor';
 import api from '@/config/api';
 import { useRouter, useSearchParams } from 'next/navigation';
 import '@/styles/admin/article/article.css';
