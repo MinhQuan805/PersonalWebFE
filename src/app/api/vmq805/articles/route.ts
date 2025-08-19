@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { connectDB } from '@/lib/connectDB';
+import { connectDB } from '@/lib/database/connectDB';
 import { ArticleModel } from '@/lib/models/article.model';
 
 export const dynamic = 'force-dynamic';

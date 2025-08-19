@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { connectDB } from '@/lib/connectDB';
+import { connectDB } from '@/lib/database/connectDB';
 import { ProductModel } from '@/lib/models/product.model';
 
 export const dynamic = 'force-dynamic'; // tránh cache khi deploy

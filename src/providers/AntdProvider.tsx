@@ -1,5 +1,3 @@
-// providers/AntdProvider.tsx
-
 "use client";
 
 import { StyleProvider } from "@ant-design/cssinjs";

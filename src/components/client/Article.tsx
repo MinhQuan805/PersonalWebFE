@@ -1,20 +1,20 @@
 'use client';
 import React from 'react';
 import { Row, Col, Typography, Button } from 'antd';
-import { ArticleType } from '@/lib/models/article.model';
 import { useRouter } from 'next/navigation';
 import { sendGAEvent } from '@next/third-parties/google';
+import { ArticleDTO } from '@/types/article.dto';
 
 const { Paragraph } = Typography;
 
 type Props = {
-  articles: ArticleType[];
+  articles: ArticleDTO[];
   style: { [key: string]: string };
 };
 
 const ArticleHighlight: React.FC<Props> = ({ articles, style }) => {
   const router = useRouter();
-  const readArticle = async (article: ArticleType) => {
+  const readArticle = async (article: ArticleDTO) => {
     // Gửi event khi click
     sendGAEvent('event', 'read_article', {
       article_id: article._id,

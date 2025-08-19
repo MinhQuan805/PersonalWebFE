@@ -16,10 +16,10 @@ export const UploadImage = (actionUrl: string) => {
         const response = await api.post(`${actionUrl}/upload`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
-        console.log('Upload response:', response.data); // Debug response
+        console.log('Upload response:', response.data); 
         onSuccess(response.data, file);
       } catch (err: any) {
-        console.error('Upload error:', err); // Debug error
+        console.error('Upload error:', err);
         onError(err);
         openNotification('error', 'Lỗi', 'Tải file thất bại');
       }

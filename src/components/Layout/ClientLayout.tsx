@@ -9,6 +9,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import ContactCard from '@/components/client/ContactCard';
 import { RiMenu2Fill } from 'react-icons/ri';
 import { GoogleAnalytics } from '@next/third-parties/google'
+import personal from '@/data/personal.json';
 
 const { Header, Footer, Content } = Layout;
 const nav = [
@@ -28,7 +29,10 @@ const nav = [
     name: 'Dịch vụ',
     link: '/service'
   },
-  
+  {
+    name: 'Về Quân',
+    link: '/about'
+  },
 ]
 const navItems = nav.map((item) => ({
   key: item.link,
@@ -87,8 +91,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               />
             </Drawer>
             <div className="contact-header">
-              <a href="https://www.linkedin.com/in/qu%C3%A2n-v%C3%B5-821704325/" target="_blank" rel="noopener noreferrer"><img src="/image/logo/linkedin.png" alt="linkedin" /></a>
-              <a href="https://github.com/MinhQuan805" target="_blank" rel="noopener noreferrer"><img src="/image/logo/github.png" alt="GitHub" /></a>
+              <a href={personal.about.socials.linkedin} target="_blank" rel="noopener noreferrer"><img src="/image/logo/linkedin.png" alt="linkedin" /></a>
+              <a href={personal.about.socials.github} target="_blank" rel="noopener noreferrer"><img src="/image/logo/github.png" alt="GitHub" /></a>
             </div>
           </Header>
 
@@ -101,7 +105,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="footer-left">
                 <div className="footer-contact"><ContactCard /></div>
                 <div className="footer-contact-text">
-                  <p>Coyright &copy; {new Date().getFullYear()} Võ Minh Quân</p>
+                  <p>Coyright &copy; {new Date().getFullYear()} {personal.intro.name}</p>
                   <p>Powered by React & Antd</p>
                 </div>
               </div>

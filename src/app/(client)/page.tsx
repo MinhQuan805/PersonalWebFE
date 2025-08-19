@@ -1,51 +1,103 @@
 'use client';
 
+// React / Next.js
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+
+// Ant Design
 import { Card, Row, Col, Typography, Button, Steps, Input, Form, Spin, notification, Tabs } from 'antd';
-import { useEffect, useState } from 'react';
 import { EnvironmentOutlined, LeftOutlined, MailOutlined, PhoneOutlined, RightOutlined } from '@ant-design/icons';
+
+// React Icons
 import { FaLightbulb, FaPencilRuler, FaSeedling, FaShieldAlt, FaLinkedinIn, FaFacebookF } from 'react-icons/fa';
 import { TbBrandGithubFilled } from 'react-icons/tb';
+
+// Styles
 import '@/styles/globals.css';
+import '@/styles/client/main.css';
+import '@/styles/client/home/intro-home.css';
 import '@/styles/client/home/mission-home.css';
 import '@/styles/client/home/product-home.css';
-import ArticleStyle from '@/styles/client/home/articleHighlight.module.css';
 import '@/styles/client/home/article-home.css';
 import '@/styles/client/home/contact-home.css';
-import '@/styles/client/home/intro-home.css';
 import '@/styles/client/home/pricing-home.css';
-import '@/styles/client/main.css';
-import ArticleHighlight from '@/components/client/Article';
-import { useRouter } from 'next/navigation';
-import type { ArticleType } from '@/lib/models/article.model';
-import type { ProductType } from '@/lib/models/product.model';
-import axios from 'axios';
-import { ContactSubmit } from '@/utils/SubmitContact';
-import { sendGAEvent } from '@next/third-parties/google';
+import ArticleStyle from '@/styles/client/home/articleHighlight.module.css';
 
-// Import dữ liệu cá nhân
-import personal from '@/data/personal.json';
+// Components
+import ArticleHighlight from '@/components/client/Article';
 import Testimonials from '@/components/client/Testimonial';
+
+// Data & Redux & Utils
+import personal from '@/data/personal.json';
+import { ContactSubmit } from '@/utils/SubmitContact';
+import type { RootState } from '@/lib/redux/store';
+
+// External libraries
+import { motion, AnimatePresence } from "framer-motion";
+import { sendGAEvent } from '@next/third-parties/google';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 
 const { Title, Paragraph } = Typography;
 
 const missions = [
-  { icon: <FaLightbulb className="mission-home-icon" />, title: 'Solve', description: 'Ứng dụng công nghệ để giải quyết các vấn đề thực tế một cách hiệu quả.' },
-  { icon: <FaPencilRuler className="mission-home-icon" />, title: 'UX', description: 'Phát triển sản phẩm mượt mà, thân thiện và hữu ích cho người dùng.' },
-  { icon: <FaSeedling className="mission-home-icon" />, title: 'Grow', description: 'Liên tục học hỏi, cập nhật công nghệ và nâng cao kỹ năng.' },
-  { icon: <FaShieldAlt className="mission-home-icon" />, title: 'Secure', description: 'Đảm bảo chất lượng mã, hiệu suất ổn định và bảo mật dữ liệu.' }
+  { 
+    color: "#f5dc00ff",
+    icon: <FaLightbulb className="mission-home-icon" />, 
+    title: 'Solve', 
+    description: (color: string) => (
+      <>Luôn <span style={{ color, fontWeight: 700 }}>đổi mới</span> giải quyết thách thức.</>
+    )
+  },
+  { 
+    color: "#be18ffff",
+    icon: <FaPencilRuler className="mission-home-icon" />, 
+    title: 'UX', 
+    description: (color: string) => (
+      <>Sản phẩm <span style={{ color, fontWeight: 700 }}>thân thiện</span> với người dùng.</>
+    )
+  },
+  { 
+    color: "#08ff31ff",
+    icon: <FaSeedling className="mission-home-icon" />, 
+    title: 'Grow', 
+    description: (color: string) => (
+      <>Không ngừng <span style={{ color, fontWeight: 700 }}>học hỏi</span> và phát triển.</>
+    )
+  },
+  { 
+    color: "#1890ff",
+    icon: <FaShieldAlt className="mission-home-icon" />, 
+    title: 'Secure', 
+    description: (color: string) => (
+      <>Đặt <span style={{ color, fontWeight: 700 }}>an toàn</span> lên hàng đầu.</>
+    )
+  }
 ];
+
+
+
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [articles, setArticles] = useState<ArticleType[]>([]);
-  const [products, setProducts] = useState<ProductType[]>([]);
   const [loadingContact, setLoadingContact] = useState(false);
-  const [loadingProduct, setLoadingProduct] = useState(true);
-  const [loadingArticle, setLoadingArticle] = useState(true);
   const [form] = Form.useForm();
   const [api, contextHolder] = notification.useNotification();
-
   const router = useRouter();
+
+  const { data: products, loading: loadingProduct } = useSelector((state: RootState) => state.products);
+  const { data: articles, loading: loadingArticle } = useSelector((state: RootState) => state.articles);
+
+  const newArticles = articles.slice(0, 4);
+
+  useEffect(() => {
+  AOS.init({
+    duration: 800,
+    once: true,  
+  });
+}, []);
 
   const onFinish = (values: any) => {
     sendGAEvent('event', 'contact_form_submitted', { subject: values.subject || '' });
@@ -68,37 +120,6 @@ export default function Home() {
     sendGAEvent('event', 'article_section_viewed');
     router.push('/article');
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const resProduct = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/products`);
-        setProducts(resProduct.data);
-      } catch (err) {
-        console.error('Error fetching products:', err);
-      } finally {
-        setLoadingProduct(false);
-      }
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const resArticle = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/articles`);
-        setArticles(resArticle.data);
-      } catch (err) {
-        console.error('Error fetching articles:', err);
-      } finally {
-        setLoadingArticle(false);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const newArticles = articles.slice(0, 4);
-
   return (
     <div style={{ backgroundColor: '#fff', marginBottom: 150 }}>
       {contextHolder}
@@ -193,25 +214,27 @@ export default function Home() {
 
       {/* Missions Section */}
       <div className="missions-container">
-        <div className="missions-section">
-          <Row gutter={0}>
-            {missions.map((m, i) => (
-              <Col xs={24} sm={12} md={6} key={i}>
-                <Card className="mission-home-card">
-                  <div className="mission-home-header">
-                    {m.icon}
-                    <Title level={3} className="mission-home-title">{m.title}</Title>
-                  </div>
-                  <Paragraph className="mission-home-description">{m.description}</Paragraph>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </div>
+        <Row gutter={[20, 20]} justify="center">
+          {missions.map((m, i) => (
+            <Col md={12} lg={6} key={i}>
+              <Card className="mission-home-card">
+                <div className="mission-home-header">
+                  {React.cloneElement(m.icon, { style: { color: m.color } })} 
+                  <Title level={3} className="mission-home-title" style={{ color: m.color }}>
+                    {m.title}
+                  </Title>
+                </div>
+                <Paragraph className="mission-home-description">
+                  {m.description(m.color)}
+                </Paragraph>
+              </Card>
+            </Col>
+          ))}
+        </Row>
       </div>
 
       {/* Products Section */}
-      <div className="product-home-container">
+      <div className="product-home-container" data-aos="fade-up" data-aos-delay="100">
         <div className="product-home-heading">
           <div>Sản Phẩm</div>
         </div>
@@ -235,25 +258,43 @@ export default function Home() {
               </Button>
             </div>
             {products.length > 0 && (
-              <Row gutter={[48, 0]} align="middle">
-                <Col xs={24} lg={10}>
-                  <div className="product-home-content">
-                    <div className="product-home-header">
-                      <img src={products[currentStep].logo} />
-                      <span className="product-home-label">{products[currentStep].title}</span>
-                    </div>
-                    <Title level={1} className="product-home-title">{products[currentStep].shortDescription}</Title>
-                    <Paragraph className="product-home-description">{products[currentStep].introduction}</Paragraph>
-                    <Button type="primary" size="large" className="product-home-button"
-                      onClick={() => handleLearnMore(products[currentStep].title)}>Khám phá</Button>
-                  </div>
-                </Col>
-                <Col xs={24} lg={14}>
-                  <div className="product-home-image">
-                    <img src={products[currentStep].thumbnail} />
-                  </div>
-                </Col>
-              </Row>
+              <AnimatePresence mode="wait">
+                <Row gutter={[48, 0]} align="middle">
+                  <Col xs={24} lg={10}>
+                    <motion.div
+                      key={`left-${currentStep}`}
+                      initial={{ opacity: 0, x: -20 }}   
+                      animate={{ opacity: 1, x: 0 }}    
+                      exit={{ opacity: 0, x: -20 }} 
+                      transition={{ duration: 0.5, ease: "easeIn" }}
+                    >
+                      <div className="product-home-content">
+                        <div className="product-home-header">
+                          <img src={products[currentStep].logo} />
+                          <span className="product-home-label">{products[currentStep].title}</span>
+                        </div>
+                        <Title level={1} className="product-home-title">{products[currentStep].shortDescription}</Title>
+                        <Paragraph className="product-home-description">{products[currentStep].introduction}</Paragraph>
+                        <Button type="primary" size="large" className="product-home-button"
+                          onClick={() => handleLearnMore(products[currentStep].title)}>Khám phá</Button>
+                      </div>
+                    </motion.div>
+                  </Col>
+                  <Col xs={24} lg={14}>
+                    <motion.div
+                      key={`right-${currentStep}`}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 20 }}
+                      transition={{ duration: 0.5, ease: "easeIn" }}
+                    >
+                      <div className="product-home-image">
+                        <img src={products[currentStep].thumbnail} />
+                      </div>
+                    </motion.div>
+                  </Col>
+                </Row>
+              </AnimatePresence>
             )}
           </div>
         </Spin>

@@ -8,7 +8,6 @@ import Action from '@/components/admin/Action';
 import { useRouter } from 'next/navigation';
 import useAppNotification from '@/components/useAppNotification';
 import { ProductType } from '@/lib/models/product.model';
-import { SortOrder } from 'antd/es/table/interface';
 
 type SizeType = TableProps['size'];
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];

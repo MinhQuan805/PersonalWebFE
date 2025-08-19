@@ -1,12 +1,12 @@
 'use client';
 import React from 'react';
 import { Card, Typography, Button } from 'antd';
-import { ProductType } from "@/lib/models/product.model";
 import "@/styles/client/main.css"
+import { ProductDTO } from '@/types/product.dto';
 const { Paragraph } = Typography;
 
 type Props = {
-  product: ProductType;
+  product: ProductDTO;
   style: { [key: string]: string };
 };
 
