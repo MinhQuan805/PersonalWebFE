@@ -10,7 +10,7 @@ import { Card, Row, Col, Typography, Button, Steps, Input, Form, Spin, notificat
 import { EnvironmentOutlined, LeftOutlined, MailOutlined, PhoneOutlined, RightOutlined } from '@ant-design/icons';
 
 // React Icons
-import { FaLightbulb, FaPencilRuler, FaSeedling, FaShieldAlt, FaLinkedinIn, FaFacebookF } from 'react-icons/fa';
+import { FaLightbulb, FaPencilRuler, FaSeedling, FaShieldAlt, FaLinkedinIn, FaFacebookF, FaLink } from 'react-icons/fa';
 import { TbBrandGithubFilled } from 'react-icons/tb';
 
 // Styles
@@ -40,6 +40,9 @@ import { sendGAEvent } from '@next/third-parties/google';
 import Typewriter from "typewriter-effect";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import EmailReceiverCard from '@/components/client/EmailReceiverCard';
+import { IoExpand } from 'react-icons/io5';
+import { IoMdRocket } from 'react-icons/io';
 
 
 const { Title, Paragraph } = Typography;
@@ -122,6 +125,7 @@ export default function Home() {
     sendGAEvent('event', 'article_section_viewed');
     router.push('/article');
   };
+
   return (
     <div style={{ backgroundColor: '#fff', marginBottom: 150 }}>
       {contextHolder}
@@ -166,6 +170,11 @@ export default function Home() {
             {personal.intro.description.map((d, i) => (
               <Paragraph key={i} className="intro-description">{d}</Paragraph>
             ))}
+            <div className="intro-button">
+              <Button onClick={handleDownload} type="primary" size="large">
+                Get My Resume
+              </Button>
+            </div>
           </Col>
           <Col xs={24} md={12}>
             <div className="intro-image">
@@ -173,11 +182,6 @@ export default function Home() {
             </div>
           </Col>
         </Row>
-        <div className="intro-button">
-          <Button onClick={handleDownload} type="primary" size="large">
-            Get My Resume
-          </Button>
-        </div>
       </div>
 
       {/* About Section */}
@@ -311,7 +315,7 @@ export default function Home() {
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Button
                       onClick={handleArticleClick} className={ArticleStyle.articleButton}
-                      style={{ fontSize: 17, width: 150, height: 40 }}>Cùng đồng hành</Button>
+                      style={{ fontSize: 17, width: 150, height: 40, paddingLeft: 30, paddingRight: 30 }}>Cùng đồng hành</Button>
                   </div>
                 </div>
               </Col>
@@ -325,83 +329,57 @@ export default function Home() {
         </div>
 
         {/* Featured Articles */}
-        <Spin tip="Đang tải bài viết..." size="large" spinning={loadingArticle} style={{ margin: 50 }}>
+        <Spin tip="Đang tải bài viết..." size="large" spinning={loadingArticle} style={{ marginTop: 50, marginBottom: 50 }}>
           <ArticleHighlight articles={newArticles} style={ArticleStyle} />
         </Spin>
       </div>
-
+      <EmailReceiverCard api={api}/>
       <Testimonials />
 
       {/* Pricing Section */}
       <div className="pricing-container">
-        <Title level={2} className="pricing-title">My Pricing</Title>
-
-        <Tabs defaultActiveKey="1" centered className="pricing-tabs">
-          {/* Standard Plan */}
-          <Tabs.TabPane tab="Standard Plan" key="1">
-            <Card className="pricing-card">
-              <Row gutter={[32, 16]} align="middle">
-                <Col xs={24} md={12}>
-                  <Title level={3}>Standard Plan</Title>
-                  <ul className="pricing-features">
-                    <li>✔ 60 keywords</li>
-                    <li>✔ 6,000 monthly website visitors</li>
-                    <li>✔ 8 blogs / month</li>
-                    <li>✔ 10 quality backlinks / month</li>
-                  </ul>
-                </Col>
-                <Col xs={24} md={12} style={{ textAlign: "center" }}>
-                  <div className="pricing-price">
-                    <span className="price-amount">$29</span>
-                    <span className="price-unit">/per hour</span>
-                  </div>
-                  <Button 
-                    type="primary" size="large" shape="round" className="pricing-button" 
-                    onClick={() => {
-                      document.querySelector(".contact-container")?.scrollIntoView({ behavior: "smooth" });
-                    }}>
-                    Get Started !
-                  </Button>
-                </Col>
-              </Row>
-            </Card>
-          </Tabs.TabPane>
-
-          {/* Premium Plan */}
-          <Tabs.TabPane tab="Premium Plan" key="2">
-            <Card className="pricing-card">
-              <Row gutter={[32, 16]} align="middle">
-                <Col xs={24} md={12}>
-                  <Title level={3}>Premium Plan</Title>
-                  <ul className="pricing-features">
-                    <li>✔ 150 keywords</li>
-                    <li>✔ 20,000 monthly website visitors</li>
-                    <li>✔ 20 blogs / month</li>
-                    <li>✔ 30 quality backlinks / month</li>
-                  </ul>
-                </Col>
-                <Col xs={24} md={12} style={{ textAlign: "center" }}>
-                  <div className="pricing-price">
-                    <span className="price-amount">$59</span>
-                    <span className="price-unit">/per hour</span>
-                  </div>
-                  <Button 
-                    type="primary" size="large" shape="round" className="pricing-button" 
-                    onClick={() => {
-                      document.querySelector(".contact-container")?.scrollIntoView({ behavior: "smooth" });
-                    }}>
-                    Get Started !
-                  </Button>
-                </Col>
-              </Row>
-            </Card>
-          </Tabs.TabPane>
-        </Tabs>
+        <div className="home-heading">
+          <div>Dịch vụ</div>
+        </div>
+        <div className="pricing-description">
+          <p>
+            Bạn phát triển dự án phần mềm chất lượng và đang tìm người đồng hành?
+          </p>
+        </div>
+        <Card className="pricing-card">
+          <Row gutter={[32, 16]} align="middle">
+            <Col xs={24} md={12}>
+              <Title level={3}>Backend Development</Title>
+              <ul className="pricing-features">
+                <li><IoMdRocket className="pricing-icon"/>   Hiệu suất cao</li>
+                <li><FaLink className="pricing-icon"/>   Tích hơp dễ dàng</li>
+                <li><IoExpand className="pricing-icon"/>   Mở rộng linh hoạt</li>
+                <li><FaShieldAlt className="pricing-icon"/>   Bảo mật mạnh mẽ</li>
+              </ul>
+            </Col>
+            <Col xs={24} md={12} style={{ textAlign: "center" }}>
+              <div className="pricing-price">
+                <span className="price-amount">$5</span>
+                <span className="price-unit">/ngày</span>
+              </div>
+              <Button 
+                type="primary" size="large" shape="round" className="pricing-button" 
+                onClick={() => {
+                  document.querySelector(".contact-container")?.scrollIntoView({ behavior: "smooth" });
+                }}>
+                Get Started !
+              </Button>
+            </Col>
+          </Row>
+        </Card>
       </div>
 
 
       {/* Contact Section */}
       <div className="contact-container">
+        <div className="home-heading">
+          <div>Đồng hành cùng mình</div>
+        </div>
         <Row className="contact-wrapper">
           <Col xs={24} md={10} className="contact-info">
             <h2>Thông tin liên hệ</h2>

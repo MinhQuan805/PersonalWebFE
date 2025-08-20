@@ -1,6 +1,7 @@
 // lib/redux/reducers/productsSlice.ts
 import { ProductDTO } from '@/types/product.dto'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import products from '@/data/products.json';
 import axios from 'axios'
 
 interface ProductsState {
@@ -16,8 +17,9 @@ const initialState: ProductsState = {
 }
 
 export const fetchProducts = createAsyncThunk<ProductDTO[]>('products/fetchProducts', async () => {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/products`)
-  return res.data
+  // const res = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/products`)
+  // return res.data;
+  return products;
 })
 
 const productsSlice = createSlice({

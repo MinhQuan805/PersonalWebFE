@@ -12,7 +12,7 @@ export interface ProductDTO {
   github: string
   website: string
   slug: string
-  video: { url: string; thumbnail: string }[]
+  video: string
   deleted: boolean
   createdAt: string
   updatedAt: string

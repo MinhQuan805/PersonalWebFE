@@ -14,6 +14,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { FaTrash } from 'react-icons/fa';
 import '@/styles/admin/product/product.css';
 import api from '@/config/api';
+import { RxUpdate } from 'react-icons/rx';
+import axios from 'axios';
 
 type SizeType = TableProps['size'];
 
@@ -187,7 +189,7 @@ export default function Products() {
             icon={<PlusOutlined />}
             onClick={() => router.push('/admin/products/create')}
           >
-            <span className="btn-text">Tạo sản phẩm mới</span>
+            <span className="btn-text">Tạo mới</span>
           </Button>
 
           <Button
@@ -198,6 +200,22 @@ export default function Products() {
           >
             <span className="btn-text">Thùng rác</span>
           </Button>
+          <Button
+            style={{ color: 'green', border: '1px solid #00ff4cff', marginLeft: 20, borderRadius: 40, }}
+            size="middle"
+            icon={<RxUpdate />}
+            onClick={async () => {
+              try {
+                await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/products/refresh`);
+                openNotification('success', 'Thành công', 'Đã cập nhật dữ liệu phía client');
+              } catch (err) {
+                console.error(err);
+                openNotification('error', 'Lỗi', 'Không thể cập nhật dữ liệu phía client');
+              }
+            }}
+          >
+            <span className="btn-text">Cập nhật phía client</span>
+          </Button>
         </div>
 
         {haveSelected && (
@@ -206,7 +224,7 @@ export default function Products() {
             onConfirm={handleDeleteSelected}
           >
             <Button
-              style={{ color: 'red', marginLeft: 20, borderRadius: 40, border: '1px solid rgb(255, 0, 0)' }}
+              style={{ color: 'red', borderRadius: 40, border: '1px solid rgb(255, 0, 0)' }}
               size="middle"
               icon={<FaTrash />}
             >

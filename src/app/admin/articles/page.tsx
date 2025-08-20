@@ -9,13 +9,13 @@ import type { SortOrder } from 'antd/es/table/interface';
 import type { ArticleType } from '@/lib/models/article.model';
 import useAppNotification from '@/components/useAppNotification'
 import Action from '@/components/admin/Action';
-import { useDispatch, useSelector } from 'react-redux';
-import AlertInfo from '@/components/useAppNotification';
 import { PlusOutlined } from '@ant-design/icons';
 import { FaTrash } from 'react-icons/fa';
 import { useRouter, usePathname } from 'next/navigation';
 import '@/styles/admin/article/article.css';
 import api from '@/config/api';
+import axios from 'axios';
+import { RxUpdate } from 'react-icons/rx';
 type SizeType = TableProps['size'];
 
 export default function Article() {
@@ -182,7 +182,7 @@ export default function Article() {
             icon={<PlusOutlined />}
             onClick={() => router.push('/admin/articles/create')}
           >
-            <span className="btn-text">Tạo bài viết mới</span>
+            <span className="btn-text">Tạo mới</span>
           </Button>
 
           <Button
@@ -193,6 +193,22 @@ export default function Article() {
           >
             <span className="btn-text">Thùng rác</span>
           </Button>
+          <Button
+            style={{ color: 'green', border: '1px solid #00ff4cff', marginLeft: 20, borderRadius: 40, }}
+            size="middle"
+            icon={<RxUpdate />}
+            onClick={async () => {
+              try {
+                await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/articles/refresh`);
+                openNotification('success', 'Thành công', 'Đã cập nhật dữ liệu phía client');
+              } catch (err) {
+                console.error(err);
+                openNotification('error', 'Lỗi', 'Không thể cập nhật dữ liệu phía client');
+              }
+            }}
+          >
+            <span className="btn-text">Cập nhật phía client</span>
+          </Button>
         </div>
 
         {haveSelected && (
@@ -201,7 +217,7 @@ export default function Article() {
             onConfirm={handleDeleteSelected}
           >
             <Button
-              style={{ color: 'red', marginLeft: 20, borderRadius: 40, border: '1px solid rgb(255, 0, 0)' }}
+              style={{ color: 'red', borderRadius: 40, border: '1px solid rgb(255, 0, 0)' }}
               size="middle"
               icon={<FaTrash />}
             >

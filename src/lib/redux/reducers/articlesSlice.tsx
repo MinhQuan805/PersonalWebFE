@@ -2,7 +2,7 @@
 import { ArticleDTO } from '@/types/article.dto'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-
+import articles from '@/data/articles.json';
 interface ArticlesState {
   data: ArticleDTO[]
   loading: boolean
@@ -16,8 +16,9 @@ const initialState: ArticlesState = {
 }
 
 export const fetchArticles = createAsyncThunk<ArticleDTO[]>('articles/fetchArticles', async () => {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/articles`)
-  return res.data
+  // const res = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/articles`)
+  // return res.data;
+  return articles; 
 })
 
 const articlesSlice = createSlice({

@@ -1,16 +1,17 @@
 import { NextResponse } from 'next/server';
-import { connectDB } from '@/lib/database/connectDB';
-import { ProductModel } from '@/lib/models/product.model';
+import products from '@/data/products.json';
 
-export const dynamic = 'force-dynamic'; // tránh cache khi deploy
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    await connectDB();
-    const products = await ProductModel.find({ deleted: false, status: 'active' }).sort({ createdAt: -1 });
-    return NextResponse.json(products);
+    const filtered = products
+      .filter(a => !a.deleted && a.status === 'active')
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+    return NextResponse.json(filtered);
   } catch (err) {
-    console.error('Error fetching products:', err);
+    console.error('API error:', err);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
