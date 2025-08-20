@@ -10,6 +10,8 @@ import ContactCard from '@/components/client/ContactCard';
 import { RiMenu2Fill } from 'react-icons/ri';
 import { GoogleAnalytics } from '@next/third-parties/google'
 import personal from '@/data/personal.json';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const { Header, Footer, Content } = Layout;
 const nav = [
@@ -30,7 +32,7 @@ const nav = [
     link: '/service'
   },
   {
-    name: 'Về Quân',
+    name: 'About Me',
     link: '/about'
   },
 ]
@@ -51,11 +53,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   useEffect(() => {
       setSelectedKey(pathname);
   }, [pathname]);
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,  
+    });
+  }, []);
   return (
     <html lang="en">
       <body>
         <Layout className="layout-main">
-          <Header className="header-main">
+          <Header className="header-main" data-aos="fade-down" data-aos-delay="50">
             <div onClick={move} style={{ cursor: 'pointer' }}>
               <img src={'/image/general/logo.png'} alt="logo" style={{ height: 55 }} />
             </div>
@@ -114,7 +122,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <a onClick={() => { router.push('/') }}>Trang chủ</a>
                   <a onClick={() => { router.push('/article') }}>Bài viết</a>
                   <a onClick={() => { router.push('/product') }}>Sản phẩm</a>
-                  <a onClick={() => { router.push('/donate') }}>Ủng hộ</a>
+                  <a onClick={() => { router.push('/service') }}>Dịch vụ</a>
                 </div>
                 <div className="footer-column-right">
                   <a onClick={() => { router.push('/about') }}>Về tác giả</a>

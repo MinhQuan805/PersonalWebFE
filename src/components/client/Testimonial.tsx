@@ -1,37 +1,54 @@
-import { Card, Typography, Row, Col, Carousel, Button } from "antd";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { useRef } from "react";
+"use client";
+
+import { Card, Typography, Row, Col, Button, Avatar } from "antd";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import personal from "@/data/personal.json";
 import "@/styles/client/home/testimonial.css";
+
+// import css của swiper
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const { Title, Text } = Typography;
 
 export default function Testimonials() {
-  const carouselRef = useRef<any>(null);
-
-  const next = () => carouselRef.current?.next();
-  const prev = () => carouselRef.current?.prev();
-
   return (
     <div className="testimonial-section">
-      <Title level={2} className="testimonial-title">Trusted By Clients</Title>
+      <div className="home-heading">
+        <div>Cảm nhận của khách hàng</div>
+      </div>
 
-      <Card className="testimonial-card">
-        <Carousel
-          ref={carouselRef}
-          autoplay
-          dots={false}
-          draggable
-          speed={600}
-          autoplaySpeed={6000}
-          effect="fade"
-        >
-          {personal.testimonials.map((t, i) => (
-            <div key={i}>
-              <Row justify="center">
-                <Col span={22} className="testimonial-content">
-                  <div className="testimonial-quote">❝</div>
-                  <Text className="testimonial-text">{t.quote}</Text>
+      <Swiper
+        modules={[Navigation, Autoplay, Pagination]}
+        autoplay={{ delay: 6000, disableOnInteraction: false }}
+        speed={600}
+        loop
+        breakpoints={{
+          0: { slidesPerView: 1 }, 
+          768: { slidesPerView: 2 }, 
+        }}
+        pagination={{ clickable: true }}
+        navigation={{
+          nextEl: ".testimonial-next",
+          prevEl: ".testimonial-prev",
+        }}
+      >
+        {personal.testimonials.map((t, i) => (
+          <SwiperSlide key={i} className="testimonial-card">
+            <Card>
+              <Row justify="center" gutter={[20, 20]}>
+                <Col xs={0} sm={5}>
+                  <Avatar
+                    src={t.avatar} 
+                    size={64}  
+                    shape="circle"
+                    className="testimonial-avatar"
+                  />
+                </Col>
+                <Col xs={24} sm={19} className="testimonial-content">
+                  <Text className="testimonial-quote">{t.quote}</Text>
                   <div className="testimonial-author">
                     <strong>{t.name}</strong>
                     <br />
@@ -39,16 +56,10 @@ export default function Testimonials() {
                   </div>
                 </Col>
               </Row>
-            </div>
-          ))}
-        </Carousel>
-
-        {/* Navigation buttons */}
-        <div className="testimonial-nav">
-          <Button shape="circle" icon={<LeftOutlined />} onClick={prev} />
-          <Button shape="circle" icon={<RightOutlined />} onClick={next} />
-        </div>
-      </Card>
+            </Card>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 }

@@ -1,11 +1,13 @@
 /* mission-home.css (cập nhật) */
 .missions-container {
-  background: #ffffff;
-  padding: 60px 0px;
+  background: #fafafa;
+  padding: 80px 0px;
+}
+.missions-section {
   display: flex;
   justify-content: center;
 }
-.ant-row {
+.missions-container .ant-row {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
@@ -27,6 +29,8 @@
 
 .mission-home-card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  transition: all 0.3s ease;
 }
 
 /* Các phần còn lại giữ nguyên */

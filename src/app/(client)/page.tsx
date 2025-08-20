@@ -22,6 +22,7 @@ import '@/styles/client/home/product-home.css';
 import '@/styles/client/home/article-home.css';
 import '@/styles/client/home/contact-home.css';
 import '@/styles/client/home/pricing-home.css';
+import '@/styles/client/home/about-home.css';
 import ArticleStyle from '@/styles/client/home/articleHighlight.module.css';
 
 // Components
@@ -36,6 +37,7 @@ import type { RootState } from '@/lib/redux/store';
 // External libraries
 import { motion, AnimatePresence } from "framer-motion";
 import { sendGAEvent } from '@next/third-parties/google';
+import Typewriter from "typewriter-effect";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -60,7 +62,7 @@ const missions = [
     )
   },
   { 
-    color: "#08ff31ff",
+    color: "#00e426ff",
     icon: <FaSeedling className="mission-home-icon" />, 
     title: 'Grow', 
     description: (color: string) => (
@@ -125,7 +127,7 @@ export default function Home() {
       {contextHolder}
 
       {/* Intro Section */}
-      <div className="intro-container">
+      <div className="intro-container" data-aos="fade-down" data-aos-delay="100">
         <Row gutter={[32, 32]} align="middle" className="intro-left">
           <Col xs={24} md={12}>
             <Title className="intro-title">
@@ -148,7 +150,17 @@ export default function Home() {
             </Title>
 
             <Title className="intro-title">
-              <span style={{ fontSize: 25, fontWeight: 700 }}>- {personal.intro.highlight}</span>
+              <span style={{ fontSize: 40, color: "#333b92ff", fontWeight: 700 }}>
+                <Typewriter
+                  options={{
+                    strings: ["UI/UX Designer", "Frontend Developer", "Backend Developer"],
+                    autoStart: true,
+                    loop: true,
+                    delay: 50,
+                    deleteSpeed: 40,
+                  }}
+                />
+              </span>
             </Title>
 
             {personal.intro.description.map((d, i) => (
@@ -170,8 +182,8 @@ export default function Home() {
 
       {/* About Section */}
       <div className="about-container" data-aos="fade-up" data-aos-delay="100" style={{ marginTop: 100 }}>
-        <Row gutter={[32, 32]} align="middle">
-          <Col xs={24} lg={8} style={{ textAlign: "center" }}>
+        <Row gutter={[20,20]} align="middle">
+          <Col xs={24} lg={10} style={{ textAlign: "center" }}>
             <div className="about-avatar-wrapper">
               <img src={personal.about.logo} alt="Profile" className="about-avatar" />
               <div className="about-social">
@@ -180,62 +192,47 @@ export default function Home() {
                 <Button shape="circle" href={personal.about.socials.facebook} icon={<FaFacebookF />} />
               </div>
             </div>
-            <Paragraph className="about-role">{personal.about.role}</Paragraph>
             <Title level={3} className="about-name">{personal.about.name}</Title>
           </Col>
 
-          <Col xs={24} lg={16}>
-            <div className="about-bio">
-              <div className="about-bio-heading">
-                <span className="about-bio-icon">●</span>
-                <Title level={3}>Biography</Title>
-              </div>
-              {personal.about.bio.map((b, i) => (
-                <Paragraph key={i}>{b}</Paragraph>
-              ))}
-
-              <Row gutter={[32, 16]} className="about-info">
-                <Col xs={24} sm={12}>
-                  <p><strong>Name:</strong> {personal.about.name}</p>
-                  <p><strong>Birthday:</strong> {personal.about.info.birthday}</p>
-                  <p><strong>Age:</strong> {personal.about.info.age} years</p>
-                  <p><strong>Address:</strong> {personal.about.info.address}</p>
-                </Col>
-                <Col xs={24} sm={12}>
-                  <p><strong>Phone:</strong> {personal.about.info.phone}</p>
-                  <p><strong>Email:</strong> {personal.about.info.email}</p>
-                  <p><strong>Freelance:</strong> {personal.about.info.freelance}</p>
-                </Col>
-              </Row>
-            </div>
+          <Col xs={24} lg={14}>
+            <Title level={3} className="about-headline">{personal.about.headline}</Title>
+            {personal.about.story.map((d, i) => (
+              <Paragraph key={i} className="about-story">{d}</Paragraph>
+            ))}
           </Col>
         </Row>
       </div>
 
       {/* Missions Section */}
       <div className="missions-container">
-        <Row gutter={[20, 20]} justify="center">
-          {missions.map((m, i) => (
-            <Col md={12} lg={6} key={i}>
-              <Card className="mission-home-card">
-                <div className="mission-home-header">
-                  {React.cloneElement(m.icon, { style: { color: m.color } })} 
-                  <Title level={3} className="mission-home-title" style={{ color: m.color }}>
-                    {m.title}
-                  </Title>
-                </div>
-                <Paragraph className="mission-home-description">
-                  {m.description(m.color)}
-                </Paragraph>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+        <div className="home-heading">
+          <div>Nguyên tắc</div>
+        </div>
+        <div className="missions-section">
+          <Row gutter={[20, 20]} justify="center">
+            {missions.map((m, i) => (
+              <Col md={12} lg={6} key={i}>
+                <Card className="mission-home-card">
+                  <div className="mission-home-header">
+                    {React.cloneElement(m.icon, { style: { color: m.color } })} 
+                    <Title level={3} className="mission-home-title" style={{ color: m.color }}>
+                      {m.title}
+                    </Title>
+                  </div>
+                  <Paragraph className="mission-home-description">
+                    {m.description(m.color)}
+                  </Paragraph>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </div>
       </div>
 
       {/* Products Section */}
       <div className="product-home-container" data-aos="fade-up" data-aos-delay="100">
-        <div className="product-home-heading">
+        <div className="home-heading">
           <div>Sản Phẩm</div>
         </div>
         <Spin tip="Đang tải sản phẩm..." size="large" spinning={loadingProduct}>

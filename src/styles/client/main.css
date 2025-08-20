@@ -34,3 +34,16 @@
   padding: 0 !important;
   border-radius: 50% !important;
 }
+.home-heading {
+  font-size: 40px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center !important;
+}
+
+.home-heading div {
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #353535;
+  font-family: 'Inter', sans-serif;
+}

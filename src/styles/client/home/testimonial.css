@@ -17,38 +17,46 @@
 }
 
 .testimonial-section {
-  text-align: center;
   padding: 60px 20px;
+}
+.testimonial-section .swiper-pagination {
+  position: relative;
+  margin-top: 16px;
+  text-align: center;
 }
 
 .testimonial-title {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
 }
-
 .testimonial-card {
-  max-width: 700px;
+  height: 280px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.testimonial-card .ant-card {
+  width: 600px;
+  height: 230px;
   margin: 0 auto;
-  padding: 30px;
+  padding: 15px;
   border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   position: relative;
 }
-
-.testimonial-quote {
-  font-size: 30px;
-  color: #333;
-  margin-bottom: 2px !important;
+.testimonial-avatar {
+  width: 70px !important;
+  height: 70px !important;
 }
-
-.testimonial-text {
-  font-size: 18px;
+.testimonial-quote {
+  font-size: 15px;
   display: block;
   margin-bottom: 20px;
   color: #333;
 }
 
 .testimonial-author {
-  font-size: 15px;
+  font-size: 18px;
   margin-top: 15px;
 }
 
@@ -69,4 +77,9 @@
 
 .ant-carousel .slick-dots li.slick-active button {
   background: #3ba9f0;
+}
+@media (max-width: 768px) {
+  .testimonial-card .ant-card {
+    width: 400px !important;
+  }
 }

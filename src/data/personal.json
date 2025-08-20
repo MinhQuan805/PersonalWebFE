@@ -4,19 +4,20 @@
     "name": "Minh Quân",
     "highlight": "Sinh viên trường UIT, một người trẻ trên hành trình học hỏi và kiếm thu nhập",
     "description": [
-      "Ở những năm tuổi thiếu niên thì mình luôn khát khao tạo nên một điều gì đó thật sự có ý nghĩa và tạo dấu ấn cho những năm tháng của mình.",
-      "Nhưng khi lớn lên, va chạm với rất nhiều thử thách và thất bại rất nhiều lần thì mình mới thấy bản thân thật sự nhỏ bé biết bao.",
-      "Giờ đây, ở những tuổi 20s, mình đang cặm cụi từng bước một để biến những giấc mơ của mình không chỉ còn trong những trang giấy. Và đây là nơi để mình chia sẻ hành trình đó."
+      "Mình thiết kế và phát triển backend cho các dịch vụ website. Kỹ năng của mình là sử dụng công nghệ."
     ],
     "resumeFile": "/files/CV.pdf",
     "avatar": "/image/general/avatar.jpg"
   },
   "about": {
-    "role": "Ux/Ui Designer",
     "name": "Minh Quân",
-    "bio": [
-      "Mình là một sinh viên UIT, đang tìm kiếm cơ hội để phát triển và chia sẻ hành trình học hỏi.",
-      "Đam mê công nghệ, thích tạo ra sản phẩm mang giá trị và kết nối với mọi người."
+    "headline": "Hành trình của tôi",
+    "story": [
+      "Hồi nhỏ, mình rất đam mê đọc sách về những thiên tài như Steve Jobs, Albert Einstein, hay Stephen R. Covey. Họ đều là những người thay đổi thế giới – nhưng mình thì sao? Mình chỉ là một cậu bé bình thường, nhút nhát, thậm chí bị coi là \"vô dụng\" và không đáng tin.",
+      "Bạn có biết cảm giác bị người giỏi xem thường, không giao trọng trách? Hay bị kẻ xấu lợi dụng vì quá dễ dãi? Mình đã trải qua hết. Nó khiến mình tự hỏi: \"Tại sao mình không thể tốt hơn?\"",
+      "Rồi một ngày, mình đọc được câu nói thay đổi cuộc đời từ Jim Rohn: \"Don't wish it were easier, wish you were better.\" (Đừng mong mọi thứ dễ dàng hơn, hãy mong bạn trở nên tốt hơn.)",
+      "Khoảnh khắc đó, mình quyết định thay đổi. Trong mọi dự án, mình cố gắng hết sức để mình không phải hối tiếc khi thất bại.",
+      "Giờ đây, triết lý sống của mình là: Cố gắng hết sức để mang lại sự hài lòng tối đa cho mọi người đồng hành."
     ],
     "logo": "/image/general/logo.png",
     "info": {
@@ -24,8 +25,7 @@
       "age": 19,
       "address": "Quận Bình Thạnh, Thành Phố Hồ Chí Minh",
       "phone": "0946008580",
-      "email": "minhquan8052006@gmail.com",
-      "freelance": "Available"
+      "email": "minhquan8052006@gmail.com"
     },
     "socials": {
       "linkedin": "https://www.linkedin.com/in/qu%C3%A2n-v%C3%B5-821704325/",
@@ -35,16 +35,31 @@
   },
   "testimonials": [
     {
+      "avatar": "/image/general/background.jpg",
       "quote": "ZenG managed our project with impressive efficiency and clarity. Deadlines were met, communication was smooth, and the outcome was exactly what we hoped for.",
       "name": "Mas Shin",
       "role": "DEV THEMESFALT"
     },
     {
+      "avatar": "/image/general/logo.png",
       "quote": "Working with ZenG was a breeze. They understood our needs quickly and delivered beyond expectations.",
       "name": "Anna Lee",
       "role": "MARKETING MANAGER"
     },
     {
+      "avatar": "/image/general/background.jpg",
+      "quote": "Professional, reliable, and highly skilled team. We’ll definitely work with ZenG again.",
+      "name": "David Kim",
+      "role": "CEO, STARTUP INC."
+    },
+    {
+      "avatar": "/image/general/avatar.jpg",
+      "quote": "Professional, reliable, and highly skilled team. We’ll definitely work with ZenG again.",
+      "name": "David Kim",
+      "role": "CEO, STARTUP INC."
+    },
+    {
+      "avatar": "/image/general/avatar.jpg",
       "quote": "Professional, reliable, and highly skilled team. We’ll definitely work with ZenG again.",
       "name": "David Kim",
       "role": "CEO, STARTUP INC."
