@@ -2,11 +2,11 @@
 import React from 'react';
 import { Card, Typography, Button } from 'antd';
 import "@/styles/client/main.css"
-import { ProductDTO } from '@/types/product.dto';
+import { ProductType } from '@/lib/models/product.model';
 const { Paragraph } = Typography;
 
 type Props = {
-  product: ProductDTO;
+  product: ProductType;
   style: { [key: string]: string };
 };
 

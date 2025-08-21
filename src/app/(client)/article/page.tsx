@@ -1,6 +1,6 @@
 'use client';
 
-import { Row, Col, Typography, Button, Input, Dropdown, Pagination, Spin } from 'antd';
+import { Row, Col, Typography, Button, Input, Dropdown, Pagination, Spin, notification } from 'antd';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +18,7 @@ import { FaFilter } from 'react-icons/fa';
 import { TbArrowsSort } from 'react-icons/tb';
 import { useProducts } from '@/lib/hook/useProducts';
 import { useArticles } from '@/lib/hook/useArticles';
+import SubscribeCard from '@/components/client/SubscribeCard';
 
 const { Title, Paragraph } = Typography;
 const newStyle = { ...ArticleStyle, ...OverrideStyle };
@@ -27,14 +28,15 @@ export default function Home() {
   const router = useRouter();
   
   // Lấy dữ liệu từ Redux
-  const { products, loadingProducts, errorProducts } = useProducts();
-  const { articles, loadingArticles, errorArticles } = useArticles();
+  const { products, loadingProducts} = useProducts();
+  const { articles, loadingArticles } = useArticles();
 
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [selectedSort, setSelectedSort] = useState('createdAt-desc');
   const [keyword, setKeyword] = useState('');
   const [page, setPage] = useState(1);
 
+  const [api, contextHolder] = notification.useNotification();
   // Lọc + sort articles
   const filteredArticles = (() => {
     let result = [...articles];
@@ -76,6 +78,7 @@ export default function Home() {
 
   return (
     <div className="article-main">
+      {contextHolder}
       <div className="article-banner">
         <h1 className="hero-title">BÀI VIẾT</h1>
       </div>
@@ -155,6 +158,7 @@ export default function Home() {
                 document.querySelector(`.${OverrideStyle.articleMain}`)?.scrollIntoView({ behavior: 'smooth' });
               }}
             />
+            <SubscribeCard api={api}/>
           </Col>
 
           <Col md={24} lg={8}>

@@ -1,12 +1,12 @@
 // lib/hooks/useArticles.ts
 import useSWR from 'swr'
-import { ArticleDTO } from '@/types/article.dto'
+import { ArticleType } from '../models/article.model'
 
 // fetcher cơ bản
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export function useArticles() {
-  const { data, error, isLoading } = useSWR<ArticleDTO[]>(`${process.env.NEXT_PUBLIC_API_GET}/articles`, fetcher,
+  const { data, error, isLoading } = useSWR<ArticleType[]>(`${process.env.NEXT_PUBLIC_API_GET}/articles`, fetcher,
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,

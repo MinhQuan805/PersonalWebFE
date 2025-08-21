@@ -12,7 +12,7 @@ export async function GET() {
     const articles = await ArticleModel.find({
       deleted: false,
       status: 'active',
-    }).sort({ createdAt: -1 })
+    }).sort({ createdAt: -1 }).select('-content');
 
     return NextResponse.json(articles)
   } catch (err) {

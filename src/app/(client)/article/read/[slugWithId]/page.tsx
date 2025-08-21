@@ -1,47 +1,52 @@
 'use client'
-import { notFound, useParams, useSearchParams } from 'next/navigation';
-import { Button, Row, Typography } from 'antd';
+import { notFound, useParams } from 'next/navigation';
+import { Button, Row, Typography, Spin } from 'antd';
 import style from '@/styles/client/article/reading.module.css';
-import type { ArticleType } from '@/lib/models/article.model';
 import { useRouter } from 'next/navigation';
 import '@/styles/client/main.css'
 import SupportCard from '@/components/client/SupportCard';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Spin } from 'antd';
 import ContactCard from '@/components/client/ContactCard';
 import { useArticles } from '@/lib/hook/useArticles';
-import { ArticleDTO } from '@/types/article.dto';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import type { ArticleType } from '@/lib/models/article.model';
 
 const { Title, Paragraph } = Typography;
 
 export default function ArticleDetail() {
-  const { articles, loadingArticles, errorArticles } = useArticles();
+  const { articles, loadingArticles } = useArticles();
   const params = useParams();
   const slugWithId = params.slugWithId as string;
+
   if (!slugWithId.includes('.')) {
     notFound();
   }
-  const router = useRouter();
-  const readArticle = async (article: any) => {
-    router.push(`/article/read/${article.slug}.${article._id}`)
-  }
 
   const [slug, id] = slugWithId.split('.');
-  const article = articles.find((a) => a._id === id);
+  const [article, setArticle] = useState<ArticleType | null>(null);
+  const [loadingArticle, setLoadingArticle] = useState(true);
+  const router = useRouter();
 
-  let relatedArticles: ArticleDTO[] = [];
-  if (article?.tags?.length) {
-    relatedArticles = articles
-                        .filter((a) => a._id !== article._id && a.tags?.some((tag) => article.tags?.includes(tag)))
-                        .slice(0, 3);
-    if (loadingArticles) {
-      relatedArticles = articles
-        .filter((a) => a._id !== article?._id && a.tags?.includes('Technology'))
-        .slice(0, 3);
-    }
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/articles/${id}`);
+        setArticle(res.data);
+      } catch (err) {
+        console.error(err);
+        notFound();
+      } finally {
+        setLoadingArticle(false);
+      }
+    };
+    fetchArticle();
+  }, [id]);
+
+  const readArticle = (article: ArticleType) => {
+    router.push(`/article/read/${article.slug}.${article._id}`);
   }
-  if (articles.length === 0) {
+
+  if (loadingArticles || loadingArticle) {
     return (
       <div style={{ textAlign: 'center', marginTop: 100 }}>
         <Spin tip="Đang tải bài viết..." size="large">
@@ -50,8 +55,17 @@ export default function ArticleDetail() {
       </div>
     );
   }
+
   if (!article) {
     notFound();
+  }
+
+  // Lọc các bài viết liên quan
+  let relatedArticles: ArticleType[] = [];
+  if (article.tags?.length) {
+    relatedArticles = articles
+      .filter(a => a._id !== article._id && a.tags?.some(tag => article.tags?.includes(tag)))
+      .slice(0, 3);
   }
   return (
     <div className={style.readingContainer}>

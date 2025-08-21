@@ -26,28 +26,30 @@ export default function UpdateArticle() {
   const { openNotification, contextHolder } = useAppNotification();
   useEffect(() => {
     const fetchArticle = async () => {
-      const data = sessionStorage.getItem('record');
-      if (data) {
-        const parseArticle = JSON.parse(data);
-        setArticle(parseArticle);
-        setEditorContent(parseArticle.content);
+      const id = sessionStorage.getItem('id');
+      if (id) {
+        const parseId = JSON.parse(id);
+        const response = await api.get(`${action_url}/detail/${parseId}`);
+        const data = response.data;
+        setArticle(data);
+        setEditorContent(data.content);
         form.setFieldsValue({
-          title: parseArticle.title,
-          position: parseArticle.position,
-          status: parseArticle.status,
-          outstand: parseArticle.outstand,
-          createdAt: parseArticle.createdAt ? dayjs(parseArticle.createdAt) : null,
-          introduction: parseArticle.introduction,
-          content: parseArticle.content
+          title: data.title,
+          position: data.position,
+          status: data.status,
+          outstand: data.outstand,
+          createdAt: data.createdAt ? dayjs(data.createdAt) : null,
+          introduction: data.introduction,
+          content: data.content
         });
 
-        if (parseArticle.thumbnail) {
+        if (data.thumbnail) {
           setFileList([
             {
               uid: '-1',
               name: 'thumbnail',
               status: 'done',
-              url: parseArticle.thumbnail,
+              url: data.thumbnail,
             } as UploadFile,
           ]);
         }

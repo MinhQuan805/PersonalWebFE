@@ -26,48 +26,49 @@ export default function UpdateProduct() {
   const action_url = '/admin/products';
   useEffect(() => {
     const fetchProduct = async () => {
-      const data = sessionStorage.getItem('record');
-      if (data) {
-        const parsedProduct: ProductType = JSON.parse(data);
-        setProduct(parsedProduct);
+      const id = sessionStorage.getItem('id');
+      if (id) {
+        const parseId = JSON.parse(id);
+        const response = await api.get(`${action_url}/detail/${parseId}`);
+        const data = response.data;
   
         form.setFieldsValue({
-          title: parsedProduct.title,
-          position: parsedProduct.position,
-          status: parsedProduct.status,
-          createdAt: parsedProduct.createdAt ? dayjs(parsedProduct.createdAt) : null,
-          introduction: parsedProduct.introduction,
-          outstand: parsedProduct.outstand,
-          shortDescription: parsedProduct.shortDescription,
-          github: parsedProduct.github,
-          website: parsedProduct.website,
-          video: parsedProduct.video,
-          content: parsedProduct.content,
+          title: data.title,
+          position: data.position,
+          status: data.status,
+          createdAt: data.createdAt ? dayjs(data.createdAt) : null,
+          introduction: data.introduction,
+          outstand: data.outstand,
+          shortDescription: data.shortDescription,
+          github: data.github,
+          website: data.website,
+          video: data.video,
+          content: data.content,
         });
 
-        if (parsedProduct.thumbnail) {
+        if (data.thumbnail) {
           setThumbnailFileList([
             {
               uid: '-1',
               name: 'thumbnail',
               status: 'done',
-              url: parsedProduct.thumbnail,
+              url: data.thumbnail,
             } as UploadFile,
           ]);
         }
   
-        if (parsedProduct.logo) {
+        if (data.logo) {
           setLogoFileList([
             {
               uid: '-2',
               name: 'logo',
               status: 'done',
-              url: parsedProduct.logo,
+              url: data.logo,
             } as UploadFile,
           ]);
         }
   
-        setEditorContent(parsedProduct.content || '');
+        setEditorContent(data.content || '');
       }
     };
     fetchProduct();

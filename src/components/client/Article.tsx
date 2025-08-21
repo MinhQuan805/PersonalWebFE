@@ -3,18 +3,18 @@ import React from 'react';
 import { Row, Col, Typography, Button } from 'antd';
 import { useRouter } from 'next/navigation';
 import { sendGAEvent } from '@next/third-parties/google';
-import { ArticleDTO } from '@/types/article.dto';
+import { ArticleType } from '@/lib/models/article.model';
 
 const { Paragraph } = Typography;
 
 type Props = {
-  articles: ArticleDTO[];
+  articles: ArticleType[];
   style: { [key: string]: string };
 };
 
 const ArticleHighlight: React.FC<Props> = ({ articles, style }) => {
   const router = useRouter();
-  const readArticle = async (article: ArticleDTO) => {
+  const readArticle = async (article: ArticleType) => {
     // Gửi event khi click
     sendGAEvent('event', 'read_article', {
       article_id: article._id,

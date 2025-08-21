@@ -52,7 +52,7 @@ function Action({ record, onChangeData, url, openNotification, recovery = false 
   };
 
   const handleUpdate = () => {
-    sessionStorage.setItem('record', JSON.stringify(record));
+    sessionStorage.setItem('id', JSON.stringify(record._id));
     router.push(`/admin/${url}/update`);
   };
 
