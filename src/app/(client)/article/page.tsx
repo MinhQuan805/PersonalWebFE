@@ -3,8 +3,6 @@
 import { Row, Col, Typography, Button, Input, Dropdown, Pagination, Spin, notification } from 'antd';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/lib/redux/store';
 import { sendGAEvent } from '@next/third-parties/google';
 import ArticleStyle from '@/styles/client/home/articleHighlight.module.css';
 import OverrideStyle from '@/styles/client/article/overrideHighlight.module.css';

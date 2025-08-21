@@ -6,8 +6,6 @@ import '@/styles/client/main.css'
 import { useState, useEffect } from 'react'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import ProductCard from '@/components/client/ProductCard'
-import { useSelector } from 'react-redux'
-import type { RootState } from '@/lib/redux/store'
 import { useProducts } from '@/lib/hook/useProducts'
 export default function Product() {
   const [currentProduct, setCurrentProduct] = useState(0)
