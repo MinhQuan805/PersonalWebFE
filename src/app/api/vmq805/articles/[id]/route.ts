@@ -4,13 +4,14 @@ import { ArticleModel } from '@/lib/models/article.model';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-  try {
-    const { id } = params;
-    if (!id) {
-      return NextResponse.json({ error: 'Bài viết không hợp lệ' }, { status: 400 });
-    }
+export async function GET(req: NextRequest, context: { params: { id: string } }) {
+  const { id } = context.params;
 
+  if (!id) {
+    return NextResponse.json({ error: 'Bài viết không hợp lệ' }, { status: 400 });
+  }
+
+  try {
     await connectDB();
 
     const article = await ArticleModel.findOne({
