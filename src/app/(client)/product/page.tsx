@@ -8,11 +8,12 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import ProductCard from '@/components/client/ProductCard'
 import { useSelector } from 'react-redux'
 import type { RootState } from '@/lib/redux/store'
+import { useProducts } from '@/lib/hook/useProducts'
 export default function Product() {
   const [currentProduct, setCurrentProduct] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
 
-  const { data: products, loading } = useSelector((state: RootState) => state.products)
+  const { products, loadingProducts, errorProducts } = useProducts();
 
   useEffect(() => {
     const handleResize = () => {
@@ -23,7 +24,7 @@ export default function Product() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  if (loading || !products || products.length === 0) {
+  if (loadingProducts || !products || products.length === 0) {
     return (
       <div style={{ textAlign: 'center', marginTop: 100 }}>
         <Spin tip="Đang tải..." size="large">

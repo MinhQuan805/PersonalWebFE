@@ -1,17 +1,26 @@
-import { NextResponse } from 'next/server';
-import products from '@/data/products.json';
+import { NextResponse } from 'next/server'
+import { connectDB } from '@/lib/database/connectDB'
+import { ProductModel } from '@/lib/models/product.model'
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic'
 
+// GET: Lấy danh sách sản phẩm từ
 export async function GET() {
   try {
-    const filtered = products
-      .filter(a => !a.deleted && a.status === 'active')
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    await connectDB()
 
-    return NextResponse.json(filtered);
+    const products = await ProductModel.find({
+      deleted: false,
+      status: 'active',
+    })
+      .sort({ createdAt: -1 })
+
+    return NextResponse.json(products)
   } catch (err) {
-    console.error('API error:', err);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console.error('API error:', err)
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    )
   }
 }

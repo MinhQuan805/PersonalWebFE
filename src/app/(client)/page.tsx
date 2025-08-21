@@ -43,6 +43,8 @@ import 'aos/dist/aos.css';
 import EmailReceiverCard from '@/components/client/EmailReceiverCard';
 import { IoExpand } from 'react-icons/io5';
 import { IoMdRocket } from 'react-icons/io';
+import { useArticles } from '@/lib/hook/useArticles';
+import { useProducts } from '@/lib/hook/useProducts';
 
 
 const { Title, Paragraph } = Typography;
@@ -92,8 +94,8 @@ export default function Home() {
   const [api, contextHolder] = notification.useNotification();
   const router = useRouter();
 
-  const { data: products, loading: loadingProduct } = useSelector((state: RootState) => state.products);
-  const { data: articles, loading: loadingArticle } = useSelector((state: RootState) => state.articles);
+  const { products, loadingProducts, errorProducts } = useProducts();
+  const { articles, loadingArticles, errorArticles } = useArticles();
 
   const newArticles = articles.slice(0, 4);
 
@@ -239,7 +241,7 @@ export default function Home() {
         <div className="home-heading">
           <div>Sản Phẩm</div>
         </div>
-        <Spin tip="Đang tải sản phẩm..." size="large" spinning={loadingProduct}>
+        <Spin tip="Đang tải sản phẩm..." size="large" spinning={loadingProducts}>
           <div className="product-home-section">
             <div className="transition">
               <Steps
@@ -329,11 +331,12 @@ export default function Home() {
         </div>
 
         {/* Featured Articles */}
-        <Spin tip="Đang tải bài viết..." size="large" spinning={loadingArticle} style={{ marginTop: 50, marginBottom: 50 }}>
+        <Spin tip="Đang tải bài viết..." size="large" spinning={loadingArticles} className="inLoading">
           <ArticleHighlight articles={newArticles} style={ArticleStyle} />
         </Spin>
+        <EmailReceiverCard api={api}/>
       </div>
-      <EmailReceiverCard api={api}/>
+        
       <Testimonials />
 
       {/* Pricing Section */}

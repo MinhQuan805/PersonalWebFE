@@ -1,14 +1,13 @@
 import '@/styles/globals.css'
-import { Providers } from '@/app/providers'
-import AppInitializer from '@/utils/AppInitializer'
+import { SWRConfigProvider } from '@/components/SWRConfigProvider'
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <Providers>
-          <AppInitializer />
+        <SWRConfigProvider>
           {children}
-        </Providers>
+        </SWRConfigProvider>
       </body>
     </html>
   )

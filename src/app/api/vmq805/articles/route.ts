@@ -1,19 +1,25 @@
-import articles from '@/data/articles.json';
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server'
+import { connectDB } from '@/lib/database/connectDB'
+import { ArticleModel } from '@/lib/models/article.model'
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic'
 
-
-// GET: Lấy danh sách bài viết
+// GET: Lấy danh sách bài viết từ
 export async function GET() {
   try {
-    const filtered = articles
-      .filter(a => !a.deleted && a.status === 'active')
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    await connectDB()
 
-    return NextResponse.json(filtered);
+    const articles = await ArticleModel.find({
+      deleted: false,
+      status: 'active',
+    }).sort({ createdAt: -1 })
+
+    return NextResponse.json(articles)
   } catch (err) {
-    console.error('API error:', err);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console.error('API error:', err)
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    )
   }
 }

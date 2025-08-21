@@ -27,7 +27,9 @@
     height: 35px;
     outline: none;
 }
-
+.inLoading {
+  margin: 100px 0px !important;
+}
 .button-filter {
   width: 35px !important;
   height: 35px !important;

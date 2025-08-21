@@ -12,33 +12,19 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import personal from '@/data/personal.json';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Link from 'next/link';
 
 const { Header, Footer, Content } = Layout;
 const nav = [
-  {
-    name: 'Trang chủ',
-    link: '/'
-  },
-  {
-    name: 'Bài viết',
-    link: '/article'
-  },
-  {
-    name: 'Sản phẩm',
-    link: '/product',
-  },
-  {
-    name: 'Dịch vụ',
-    link: '/service'
-  },
-  {
-    name: 'About Me',
-    link: '/about'
-  },
-]
+  { name: 'Trang chủ', link: '/' },
+  { name: 'Bài viết', link: '/article' },
+  { name: 'Sản phẩm', link: '/product' },
+  { name: 'Dịch vụ', link: '/service' },
+  { name: 'About Me', link: '/about' },
+];
 const navItems = nav.map((item) => ({
   key: item.link,
-  label: <a href={item.link}>{item.name}</a>,
+  label: <Link href={item.link}>{item.name}</Link>,
 }));
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -46,9 +32,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const move = () => {
-    router.push('/')
-  }
 
   useEffect(() => {
       setSelectedKey(pathname);
@@ -64,9 +47,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Layout className="layout-main">
           <Header className="header-main" data-aos="fade-down" data-aos-delay="50">
-            <div onClick={move} style={{ cursor: 'pointer' }}>
-              <img src={'/image/general/logo.png'} alt="logo" style={{ height: 55 }} />
-            </div>
+            <Link href="/" style={{ cursor: 'pointer', display: 'inline-block' }}>
+              <img src="/image/general/logo.png" alt="logo" style={{ height: 55 }} />
+            </Link>
             <div className="navigation-main">
               <Menu
                 mode="horizontal"
@@ -119,13 +102,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
               <div className='footer-right'>
                 <div className="footer-column-left">
-                  <a onClick={() => { router.push('/') }}>Trang chủ</a>
-                  <a onClick={() => { router.push('/article') }}>Bài viết</a>
-                  <a onClick={() => { router.push('/product') }}>Sản phẩm</a>
-                  <a onClick={() => { router.push('/service') }}>Dịch vụ</a>
+                  <Link href="/">Trang chủ</Link>
+                  <Link href="/article">Bài viết</Link>
+                  <Link href="/product">Sản phẩm</Link>
+                  <Link href="/service">Dịch vụ</Link>
                 </div>
                 <div className="footer-column-right">
-                  <a onClick={() => { router.push('/about') }}>Về tác giả</a>
+                  <Link href="/about">Về tác giả</Link>
                   <a href="https://docs.google.com/document/d/1RmD96OAt-Dn-pqEpEM5YUUhfyvZ3HxQfqTGAXuTDsKA/edit?tab=t.0">Điều khoản sử dụng</a>
                 </div>
               </div>

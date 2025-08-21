@@ -10,23 +10,13 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Spin } from 'antd';
 import ContactCard from '@/components/client/ContactCard';
+import { useArticles } from '@/lib/hook/useArticles';
+import { ArticleDTO } from '@/types/article.dto';
 
 const { Title, Paragraph } = Typography;
 
 export default function ArticleDetail() {
-  const [articles, setArticles] = useState<ArticleType[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/articles`);
-        setArticles(response.data);
-      } catch (err) {
-        console.error('Error fetching articles:', err);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { articles, loadingArticles, errorArticles } = useArticles();
   const params = useParams();
   const slugWithId = params.slugWithId as string;
   if (!slugWithId.includes('.')) {
@@ -40,12 +30,12 @@ export default function ArticleDetail() {
   const [slug, id] = slugWithId.split('.');
   const article = articles.find((a) => a._id === id);
 
-  let relatedArticles: ArticleType[] = [];
+  let relatedArticles: ArticleDTO[] = [];
   if (article?.tags?.length) {
     relatedArticles = articles
                         .filter((a) => a._id !== article._id && a.tags?.some((tag) => article.tags?.includes(tag)))
                         .slice(0, 3);
-    if (relatedArticles.length === 0) {
+    if (loadingArticles) {
       relatedArticles = articles
         .filter((a) => a._id !== article?._id && a.tags?.includes('Technology'))
         .slice(0, 3);

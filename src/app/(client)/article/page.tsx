@@ -16,6 +16,8 @@ import ProductCard from '@/components/client/ProductCard';
 import SupportCard from '@/components/client/SupportCard';
 import { FaFilter } from 'react-icons/fa';
 import { TbArrowsSort } from 'react-icons/tb';
+import { useProducts } from '@/lib/hook/useProducts';
+import { useArticles } from '@/lib/hook/useArticles';
 
 const { Title, Paragraph } = Typography;
 const newStyle = { ...ArticleStyle, ...OverrideStyle };
@@ -25,8 +27,8 @@ export default function Home() {
   const router = useRouter();
   
   // Lấy dữ liệu từ Redux
-  const { data: products, loading: loadingProducts } = useSelector((state: RootState) => state.products);
-  const { data: articles, loading: loadingArticles } = useSelector((state: RootState) => state.articles);
+  const { products, loadingProducts, errorProducts } = useProducts();
+  const { articles, loadingArticles, errorArticles } = useArticles();
 
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [selectedSort, setSelectedSort] = useState('createdAt-desc');
