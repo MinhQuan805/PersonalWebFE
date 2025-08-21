@@ -1,21 +1,30 @@
-import '@/styles/client/home/emailReceiver.css';
-import { NotificationType } from '../useAppNotification';
+import '@/styles/client/home/subscribe.css';
 import { Form, Input, Button, Typography } from 'antd';
 import AOS from 'aos';
 import { useEffect } from 'react';
 import { NotificationInstance } from 'antd/es/notification/interface';
 import { FaBell } from 'react-icons/fa';
+import axios from 'axios';
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 type Props = {
   api: NotificationInstance;
 };
 
-const EmailReceiverCard: React.FC<Props> = ({ api }: Props) => {
+const SubscribeCard: React.FC<Props> = ({ api }: Props) => {
   useEffect(() => {
     AOS.init();
   }, []);
+
+  const handleSubscribe = async (email: string) => {
+    try {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_GET}/subscribe`, { email });
+      api.success({message: res.data.message || 'Đăng ký thành công!', placement: 'topRight', duration: 3 });
+    } catch (err: any) {
+      api.error({message: 'Lỗi', description: err.response?.data?.error || 'Không thể đăng ký', placement: 'topRight', duration: 3, });
+    }
+  };
 
   return (
     <div
@@ -29,19 +38,11 @@ const EmailReceiverCard: React.FC<Props> = ({ api }: Props) => {
 
         <Form
           layout="inline"
-          onFinish={async (values) => {
-            api.success({
-              message: 'Bạn đã đăng ký thành công',
-              placement: 'topRight',
-              duration: 4,
-            });
-          }}
+          onFinish={(values) => handleSubscribe(values.email)}
           style={{ justifyContent: 'center', marginTop: 20 }}
         >
-          <div className='newsletter-receiver'>
-            <Form.Item
-              name="email"
-            >
+          <div className="newsletter-receiver">
+            <Form.Item name="email">
               <Input placeholder="Email của bạn" size="large" className="newsletter-input" />
             </Form.Item>
 
@@ -57,4 +58,4 @@ const EmailReceiverCard: React.FC<Props> = ({ api }: Props) => {
   );
 };
 
-export default EmailReceiverCard; 
+export default SubscribeCard;

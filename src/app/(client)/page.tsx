@@ -3,7 +3,6 @@
 // React / Next.js
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
 
 // Ant Design
 import { Card, Row, Col, Typography, Button, Steps, Input, Form, Spin, notification, Tabs } from 'antd';
@@ -32,7 +31,6 @@ import Testimonials from '@/components/client/Testimonial';
 // Data & Redux & Utils
 import personal from '@/data/personal.json';
 import { ContactSubmit } from '@/utils/SubmitContact';
-import type { RootState } from '@/lib/redux/store';
 
 // External libraries
 import { motion, AnimatePresence } from "framer-motion";
@@ -40,7 +38,7 @@ import { sendGAEvent } from '@next/third-parties/google';
 import Typewriter from "typewriter-effect";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import EmailReceiverCard from '@/components/client/EmailReceiverCard';
+import SubscribeCard from '@/components/client/SubscribeCard';
 import { IoExpand } from 'react-icons/io5';
 import { IoMdRocket } from 'react-icons/io';
 import { useArticles } from '@/lib/hook/useArticles';
@@ -334,7 +332,7 @@ export default function Home() {
         <Spin tip="Đang tải bài viết..." size="large" spinning={loadingArticles} className="inLoading">
           <ArticleHighlight articles={newArticles} style={ArticleStyle} />
         </Spin>
-        <EmailReceiverCard api={api}/>
+        <SubscribeCard api={api}/>
       </div>
         
       <Testimonials />

@@ -15,7 +15,6 @@ export function useArticles() {
     }
   )
 
-  console.log(data);
   return {
     articles: data || [],
     loadingArticles: isLoading,

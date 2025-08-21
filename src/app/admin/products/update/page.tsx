@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Col, DatePicker, Form, Input, Radio, Row, Switch, Upload, InputNumber, notification } from 'antd';
-import type { UploadProps, UploadFile } from 'antd/es/upload/interface';
+import type { UploadFile } from 'antd/es/upload/interface';
 import type { CheckboxGroupProps } from 'antd/es/checkbox';
 import TextEditor from '@/components/admin/TextEditor';
 import api from '@/config/api';
@@ -10,13 +10,11 @@ import { useRouter } from 'next/navigation';
 import '@/styles/admin/product/product.css';
 import useAppNotification from '@/components/useAppNotification';
 import { UploadImage } from '@/components/UploadImage';
-import { CreateNewData } from '@/components/admin/Create';
 import { ProductType } from '@/lib/models/product.model';
 import dayjs from 'dayjs';
 
-export default function CreateProduct() {
+export default function UpdateProduct() {
   const router = useRouter();
-  const [fileList, setFileList] = useState<any[]>([]);
   const [thumbnailFileList, setThumbnailFileList] = useState<any[]>([]);
   const [logoFileList, setLogoFileList] = useState<any[]>([]);
   const [product, setProduct] = useState<ProductType | null>(null);

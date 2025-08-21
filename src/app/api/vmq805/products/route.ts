@@ -19,7 +19,7 @@ export async function GET() {
   } catch (err) {
     console.error('API error:', err)
     return NextResponse.json(
-      { error: 'Internal Server Error' },
+      { error: 'Lỗi server không thể lấy dữ liệu' },
       { status: 500 }
     )
   }

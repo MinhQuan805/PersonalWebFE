@@ -13,7 +13,6 @@ export function useProducts() {
       refreshInterval: 0,
     }
   )
-  console.log(data);
   return {
     products: data || [],
     loadingProducts: isLoading,
