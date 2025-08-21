@@ -13,11 +13,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 
     await connectDB();
 
-    const article = await ArticleModel.findOne({
-      _id: id,
-      deleted: false,
-      status: 'active',
-    });
+    const article = await ArticleModel.findOne({_id: id, deleted: false, status: 'active'});
 
     if (!article) {
       return NextResponse.json({ error: 'Bài viết không tồn tại' }, { status: 404 });
