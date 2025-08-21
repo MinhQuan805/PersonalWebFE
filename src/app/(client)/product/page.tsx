@@ -36,7 +36,7 @@ export default function Product() {
     <div className={styles.productContainer}>
       {/* Tiêu đề */}
       <div className={styles.titleHeader}>
-        <div>Sản Phẩm Và Dịch Vụ</div>
+        <div>Dự án của tôi</div>
       </div>
 
       {isMobile && (

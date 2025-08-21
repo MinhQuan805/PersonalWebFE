@@ -338,7 +338,7 @@ export default function Home() {
       <Testimonials />
 
       {/* Pricing Section */}
-      <div className="pricing-container">
+      <div className="pricing-container" data-aos="fade-up" data-aos-delay="100">
         <div className="home-heading">
           <div>Dịch vụ</div>
         </div>
@@ -377,7 +377,7 @@ export default function Home() {
 
 
       {/* Contact Section */}
-      <div className="contact-container">
+      <div className="contact-container" data-aos="fade-up" data-aos-delay="100">
         <div className="home-heading">
           <div>Đồng hành cùng mình</div>
         </div>

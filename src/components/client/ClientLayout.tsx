@@ -19,7 +19,7 @@ const nav = [
   { name: 'Trang chủ', link: '/' },
   { name: 'Bài viết', link: '/article' },
   { name: 'Sản phẩm', link: '/product' },
-  { name: 'Dịch vụ', link: '/service' },
+  // { name: 'Dịch vụ', link: '/service' },
   { name: 'About Me', link: '/about' },
 ];
 const navItems = nav.map((item) => ({
@@ -105,7 +105,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <Link href="/">Trang chủ</Link>
                   <Link href="/article">Bài viết</Link>
                   <Link href="/product">Sản phẩm</Link>
-                  <Link href="/service">Dịch vụ</Link>
+                  {/* <Link href="/service">Dịch vụ</Link> */}
                 </div>
                 <div className="footer-column-right">
                   <Link href="/about">Về tác giả</Link>
