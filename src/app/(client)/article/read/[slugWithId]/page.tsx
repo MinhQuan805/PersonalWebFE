@@ -30,7 +30,7 @@ export default function ArticleDetail() {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/articles/${id}`);
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/articles?id=${id}`);
         setArticle(res.data);
       } catch (err) {
         console.error(err);
