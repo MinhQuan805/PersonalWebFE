@@ -62,11 +62,24 @@ export default function ArticleDetail() {
 
   // Lọc các bài viết liên quan
   let relatedArticles: ArticleType[] = [];
+
   if (article.tags?.length) {
-    relatedArticles = articles
-      .filter(a => a._id !== article._id && a.tags?.some(tag => article.tags?.includes(tag)))
-      .slice(0, 3);
+    // 1. Các bài viết có ít nhất 1 tag giống
+    const sameTagArticles = articles.filter(
+      a => a._id !== article._id && a.tags?.some(tag => article.tags?.includes(tag))
+    );
+
+    // 2. Nếu ít hơn 3  thì lấy thêm các bài khác
+    if (sameTagArticles.length < 3) {
+      const otherArticles = articles.filter(
+        a => a._id !== article._id && !sameTagArticles.includes(a)
+      );
+      relatedArticles = [...sameTagArticles, ...otherArticles].slice(0, 3);
+    } else {
+      relatedArticles = sameTagArticles.slice(0, 3);
+    }
   }
+
   return (
     <div className={style.readingContainer}>
       <Paragraph className={style.readingTags}>

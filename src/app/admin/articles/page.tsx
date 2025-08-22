@@ -193,22 +193,6 @@ export default function Article() {
           >
             <span className="btn-text">Thùng rác</span>
           </Button>
-          <Button
-            style={{ color: 'green', border: '1px solid #00ff4cff', marginLeft: 20, borderRadius: 40, }}
-            size="middle"
-            icon={<RxUpdate />}
-            onClick={async () => {
-              try {
-                await axios.get(`${process.env.NEXT_PUBLIC_API_GET}/articles/refresh`);
-                openNotification('success', 'Thành công', 'Đã cập nhật dữ liệu phía client');
-              } catch (err) {
-                console.error(err);
-                openNotification('error', 'Lỗi', 'Không thể cập nhật dữ liệu phía client');
-              }
-            }}
-          >
-            <span className="btn-text">Cập nhật phía client</span>
-          </Button>
         </div>
 
         {haveSelected && (

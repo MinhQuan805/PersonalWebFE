@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
-import { Button, Col, DatePicker, Form, Input, Radio, Row, Switch, Upload, InputNumber } from 'antd';
+import { Button, Col, DatePicker, Form, Input, Radio, Row, Switch, Upload, InputNumber, Select } from 'antd';
 import type { UploadProps, UploadFile } from 'antd/es/upload/interface';
 import type { CheckboxGroupProps } from 'antd/es/checkbox';
 import TextEditor from '@/components/admin/TextEditor';
@@ -10,9 +10,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import '@/styles/admin/article/article.css';
 import useAppNotification from '@/components/useAppNotification';
 import dayjs from 'dayjs';
-import axios from 'axios';
 import { ArticleType } from '@/lib/models/article.model';
 import { UploadImage } from '@/components/UploadImage';
+import articles from '@/data/articles.json';
 
 export default function UpdateArticle() {
   const router = useRouter();
@@ -40,7 +40,8 @@ export default function UpdateArticle() {
           outstand: data.outstand,
           createdAt: data.createdAt ? dayjs(data.createdAt) : null,
           introduction: data.introduction,
-          content: data.content
+          content: data.content,
+          tags: data.tags || []
         });
 
         if (data.thumbnail) {
@@ -94,6 +95,7 @@ export default function UpdateArticle() {
         introduction: form.getFieldValue('introduction'),
         content: editorRef.current ? editorRef.current.getContent() : editorContent,
         position: form.getFieldValue('position'),
+        tags: form.getFieldValue('tags') || [],
         status: form.getFieldValue('status'),
         createdAt: createdAt ? createdAt.toDate() : new Date(),
       };
@@ -180,6 +182,22 @@ export default function UpdateArticle() {
             <Col span={12}>
               <Form.Item name="status" label="Trạng thái">
                 <Radio.Group options={options} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16} style={{ marginBottom: 10 }}>
+            <Col span={18}>
+              <Form.Item
+                name="tags"
+                label="Thể loại"
+              >
+                <Select
+                  mode="multiple"
+                  allowClear
+                  style={{ width: '100%' }}
+                  placeholder="Chọn thể loại bài báo"
+                  options={articles.tags}
+                />
               </Form.Item>
             </Col>
           </Row>

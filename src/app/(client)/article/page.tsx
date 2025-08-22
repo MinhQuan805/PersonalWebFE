@@ -17,7 +17,7 @@ import { TbArrowsSort } from 'react-icons/tb';
 import { useProducts } from '@/lib/hook/useProducts';
 import { useArticles } from '@/lib/hook/useArticles';
 import SubscribeCard from '@/components/client/SubscribeCard';
-
+import articleConfig from '@/data/articles.json';
 const { Title, Paragraph } = Typography;
 const newStyle = { ...ArticleStyle, ...OverrideStyle };
 const PAGE_SIZE = 5;
@@ -129,8 +129,8 @@ export default function Home() {
                 <Dropdown menu={{ items: [
                   { label: <span style={{ color: selectedTag === null ? '#1890ff' : undefined }}>Tất cả</span>, key: "" },
                   { type: 'divider' as const },
-                  { label: <span style={{ color: selectedTag === "Finance" ? '#1890ff' : undefined }}>Tài chính</span>, key: "Finance" },
-                  { label: <span style={{ color: selectedTag === "Technology" ? '#1890ff' : undefined }}>Công nghệ</span>, key: "Technology" },
+                  ...articleConfig.tags.map(tag => ({
+                  label: ( <span style={{ color: selectedTag === tag.value ? '#1890ff' : undefined }}>{tag.label}</span> ), key: tag.value,})),
                 ], onClick: ({ key }) => setSelectedTag(key || null) }} trigger={['click']}>
                   <Button className="button-filter"><FaFilter /></Button>
                 </Dropdown>

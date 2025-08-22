@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react';
 import {  Button, Col, DatePicker, Form,
           Input, Radio, Row, Switch, Upload,
           InputNumber, notification,
+          Select,
 } from 'antd';
 import type { UploadProps, UploadFile } from 'antd/es/upload/interface';
 import type { CheckboxGroupProps } from 'antd/es/checkbox';
@@ -14,6 +15,7 @@ import '@/styles/admin/article/article.css';
 import useAppNotification from '@/components/useAppNotification';
 import { UploadImage } from '@/components/UploadImage';
 import { CreateNewData } from '@/components/admin/Create';
+import articles from '@/data/articles.json';
 
 export default function CreateArticle() {
   const router = useRouter();
@@ -40,7 +42,6 @@ export default function CreateArticle() {
     { label: 'Không hoạt động', value: 'inactive' },
     { label: 'Đang hoàn thành', value: 'ongoing' },
   ];
-
   const handleCreate = async () => {
     const createdAt = form.getFieldValue('createdAt');
     const data = {
@@ -54,6 +55,7 @@ export default function CreateArticle() {
       position: form.getFieldValue('position'),
       status: form.getFieldValue('status'),
       createdAt: createdAt ? createdAt.toDate() : new Date(),
+      tags: form.getFieldValue('tags') || [],
     };
     const success = await CreateNewData({action_url, data, openNotification});
     if (success) {
@@ -152,6 +154,23 @@ export default function CreateArticle() {
           <Col span={12}>
             <Form.Item name="status" label="Trạng thái">
               <Radio.Group block options={options} defaultValue="ongoing" />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={16} style={{ marginBottom: 10 }}>
+          <Col span={18}>
+            <Form.Item
+              name="tags"
+              label="Thể loại"
+            >
+              <Select
+                mode="multiple"
+                allowClear
+                style={{ width: '100%' }}
+                placeholder="Chọn thể loại bài báo"
+                options={articles.tags}
+              />
             </Form.Item>
           </Col>
         </Row>
