@@ -73,7 +73,7 @@ export default function ArticleDetail() {
     if (sameTagArticles.length < 3) {
       const otherArticles = articles.filter(
         a => a._id !== article._id && !sameTagArticles.includes(a)
-      );
+      ).sort(() => 0.5 - Math.random());
       relatedArticles = [...sameTagArticles, ...otherArticles].slice(0, 3);
     } else {
       relatedArticles = sameTagArticles.slice(0, 3);
