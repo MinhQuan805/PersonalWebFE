@@ -53,7 +53,7 @@ const LoginPage = () => {
           maxWidth: 400,
           margin: '80px auto',
           padding: 24,
-          boxShadow: '0 2px 8px #f0f1f2',
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
           borderRadius: 8,
         }}
       >
@@ -79,6 +79,11 @@ const LoginPage = () => {
             </Button>
           </Form.Item>
         </Form>
+        <div style={{display: "flex", justifyContent: "center"}}>
+          <Button size="middle" onClick={() => window.open(process.env.NEXT_PUBLIC_API_URL, "_blank")}>
+            Bật Server
+          </Button>
+        </div>
       </div>
     </>
   );
