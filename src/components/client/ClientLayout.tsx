@@ -47,8 +47,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Layout className="layout-main">
           <Header className="header-main" data-aos="fade-down" data-aos-delay="50">
-            <Link href="/" style={{ cursor: 'pointer', display: 'inline-block' }}>
-              <img src="/image/general/logo.png" alt="logo" style={{ height: 55 }} />
+            <Link href="/" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <img src="/image/general/logo.png" alt="logo" style={{ height: 60 }} />
             </Link>
             <div className="navigation-main">
               <Menu
