@@ -20,7 +20,7 @@ const nav = [
   { name: 'Bài viết', link: '/article' },
   { name: 'Sản phẩm', link: '/product' },
   // { name: 'Dịch vụ', link: '/service' },
-  { name: 'About Me', link: '/about' },
+  { name: 'About Me', link: `/article/read/${personal.about.link}` },
 ];
 const navItems = nav.map((item) => ({
   key: item.link,
