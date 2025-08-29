@@ -79,8 +79,10 @@
 .intro-image img {
     object-fit: contain;
     border-radius: 50%;
-    width: 450px;
-    height: 450px;
+    border: 8px solid #ffffff;
+    width: 500px;
+    height: 500px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive for Intro */

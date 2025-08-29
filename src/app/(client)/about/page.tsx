@@ -7,7 +7,7 @@ import { TbBrandGithubFilled } from 'react-icons/tb';
 import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 export default function Home() {
   return (
-    <div className="intro-container">
+    <div className="about-container">
       <Row gutter={[80, 80]} align="middle">
         <Col xs={24} md={10} className="intro-image-container">
           <div className="intro-image">

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { FaNewspaper, FaPlus, FaTrash, FaUser } from 'react-icons/fa';
+import { MdSpaceDashboard } from "react-icons/md";
 import '@/styles/admin/layout/AdminLayout.css';
 import { AiOutlineProduct } from 'react-icons/ai';
 
@@ -12,7 +13,7 @@ const { Header, Content, Footer, Sider } = Layout;
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedKey, setSelectedKey] = useState('/admin/articles');
+  const [selectedKey, setSelectedKey] = useState('/admin');
 
   const pathname = usePathname();
   const router = useRouter();
@@ -22,6 +23,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }, [pathname]);
 
   const items = [
+    // {
+    //   label: 'Dashboard',
+    //   icon: <MdSpaceDashboard />,
+    //   key: '/admin',
+    //   onClick: () => router.push('/admin'),
+    // },
     {
       label: 'Bài viết',
       icon: <FaNewspaper />,

@@ -18,7 +18,7 @@ export default function Login() {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       message.success('Đăng nhập thành công!');
-      router.push('/admin/articles');
+      router.push('/admin');
     } catch (err: any) {
       const errorMessage = err.response?.data?.message || 'Đăng nhập thất bại';
       openNotification('error', 'Lỗi', errorMessage);
@@ -29,6 +29,7 @@ export default function Login() {
 
   return (
     <>
+      {contextHolder}
       <div style={{ maxWidth: 400, margin: '80px auto', padding: 24, boxShadow: '0 2px 8px #f0f1f2', borderRadius: 8 }}>
         <h2 style={{ textAlign: 'center' }}>Đăng nhập Admin</h2>
         <Form layout="vertical" onFinish={onFinish}>
