@@ -1,5 +1,6 @@
 {
   "tags": [
+    { "label": "Suy nghĩ riêng", "value": "Suy nghĩ riêng"},
     { "label": "Hệ điều hành", "value": "Hệ điều hành" },
     { "label": "Mạng máy tính", "value": "Mạng máy tính" },
     { "label": "Database", "value": "Database" },
