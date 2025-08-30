@@ -16,7 +16,6 @@ import { FaFilter } from 'react-icons/fa';
 import { TbArrowsSort } from 'react-icons/tb';
 import { useProducts } from '@/lib/hook/useProducts';
 import { useArticles } from '@/lib/hook/useArticles';
-import SubscribeCard from '@/components/client/SubscribeCard';
 import articleConfig from '@/data/articles.json';
 const { Title, Paragraph } = Typography;
 const newStyle = { ...ArticleStyle, ...OverrideStyle };
@@ -156,7 +155,6 @@ export default function Home() {
                 document.querySelector(`.${OverrideStyle.articleMain}`)?.scrollIntoView({ behavior: 'smooth' });
               }}
             />
-            <SubscribeCard api={api}/>
           </Col>
 
           <Col md={24} lg={8}>
