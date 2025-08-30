@@ -115,7 +115,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </Footer>
         </Layout>
-        <GoogleAnalytics gaId={`${process.env.NEXT_PUBLIC_GOOGLE_ID}`} />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ID!} />
       </body>
     </html>
   );
