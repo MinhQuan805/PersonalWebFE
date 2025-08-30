@@ -1,70 +1,71 @@
-  {
-    "intro": {
-      "greeting": "Welcome bạn",
-      "name": "Minh Quân",
-      "highlight": "Sinh viên trường UIT, một người trẻ trên hành trình học hỏi và kiếm thu nhập",
-      "description": [
-        "Mình thiết kế và phát triển backend cho các dịch vụ website. Kỹ năng của mình là tối ưu và ứng dụng công nghệ để phát triển hệ thống bến vững."
-      ],
-      "resumeFile": "/files/CV.pdf",
+{
+  "intro": {
+    "greeting": "Welcome bạn",
+    "name": "Minh Quân",
+    "highlight": "Sinh viên trường UIT, một người trẻ trên hành trình học hỏi và kiếm thu nhập",
+    "description": [
+      "Mình thiết kế và phát triển backend cho các dịch vụ website. Kỹ năng của mình là tối ưu và ứng dụng công nghệ để phát triển hệ thống bến vững."
+    ],
+    "resumeFile": "/files/CV.pdf",
+    "avatar": "/image/general/avatar.jpg",
+    "roles": ["UI/UX Designer", "Frontend Developer", "Backend Developer", "Content Creator"]
+  },
+  "about": {
+    "name": "Minh Quân",
+    "headline": "Hành trình của tôi",
+    "story": [
+      "Hồi nhỏ, mình rất đam mê đọc sách về những thiên tài như Steve Jobs, Albert Einstein, hay Stephen R. Covey. Họ đều là những người thay đổi thế giới – nhưng mình thì sao? Mình chỉ là một cậu bé bình thường, nhút nhát, thậm chí bị coi là \"vô dụng\" và không đáng tin.",
+      "Bạn có biết cảm giác bị người giỏi xem thường, không giao trọng trách? Hay bị kẻ xấu lợi dụng vì quá dễ dãi? Mình đã trải qua hết. Nó khiến mình tự hỏi: \"Tại sao mình không thể tốt hơn?\"",
+      "Rồi một ngày, mình đọc được câu nói thay đổi cuộc đời từ Jim Rohn: \"Don't wish it were easier, wish you were better.\" (Đừng mong mọi thứ dễ dàng hơn, hãy mong bạn trở nên tốt hơn.)",
+      "Khoảnh khắc đó, mình quyết định thay đổi. Trong mọi dự án, mình cố gắng hết sức để mình không phải hối tiếc khi thất bại.",
+      "Giờ đây, triết lý sống của mình là: Cố gắng hết sức để mang lại sự hài lòng tối đa cho mọi người đồng hành."
+    ],
+    "logo": "https://res.cloudinary.com/djq2uk7fw/image/upload/v1756542717/logo_svrjlf.png",
+    "info": {
+      "birthday": "05/08/2006",
+      "age": 19,
+      "address": "Quận Bình Thạnh, Thành Phố Hồ Chí Minh",
+      "phone": "0946008580",
+      "email": "minhquanwork2006@gmail.com"
+    },
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/qu%C3%A2n-v%C3%B5-821704325/",
+      "github": "https://github.com/MinhQuan805",
+      "facebook": "https://www.facebook.com/quan.minh.780514/"
+    },
+    "link": "vo-minh-quan-la-ai.68b1127764245995390af884"
+  },
+  "testimonials": [
+    {
+      "avatar": "/image/logo/4.jpg",
+      "quote": "Quân đã quản lý dự án của chúng tôi với hiệu quả và sự rõ ràng đáng kinh ngạc.",
+      "name": "Hữu Trí",
+      "role": "LẬP TRÌNH VIÊN - THEMESFALT"
+    },
+    {
+      "avatar": "/image/logo/2.jpg",
+      "quote": "Làm việc với ZenG thật dễ dàng. Họ nhanh chóng nắm bắt nhu cầu của chúng tôi và mang lại kết quả vượt ngoài mong đợi.",
+      "name": "Lan Anh",
+      "role": "TRƯỞNG PHÒNG MARKETING"
+    },
+    {
+      "avatar": "/image/logo/1.jpg",
+      "quote": "Đội ngũ chuyên nghiệp, đáng tin cậy và có tay nghề cao. Chúng tôi chắc chắn sẽ tiếp tục hợp tác với ZenG.",
+      "name": "Ngọc Anh",
+      "role": "GIÁM ĐỐC ĐIỀU HÀNH - STARTUP INC."
+    },
+    {
       "avatar": "/image/general/avatar.jpg",
-      "roles": ["UI/UX Designer", "Frontend Developer", "Backend Developer", "Content Creator"]
+      "quote": "Đội ngũ chuyên nghiệp, đáng tin cậy và có tay nghề cao. Chúng tôi chắc chắn sẽ tiếp tục hợp tác với ZenG.",
+      "name": "Hải Nam",
+      "role": "GIÁM ĐỐC ĐIỀU HÀNH - STARTUP VIỆT"
     },
-    "about": {
-      "name": "Minh Quân",
-      "headline": "Hành trình của tôi",
-      "story": [
-        "Hồi nhỏ, mình rất đam mê đọc sách về những thiên tài như Steve Jobs, Albert Einstein, hay Stephen R. Covey. Họ đều là những người thay đổi thế giới – nhưng mình thì sao? Mình chỉ là một cậu bé bình thường, nhút nhát, thậm chí bị coi là \"vô dụng\" và không đáng tin.",
-        "Bạn có biết cảm giác bị người giỏi xem thường, không giao trọng trách? Hay bị kẻ xấu lợi dụng vì quá dễ dãi? Mình đã trải qua hết. Nó khiến mình tự hỏi: \"Tại sao mình không thể tốt hơn?\"",
-        "Rồi một ngày, mình đọc được câu nói thay đổi cuộc đời từ Jim Rohn: \"Don't wish it were easier, wish you were better.\" (Đừng mong mọi thứ dễ dàng hơn, hãy mong bạn trở nên tốt hơn.)",
-        "Khoảnh khắc đó, mình quyết định thay đổi. Trong mọi dự án, mình cố gắng hết sức để mình không phải hối tiếc khi thất bại.",
-        "Giờ đây, triết lý sống của mình là: Cố gắng hết sức để mang lại sự hài lòng tối đa cho mọi người đồng hành."
-      ],
-      "logo": "/image/general/logo.png",
-      "info": {
-        "birthday": "05/08/2006",
-        "age": 19,
-        "address": "Quận Bình Thạnh, Thành Phố Hồ Chí Minh",
-        "phone": "0946008580",
-        "email": "minhquanwork2006@gmail.com"
-      },
-      "socials": {
-        "linkedin": "https://www.linkedin.com/in/qu%C3%A2n-v%C3%B5-821704325/",
-        "github": "https://github.com/MinhQuan805",
-        "facebook": "https://www.facebook.com/quan.minh.780514/"
-      },
-      "link": "vo-minh-quan-la-ai.68b1127764245995390af884"
-    },
-    "testimonials": [
-      {
-        "avatar": "/image/logo/4.jpg",
-        "quote": "Quân đã quản lý dự án của chúng tôi với hiệu quả và sự rõ ràng đáng kinh ngạc.",
-        "name": "Hữu Trí",
-        "role": "LẬP TRÌNH VIÊN - THEMESFALT"
-      },
-      {
-        "avatar": "/image/logo/2.jpg",
-        "quote": "Làm việc với ZenG thật dễ dàng. Họ nhanh chóng nắm bắt nhu cầu của chúng tôi và mang lại kết quả vượt ngoài mong đợi.",
-        "name": "Lan Anh",
-        "role": "TRƯỞNG PHÒNG MARKETING"
-      },
-      {
-        "avatar": "/image/logo/1.jpg",
-        "quote": "Đội ngũ chuyên nghiệp, đáng tin cậy và có tay nghề cao. Chúng tôi chắc chắn sẽ tiếp tục hợp tác với ZenG.",
-        "name": "Ngọc Anh",
-        "role": "GIÁM ĐỐC ĐIỀU HÀNH - STARTUP INC."
-      },
-      {
-        "avatar": "/image/general/avatar.jpg",
-        "quote": "Đội ngũ chuyên nghiệp, đáng tin cậy và có tay nghề cao. Chúng tôi chắc chắn sẽ tiếp tục hợp tác với ZenG.",
-        "name": "Hải Nam",
-        "role": "GIÁM ĐỐC ĐIỀU HÀNH - STARTUP VIỆT"
-      },
-      {
-        "avatar": "/image/logo/3.jpg",
-        "quote": "Tôi đã dùng thử web của bạn Minh Quân và chấm 10 điểm. Còn bạn, bạn đã thử chưa? 🐧",
-        "name": "Phạm Hữu Nghĩa",
-        "role": "SINH VIÊN - Trường Đại Học Công Nghệ Thông Tin"
-      }
-    ]
-  }
+    {
+      "avatar": "/image/logo/3.jpg",
+      "quote": "Tôi đã dùng thử web của bạn Minh Quân và chấm 10 điểm. Còn bạn, bạn đã thử chưa? 🐧",
+      "name": "Phạm Hữu Nghĩa",
+      "role": "SINH VIÊN - Trường Đại Học Công Nghệ Thông Tin"
+    }
+  ],
+  "giveaway": "https://github.com/MinhQuan805/PersonalWebFE"
+}

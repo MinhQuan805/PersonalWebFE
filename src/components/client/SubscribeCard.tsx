@@ -34,7 +34,7 @@ const SubscribeCard: React.FC<Props> = ({ api }: Props) => {
       style={{ marginTop: 50, textAlign: 'center' }}
     >
       <div className="newsletter-section">
-        <Title level={3} className="newsletter-title">Đăng ký nhận bài viết mới nhất</Title>
+        <Title level={3} className="newsletter-title">Bạn muốn nhận source code của dự án?</Title>
 
         <Form
           layout="inline"

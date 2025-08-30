@@ -2,6 +2,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 export interface SubscriberType extends Document {
   email: string;
+  status: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -9,6 +10,7 @@ export interface SubscriberType extends Document {
 const SubscriberSchema = new Schema<SubscriberType>(
   {
     email: { type: String, required: true, unique: true },
+    status: { type: String, default: 'active' },
     createdAt: { type: Date, default: () => new Date() },
     updatedAt: { type: Date, default: () => new Date() },
   },
