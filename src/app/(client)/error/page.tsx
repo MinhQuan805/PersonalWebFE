@@ -2,8 +2,9 @@
 
 import { Result, Button } from 'antd';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-const ErrorPage = () => {
+const ErrorPageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const msg = searchParams.get('msg');
@@ -20,6 +21,14 @@ const ErrorPage = () => {
       }
       style={{ marginTop: 40, marginBottom: 20 }}
     />
+  );
+};
+
+const ErrorPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ErrorPageContent />
+    </Suspense>
   );
 };
 
