@@ -41,8 +41,13 @@ export async function POST(req: NextRequest) {
     });
     
     const now = new Date();
-    const formattedDate = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    const vnTime = new Intl.DateTimeFormat('vi-VN', {
+      timeZone: 'Asia/Ho_Chi_Minh',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(now);
 
+    const formattedDate = vnTime;
     await transporter.sendMail({
       from: `"Quan Notes" <${process.env.EMAIL_USER}>`,
       to: email,
