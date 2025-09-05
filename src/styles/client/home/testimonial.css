@@ -80,6 +80,6 @@
 }
 @media (max-width: 768px) {
   .testimonial-card .ant-card {
-    width: 400px !important;
+    width: 90% !important;
   }
 }
