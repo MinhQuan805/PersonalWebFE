@@ -89,29 +89,33 @@ export default function UpdateProduct() {
   };
   const handleUpdate = async () => {
     try {
-      const createdAt = form.getFieldValue('createdAt');
-      const data = {
-        title: form.getFieldValue('title'),
-        thumbnail: thumbnailFileList[0]?.url || product?.thumbnail,
-        logo: logoFileList[0]?.url || product?.logo,
-        position: form.getFieldValue('position'),
-        shortDescription: form.getFieldValue('shortDescription'),
-        introduction: form.getFieldValue('introduction'),
-        outstand: form.getFieldValue('outstand'),
-        content: editorRef.current ? editorRef.current.getContent() : editorContent,
-        github: form.getFieldValue('github'),
-        website: form.getFieldValue('website'),
-        video: form.getFieldValue('video'),
-        status: form.getFieldValue('status'),
-        createdAt: createdAt ? createdAt.toDate() : new Date(),
-      };
-      const response = await api.patch(`${action_url}/update/${product?._id}`, data);
-      if (response.data.success) {
-        sessionStorage.removeItem('articleRecord');
-        openNotification('success', 'Thành công', response.data.message);
-        router.push(action_url);
-      } else {
-        openNotification('error', 'Lỗi', response.data.message);
+      const id = sessionStorage.getItem('id');
+      if (id) {
+        const parseId = JSON.parse(id);
+        const createdAt = form.getFieldValue('createdAt');
+        const data = {
+          title: form.getFieldValue('title'),
+          thumbnail: thumbnailFileList[0]?.url || product?.thumbnail,
+          logo: logoFileList[0]?.url || product?.logo,
+          position: form.getFieldValue('position'),
+          shortDescription: form.getFieldValue('shortDescription'),
+          introduction: form.getFieldValue('introduction'),
+          outstand: form.getFieldValue('outstand'),
+          content: editorRef.current ? editorRef.current.getContent() : editorContent,
+          github: form.getFieldValue('github'),
+          website: form.getFieldValue('website'),
+          video: form.getFieldValue('video'),
+          status: form.getFieldValue('status'),
+          createdAt: createdAt ? createdAt.toDate() : new Date(),
+        };
+        const response = await api.patch(`${action_url}/update/${parseId}`, data);
+        if (response.data.success) {
+          sessionStorage.removeItem('articleRecord');
+          openNotification('success', 'Thành công', response.data.message);
+          router.push(action_url);
+        } else {
+          openNotification('error', 'Lỗi', response.data.message);
+        }
       }
     } catch (error: any) {
       openNotification('error', 'Lỗi', error.response?.data?.message || 'Có lỗi xảy ra');
