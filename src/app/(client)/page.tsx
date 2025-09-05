@@ -117,8 +117,9 @@ export default function Home() {
     link.click();
   };
 
-  const handleLearnMore = (productTitle: string) => {
+  const handleLearnMore = (productTitle: string, NavLink: string) => {
     sendGAEvent('event', 'product_learn_more', { product: productTitle });
+    window.open(`${NavLink}`, "_blank");
   };
 
   const handleArticleClick = () => {
@@ -271,7 +272,7 @@ export default function Home() {
                         <Title level={1} className="product-home-title">{products[currentStep].shortDescription}</Title>
                         <Paragraph className="product-home-description">{products[currentStep].introduction}</Paragraph>
                         <Button type="primary" size="large" className="product-home-button"
-                          onClick={() => handleLearnMore(products[currentStep].title)}>Khám phá</Button>
+                          onClick={() => handleLearnMore(products[currentStep].title, products[currentStep].github)}>Khám phá</Button>
                       </div>
                     </motion.div>
                   </Col>
