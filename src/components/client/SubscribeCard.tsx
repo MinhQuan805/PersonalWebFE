@@ -65,7 +65,7 @@ const SubscribeCard: React.FC<Props> = ({ api }: Props) => {
                 aria-label="Nhập email để đăng ký nhận source code"
               />
             </Form.Item>
-            <Form.Item data-aos="zoom-in" data-aos-delay="300">
+            <Form.Item data-aos="zoom-in" data-aos-delay="100">
               <Button
                 htmlType="submit"
                 size="large"
