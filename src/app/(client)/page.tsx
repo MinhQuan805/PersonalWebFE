@@ -271,8 +271,10 @@ export default function Home() {
                         </div>
                         <Title level={1} className="product-home-title">{products[currentStep].shortDescription}</Title>
                         <Paragraph className="product-home-description">{products[currentStep].introduction}</Paragraph>
+                        <div style={{ display: 'flex', justifyContent: 'center'}}>
                         <Button type="primary" size="large" className="product-home-button"
                           onClick={() => handleLearnMore(products[currentStep].title, products[currentStep].github)}>Khám phá</Button>
+                        </div>
                       </div>
                     </motion.div>
                   </Col>

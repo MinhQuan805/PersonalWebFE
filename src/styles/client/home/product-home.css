@@ -61,8 +61,9 @@
     border-color: #1890ff !important;
     border-radius: 40px !important;
     padding: 12px 24px !important;
-    height: 45px !important;
-    font-size: 16px !important;
+    width: 150px !important;
+    height: 48px !important;
+    font-size: 19px !important;
     font-weight: 500 !important;
     outline: none !important;
 }
@@ -109,7 +110,7 @@
     }
 
     .product-home-description {
-        font-size: 16px !important;
+        font-size: 17px !important;
     }
 
     .product-home-section {
@@ -126,6 +127,10 @@
 
     .product-home-image img {
         height: 300px !important;
+    }
+    .product-home-button {
+        font-size: 18px !important;
+        height: 45px !important;
     }
     .ant-steps.product-home-step {
         display: none !important;
