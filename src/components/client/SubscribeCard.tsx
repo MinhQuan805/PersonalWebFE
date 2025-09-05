@@ -57,8 +57,6 @@ const SubscribeCard: React.FC<Props> = ({ api }: Props) => {
           <div className="newsletter-receiver">
             <Form.Item
               name="email"
-              data-aos="fade-right"
-              data-aos-delay="200"
             >
               <Input
                 placeholder="Email của bạn"
