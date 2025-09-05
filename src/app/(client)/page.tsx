@@ -140,21 +140,13 @@ export default function Home() {
 
             <Title className="intro-title">
               <span style={{ fontSize: 30, fontWeight: 700 }}>Mình là </span>
-              <span
-                style={{
-                  fontSize: 55,
-                  fontWeight: "600",
-                  background: "linear-gradient(to top, #FFD54F 40%, transparent 40%)",
-                  color: "#333b92ff",
-                  display: "inline-block"
-                }}
-              >
+              <span className="intro-name">
                 {personal.intro.name}
               </span>
             </Title>
 
             <Title className="intro-title">
-              <span style={{ fontSize: 50, color: "#333b92ff", fontWeight: 700 }}>
+              <span className="intro-type">
                 <Typewriter
                   options={{
                     strings: personal.intro.roles,
