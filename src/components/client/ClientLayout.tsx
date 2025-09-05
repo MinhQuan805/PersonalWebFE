@@ -108,7 +108,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   {/* <Link href="/service">Dịch vụ</Link> */}
                 </div>
                 <div className="footer-column-right">
-                  <Link href="/about">Về tác giả</Link>
+                  <Link href={`/article/read/${personal.about.link}`}>Về tác giả</Link>
                   <a href="https://docs.google.com/document/d/1RmD96OAt-Dn-pqEpEM5YUUhfyvZ3HxQfqTGAXuTDsKA/edit?tab=t.0">Điều khoản sử dụng</a>
                 </div>
               </div>
