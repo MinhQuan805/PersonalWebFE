@@ -91,7 +91,7 @@
 }
 
 .intro-name {
-  font-size: 55;
+  font-size: 55px;
   font-weight: 600;
   background: linear-gradient(to top, #FFD54F 40%, transparent 40%);
   color: #333b92ff;
@@ -131,11 +131,7 @@
       font-size: 35px;
     }
     .intro-name {
-      font-size: 50;
-      font-weight: 600;
-      background: linear-gradient(to top, #FFD54F 40%, transparent 40%);
-      color: #333b92ff;
-      display: inline-block
+      font-size: 50px;
     }
 }
 
