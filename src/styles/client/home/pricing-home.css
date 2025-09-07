@@ -47,10 +47,20 @@
   margin-bottom: 20px;
 }
 
+.pricing-old {
+  margin-bottom: -10px;
+}
+.old-price {
+  text-decoration: line-through;
+  color: #888;
+  font-size: 30px;
+}
+
+
 .price-amount {
-  font-size: 40px;
+  font-size: 50px;
   font-weight: 700;
-  color: #000;
+  color: #ff1717;
 }
 
 .price-unit {

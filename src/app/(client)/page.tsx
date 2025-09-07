@@ -354,6 +354,10 @@ export default function Home() {
               </ul>
             </Col>
             <Col xs={24} md={12} style={{ textAlign: "center" }}>
+              <div className="pricing-old">
+                <span className="old-price">$10</span>
+                <span className="price-unit">/ngày</span>
+              </div>
               <div className="pricing-price">
                 <span className="price-amount">$5</span>
                 <span className="price-unit">/ngày</span>
