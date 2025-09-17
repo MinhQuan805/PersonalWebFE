@@ -339,18 +339,21 @@ export default function Home() {
         </div>
         <div className="pricing-description">
           <p>
-            Bạn phát triển dự án phần mềm chất lượng và đang tìm người đồng hành?
+            Bạn đang phát triển dự án phần mềm chất lượng và cần một người đồng hành tin cậy?
+          </p>
+          <p>
+            Mình mang đến dịch vụ
           </p>
         </div>
         <Card className="pricing-card">
           <Row gutter={[32, 16]} align="middle">
             <Col xs={24} md={12}>
-              <Title level={3}>Backend Development</Title>
+              <Title level={2}>Backend Development</Title>
               <ul className="pricing-features">
-                <li><IoMdRocket className="pricing-icon"/>   Hiệu suất cao</li>
-                <li><FaLink className="pricing-icon"/>   Tích hơp dễ dàng</li>
-                <li><IoExpand className="pricing-icon"/>   Mở rộng linh hoạt</li>
-                <li><FaShieldAlt className="pricing-icon"/>   Bảo mật mạnh mẽ</li>
+                <li className="pricing-text"><IoMdRocket className="pricing-icon"/>   Hiệu suất vượt trội</li>
+                <li className="pricing-text"><FaLink className="pricing-icon"/>   Tích hơp dễ dàng</li>
+                <li className="pricing-text"><IoExpand className="pricing-icon"/>   Mở rộng linh hoạt</li>
+                <li className="pricing-text"><FaShieldAlt className="pricing-icon"/>   Bảo mật mạnh mẽ</li>
               </ul>
             </Col>
             <Col xs={24} md={12} style={{ textAlign: "center" }}>

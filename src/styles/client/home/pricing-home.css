@@ -40,8 +40,12 @@
   color: #333;
 }
 .pricing-icon {
+  font-size: 25px !important;
   margin-right: 10px;
   color: #3ba9f0;
+}
+.pricing-text {
+  font-size: 20px !important;
 }
 .pricing-price {
   margin-bottom: 20px;
@@ -58,7 +62,7 @@
 
 
 .price-amount {
-  font-size: 50px;
+  font-size: 60px;
   font-weight: 700;
   color: #ff1717;
 }
