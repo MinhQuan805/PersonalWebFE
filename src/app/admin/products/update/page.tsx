@@ -277,9 +277,11 @@ export default function UpdateProduct() {
         </Row>
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
-          <Form.Item name="createdAt" label="Ngày tạo">
-            <DatePicker />
-          </Form.Item>
+          <Col span={12}>
+            <Form.Item name="createdAt" label="Ngày tạo">
+              <DatePicker />
+            </Form.Item>
+          </Col>
           <Col span={12}>
             <Form.Item name="outstand" label="Nổi bật" valuePropName="checked">
               <Switch />
