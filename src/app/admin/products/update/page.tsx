@@ -270,14 +270,6 @@ export default function UpdateProduct() {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="createdAt" label="Ngày tạo">
-              <DatePicker />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row gutter={16} style={{ marginBottom: 10 }}>
-          <Col span={12}>
             <Form.Item name="status" label="Trạng thái" style={{width: 300}}>
               <Radio.Group block options={options} defaultValue="ongoing" />
             </Form.Item>
@@ -285,11 +277,9 @@ export default function UpdateProduct() {
         </Row>
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
-          <Col span={12}>
-            <Form.Item name="createdAt" label="Ngày tạo">
-              <DatePicker />
-            </Form.Item>
-          </Col>
+          <Form.Item name="createdAt" label="Ngày tạo">
+            <DatePicker />
+          </Form.Item>
           <Col span={12}>
             <Form.Item name="outstand" label="Nổi bật" valuePropName="checked">
               <Switch />
