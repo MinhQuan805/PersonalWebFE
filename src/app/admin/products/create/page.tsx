@@ -91,10 +91,10 @@ export default function CreateProduct() {
           <Col span={12}>
             <Form.Item
               name="title"
-              label="Tiêu đề"
-              rules={[{ required: true, message: 'Vui lòng nhập tiêu đề' }]}
+              label="Tên sản phẩm"
+              rules={[{ required: true, message: 'Vui lòng nhập tên sản phẩm' }]}
             >
-              <Input placeholder="Nhập tiêu đề" />
+              <Input placeholder="Nhập tên sản phẩm" />
             </Form.Item>
           </Col>
           <Col span={12}>
