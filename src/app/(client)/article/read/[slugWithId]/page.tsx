@@ -49,7 +49,7 @@ export default function ArticleDetail() {
   if (loadingArticles || loadingArticle) {
     return (
       <div style={{ textAlign: 'center', marginTop: 100 }}>
-        <Spin tip="Đang tải bài viết..." size="large">
+        <Spin tip="Loading article..." size="large">
           <div style={{ minHeight: 200 }} />
         </Spin>
       </div>
@@ -60,16 +60,16 @@ export default function ArticleDetail() {
     notFound();
   }
 
-  // Lọc các bài viết liên quan
+  // Filter related articles
   let relatedArticles: ArticleType[] = [];
 
   if (article.tags?.length) {
-    // 1. Các bài viết có ít nhất 1 tag giống
+    // 1. Articles that share at least one tag
     const sameTagArticles = articles.filter(
       a => a._id !== article._id && a.tags?.some(tag => article.tags?.includes(tag))
     );
 
-    // 2. Nếu ít hơn 3  thì lấy thêm các bài khác
+    // 2. If fewer than 3, add random others
     if (sameTagArticles.length < 3) {
       const otherArticles = articles.filter(
         a => a._id !== article._id && !sameTagArticles.includes(a)
@@ -104,19 +104,22 @@ export default function ArticleDetail() {
         />
       )}
 
-
       <div
         className={style.readingContent}
         dangerouslySetInnerHTML={{ __html: article.content ?? '' }}
       ></div>
-      <hr className={style.readingDivider} style={{marginTop: 40}}/>
+
+      <hr className={style.readingDivider} style={{ marginTop: 40 }} />
+
       <div className={style.endingSection}>
         <ContactCard />
         <SupportCard mesNum={0}/>
       </div>
-      {/* Hiển thị các bài viết liên quan */}
-      <hr className={style.readingDivider} style={{marginTop: 20}}/>
-      <Title level={4} style={{marginRight: 'auto', marginTop: 40}}>Bài viết khác</Title>
+
+      {/* Display related articles */}
+      <hr className={style.readingDivider} style={{ marginTop: 20 }} />
+      <Title level={4} style={{ marginRight: 'auto', marginTop: 40 }}>Other Articles</Title>
+
       <div className={style.articleHighlight}>
         {relatedArticles.map((article, index) => (
           <Row gutter={[24, 24]} className={style.articleRow} key={index}
@@ -133,6 +136,6 @@ export default function ArticleDetail() {
           </Row>
         ))}
       </div>
-  </div>
+    </div>
   );
 }

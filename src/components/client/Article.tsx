@@ -14,21 +14,28 @@ type Props = {
 
 const ArticleHighlight: React.FC<Props> = ({ articles, style }) => {
   const router = useRouter();
+  
   const readArticle = async (article: ArticleType) => {
-    // Gửi event khi click
+    // Send GA event when clicked
     sendGAEvent('event', 'read_article', {
       article_id: article._id,
       article_title: article.title,
     });
     await router.push(`/article/read/${article.slug}.${article._id}`);
   };
+  
   return (
     <div className={style.articleHighlight}>
       {articles.map((article, index) => (
-        <Row gutter={[24, 24]} className={style.articleRow} key={index} onClick={() => readArticle(article)}>
+        <Row
+          gutter={[24, 24]}
+          className={style.articleRow}
+          key={index}
+          onClick={() => readArticle(article)}
+        >
           <Col xs={24} md={6}>
             <div className={style.articleImage}>
-              <img src={article.thumbnail ?? ''} />
+              <img src={article.thumbnail ?? ''} alt={article.title ?? 'Article thumbnail'} />
             </div>
           </Col>
           <Col xs={24} md={18}>
@@ -40,7 +47,15 @@ const ArticleHighlight: React.FC<Props> = ({ articles, style }) => {
               <Paragraph className={`${style.articleIntroduction} truncate2`}>
                 {article.introduction}
               </Paragraph>
-              <Button onClick={() => readArticle(article)} className={style.articleButton}>Đọc bài viết</Button>
+              <Button
+                onClick={(e) => { 
+                  e.stopPropagation(); 
+                  readArticle(article); 
+                }}
+                className={style.articleButton}
+              >
+                Read Article
+              </Button>
             </div>
           </Col>
         </Row>

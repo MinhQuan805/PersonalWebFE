@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import 'antd/dist/reset.css';
-import { Table, Form, Radio, Badge, Button, Popconfirm, Input, notification } from 'antd';
+import { Table, Form, Radio, Badge, Button, Popconfirm, Input } from 'antd';
 import type { TableProps, RadioChangeEvent } from 'antd';
 import type { TableRowSelection } from 'antd/es/table/interface';
 import type { SortOrder } from 'antd/es/table/interface';
@@ -14,8 +14,6 @@ import { PlusOutlined } from '@ant-design/icons';
 import { FaTrash } from 'react-icons/fa';
 import '@/styles/admin/product/product.css';
 import api from '@/config/api';
-import { RxUpdate } from 'react-icons/rx';
-import axios from 'axios';
 
 type SizeType = TableProps['size'];
 
@@ -41,7 +39,7 @@ export default function Products() {
       }
     } catch (err) {
       console.error('Error fetching products:', err);
-      openNotification('error', 'Lỗi', 'Không thể tải danh sách sản phẩm. Vui lòng thử lại sau.');
+      openNotification('error', 'Error', 'Unable to load product list. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -61,7 +59,7 @@ export default function Products() {
 
   const handleDeleteSelected = async () => {
     if (rowSelected.length === 0) {
-      openNotification('error', 'Lỗi', 'Vui lòng chọn ít nhất một sản phẩm để xóa');
+      openNotification('error', 'Error', 'Please select at least one product to delete');
       return;
     }
     try {
@@ -69,12 +67,12 @@ export default function Products() {
       for (const id of rowSelected) {
         await api.delete(`${process.env.NEXT_PUBLIC_API_ADMIN}/products/deleteSoft/${id}`);
       }
-      openNotification('success', 'Thành công', 'Xóa sản phẩm thành công');
+      openNotification('success', 'Success', 'Selected products deleted successfully');
       fetchAPI();
       setRowSelected([]);
       setHaveSelected(false);
     } catch (err: any) {
-      openNotification('error', 'Lỗi', err.response?.data?.message || 'Không thể xóa sản phẩm. Vui lòng thử lại sau.');
+      openNotification('error', 'Error', err.response?.data?.message || 'Unable to delete products. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -82,53 +80,53 @@ export default function Products() {
 
   const columns = [
     {
-      title: 'Tên sản phẩm',
+      title: 'Product Name',
       dataIndex: 'title',
       key: 'title',
       sorter: (a: ProductType, b: ProductType) => a.title.localeCompare(b.title),
     },
     {
-      title: 'Vị trí',
+      title: 'Position',
       dataIndex: 'position',
       key: 'position',
       sorter: (a: ProductType, b: ProductType) => a.position - b.position,
       sortDirections: ['descend'] as SortOrder[],
     },
     {
-      title: 'Mô tả ngắn',
+      title: 'Short Description',
       dataIndex: 'shortDescription',
       key: 'shortDescription',
       className: 'shortDescription-column',
     },
     {
-      title: 'Tình trạng',
+      title: 'Status',
       dataIndex: 'status',
       key: 'status',
       filters: [
-        { text: 'Hoạt động', value: 'active' },
-        { text: 'Không hoạt động', value: 'inactive' },
-        { text: 'Đang hoàn thành', value: 'ongoing' },
+        { text: 'Active', value: 'active' },
+        { text: 'Inactive', value: 'inactive' },
+        { text: 'Ongoing', value: 'ongoing' },
       ],
       filterSearch: true,
       onFilter: (value: any, record: ProductType) => record.status === value,
       render: (_: any, record: ProductType) => {
         let color = 'gray';
-        let text = 'Không xác định';
+        let text = 'Unknown';
         if (record.status === 'active') {
           color = 'green';
-          text = 'Hoạt động';
+          text = 'Active';
         } else if (record.status === 'inactive') {
           color = 'red';
-          text = 'Không hoạt động';
+          text = 'Inactive';
         } else if (record.status === 'ongoing') {
           color = 'blue';
-          text = 'Đang hoàn thành';
+          text = 'Ongoing';
         }
         return <Badge color={color} text={text} />;
       },
     },
     {
-      title: 'Hành động',
+      title: 'Actions',
       key: 'actions',
       width: '10%',
       render: (_: any, record: ProductType) => (
@@ -176,7 +174,7 @@ export default function Products() {
 
         <div className="btn-action-container">
           <Input.Search
-            placeholder="Tìm kiếm"
+            placeholder="Search"
             variant="underlined"
             style={{ width: 200 }}
             onSearch={handleSearch}
@@ -184,12 +182,12 @@ export default function Products() {
           />
 
           <Button
-            style={{ color: '#006effff', marginLeft: 20, borderRadius: 45, border: '1px solid #006effff' }}
+            style={{ color: '#006eff', marginLeft: 20, borderRadius: 45, border: '1px solid #006eff' }}
             size="middle"
             icon={<PlusOutlined />}
             onClick={() => router.push('/admin/products/create')}
           >
-            <span className="btn-text">Tạo mới</span>
+            <span className="btn-text">Create New</span>
           </Button>
 
           <Button
@@ -198,21 +196,21 @@ export default function Products() {
             icon={<FaTrash />}
             onClick={() => router.push('/admin/products/trash')}
           >
-            <span className="btn-text">Thùng rác</span>
+            <span className="btn-text">Trash</span>
           </Button>
         </div>
 
         {haveSelected && (
           <Popconfirm
-            title="Bạn có chắc chắn muốn xóa sản phẩm đã chọn?"
+            title="Are you sure you want to delete the selected products?"
             onConfirm={handleDeleteSelected}
           >
             <Button
-              style={{ color: 'red', borderRadius: 40, border: '1px solid rgb(255, 0, 0)' }}
+              style={{ color: 'red', borderRadius: 40, border: '1px solid red' }}
               size="middle"
               icon={<FaTrash />}
             >
-              <span className="btn-text">Xóa</span>
+              <span className="btn-text">Delete</span>
             </Button>
           </Popconfirm>
         )}

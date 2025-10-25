@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, Col, DatePicker, Form, Input, Radio, Row, Switch, Upload, InputNumber, notification } from 'antd';
+import { Button, Col, DatePicker, Form, Input, Radio, Row, Switch, Upload, InputNumber } from 'antd';
 import type { UploadFile } from 'antd/es/upload/interface';
 import type { CheckboxGroupProps } from 'antd/es/checkbox';
 import TextEditor from '@/components/admin/TextEditor';
@@ -47,25 +47,21 @@ export default function UpdateProduct() {
         });
 
         if (data.thumbnail) {
-          setThumbnailFileList([
-            {
-              uid: '-1',
-              name: 'thumbnail',
-              status: 'done',
-              url: data.thumbnail,
-            } as UploadFile,
-          ]);
+          setThumbnailFileList([{
+            uid: '-1',
+            name: 'thumbnail',
+            status: 'done',
+            url: data.thumbnail,
+          } as UploadFile]);
         }
   
         if (data.logo) {
-          setLogoFileList([
-            {
-              uid: '-2',
-              name: 'logo',
-              status: 'done',
-              url: data.logo,
-            } as UploadFile,
-          ]);
+          setLogoFileList([{
+            uid: '-2',
+            name: 'logo',
+            status: 'done',
+            url: data.logo,
+          } as UploadFile]);
         }
   
         setEditorContent(data.content || '');
@@ -74,19 +70,19 @@ export default function UpdateProduct() {
     fetchProduct();
   }, [form]);
     
-
-  // Upload ảnh (thumbnail, logo)
+  // Upload images (thumbnail, logo)
   const { customUpload, onPreview } = UploadImage(action_url);
 
   const options: CheckboxGroupProps<string>['options'] = [
-    { label: 'Hoạt động', value: 'active' },
-    { label: 'Không hoạt động', value: 'inactive' },
+    { label: 'Active', value: 'active' },
+    { label: 'Inactive', value: 'inactive' },
   ];
 
   const handleContentChange = (newContent: string) => {
     setEditorContent(newContent);
     form.setFieldsValue({ content: newContent });
   };
+
   const handleUpdate = async () => {
     try {
       const id = sessionStorage.getItem('id');
@@ -111,45 +107,30 @@ export default function UpdateProduct() {
         const response = await api.patch(`${action_url}/update/${parseId}`, data);
         if (response.data.success) {
           sessionStorage.removeItem('articleRecord');
-          openNotification('success', 'Thành công', response.data.message);
+          openNotification('success', 'Success', response.data.message);
           router.push(action_url);
         } else {
-          openNotification('error', 'Lỗi', response.data.message);
+          openNotification('error', 'Error', response.data.message);
         }
       }
     } catch (error: any) {
-      openNotification('error', 'Lỗi', error.response?.data?.message || 'Có lỗi xảy ra');
+      openNotification('error', 'Error', error.response?.data?.message || 'An error occurred');
     }
   };
 
   return (
     <>
       {contextHolder}
-      <Form
-        layout="vertical"
-        form={form}
-        onFinish={handleUpdate}
-      >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            gap: 10,
-            marginBottom: 20,
-          }}
-        >
+      <Form layout="vertical" form={form} onFinish={handleUpdate}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, marginBottom: 20 }}>
           <Button
             onClick={() => router.push(action_url)}
-            style={{
-              outline: 'none',
-              background: 'transparent',
-              border: '1px solid rgb(112, 112, 112)',
-            }}
+            style={{ outline: 'none', background: 'transparent', border: '1px solid rgb(112, 112, 112)' }}
           >
             Cancel
           </Button>
           <Button type="primary" htmlType="submit">
-            Sửa sản phẩm
+            Update Product
           </Button>
         </div>
 
@@ -157,19 +138,19 @@ export default function UpdateProduct() {
           <Col span={12}>
             <Form.Item
               name="title"
-              label="Tên sản phẩm"
-              rules={[{ required: true, message: 'Vui lòng nhập tên sản phẩm' }]}
+              label="Product Name"
+              rules={[{ required: true, message: 'Please enter the product name' }]}
             >
-              <Input placeholder="Nhập tên sản phẩm" />
+              <Input placeholder="Enter product name" />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
               name="position"
-              label="Vị trí"
+              label="Position"
               style={{ marginLeft: 100, width: '30%' }}
             >
-              <InputNumber placeholder="Nhập vị trí" style={{ width: '100%' }} />
+              <InputNumber placeholder="Enter position" style={{ width: '100%' }} />
             </Form.Item>
           </Col>
         </Row>
@@ -178,26 +159,26 @@ export default function UpdateProduct() {
           <Col span={12}>
             <Form.Item
               name="shortDescription"
-              label="Mô tả ngắn"
-              rules={[{ required: true, message: 'Vui lòng nhập mô tả ngắn' }]}
+              label="Short Description"
+              rules={[{ required: true, message: 'Please enter a short description' }]}
             >
-              <Input.TextArea rows={4} placeholder="Nhập mô tả ngắn" />
+              <Input.TextArea rows={4} placeholder="Enter short description" />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
               name="introduction"
-              label="Giới thiệu"
-              rules={[{ required: true, message: 'Vui lòng nhập phần giới thiệu' }]}
+              label="Introduction"
+              rules={[{ required: true, message: 'Please enter an introduction' }]}
             >
-              <Input.TextArea rows={4} placeholder="Nhập phần giới thiệu" />
+              <Input.TextArea rows={4} placeholder="Enter introduction" />
             </Form.Item>
           </Col>
         </Row>
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
           <Col span={12}>
-            <Form.Item name="thumbnail" label="Ảnh bìa">
+            <Form.Item name="thumbnail" label="Thumbnail">
               <Upload
                 name="thumbnail"
                 customRequest={customUpload}
@@ -245,57 +226,52 @@ export default function UpdateProduct() {
             <Form.Item
               name="github"
               label="GitHub URL"
-              rules={[{ type: 'url', message: 'Vui lòng nhập URL hợp lệ' }]}
+              rules={[{ type: 'url', message: 'Please enter a valid URL' }]}
             >
-              <Input placeholder="Nhập URL GitHub" />
+              <Input placeholder="Enter GitHub URL" />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item
-              name="website"
-              label="Website URL"
-            >
-              <Input placeholder="Nhập URL Website" />
+            <Form.Item name="website" label="Website URL">
+              <Input placeholder="Enter Website URL" />
             </Form.Item>
           </Col>
         </Row>
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
           <Col span={12}>
-            <Form.Item
-              name="video"
-              label="Video"
-            >
-              <Input placeholder="Nhập Url Youtube" />
+            <Form.Item name="video" label="Video">
+              <Input placeholder="Enter YouTube URL" />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="status" label="Trạng thái" style={{width: 300}}>
-              <Radio.Group block options={options} defaultValue="ongoing" />
+            <Form.Item name="status" label="Status" style={{ width: 300 }}>
+              <Radio.Group block options={options} defaultValue="active" />
             </Form.Item>
           </Col>
         </Row>
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
           <Col span={12}>
-            <Form.Item name="createdAt" label="Ngày tạo">
+            <Form.Item name="createdAt" label="Created Date">
               <DatePicker />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="outstand" label="Nổi bật" valuePropName="checked">
+            <Form.Item name="outstand" label="Featured" valuePropName="checked">
               <Switch />
             </Form.Item>
           </Col>
         </Row>
+
         <Row gutter={16} style={{ marginBottom: 10 }}>
           <Col span={24}>
-            <Form.Item name="content" label="Nội dung">
+            <Form.Item name="content" label="Content">
               <TextEditor
-                  editorRef={editorRef}
-                  value={editorContent}
-                  onContentChange={handleContentChange}
-                />
+                editorRef={editorRef}
+                value={editorContent}
+                onContentChange={handleContentChange}
+              />
             </Form.Item>
           </Col>
         </Row>

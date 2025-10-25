@@ -22,19 +22,20 @@ const LoginPage = () => {
         Cookies.set('accessToken', accessToken);
         Cookies.set('refreshToken', refreshToken);
 
-        message.success('Đăng nhập thành công!');
-        router.push('/admin/articles'); // Điều hướng đến trang admin
+        message.success('Login successful!');
+        router.push('/admin/articles'); // Redirect to admin page
       } else {
-        openNotification('error', 'Lỗi', 'Tài khoản người dùng không hợp lệ');
+        openNotification('error', 'Error', 'Invalid user account');
       }
     } catch (err: any) {
       message.error(
-        err?.response?.data?.message || 'Đăng nhập thất bại, vui lòng thử lại!'
+        err?.response?.data?.message || 'Login failed, please try again!'
       );
     } finally {
       setLoading(false);
     }
   };
+
   const fetchWithToken = async (url: string) => {
     const token = Cookies.get('accessToken');
     const res = await fetch(url, {
@@ -57,31 +58,37 @@ const LoginPage = () => {
           borderRadius: 8,
         }}
       >
-        <h2 style={{ textAlign: 'center' }}>Đăng nhập Admin</h2>
+        <h2 style={{ textAlign: 'center' }}>Admin Login</h2>
         <Form layout="vertical" onFinish={onFinish}>
           <Form.Item
             label="Email"
             name="email"
-            rules={[{ required: true, message: 'Vui lòng nhập email!' }]}
+            rules={[{ required: true, message: 'Please enter your email!' }]}
           >
-            <Input type="email" placeholder="Nhập email" />
+            <Input type="email" placeholder="Enter your email" />
           </Form.Item>
+
           <Form.Item
-            label="Mật khẩu"
+            label="Password"
             name="password"
-            rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
+            rules={[{ required: true, message: 'Please enter your password!' }]}
           >
-            <Input.Password placeholder="Nhập mật khẩu" />
+            <Input.Password placeholder="Enter your password" />
           </Form.Item>
+
           <Form.Item>
             <Button type="primary" htmlType="submit" block loading={loading}>
-              Đăng nhập
+              Login
             </Button>
           </Form.Item>
         </Form>
-        <div style={{display: "flex", justifyContent: "center"}}>
-          <Button size="middle" onClick={() => window.open(process.env.NEXT_PUBLIC_API_URL, "_blank")}>
-            Bật Server
+
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Button
+            size="middle"
+            onClick={() => window.open(process.env.NEXT_PUBLIC_API_URL, '_blank')}
+          >
+            Start Server
           </Button>
         </div>
       </div>

@@ -24,13 +24,16 @@ export default function Trash() {
   const fetchAPI = async () => {
     setLoading(true);
     try {
-      const resArticle = await api.get(`${process.env.NEXT_PUBLIC_API_ADMIN}/articles`, {params: { deleted: true },});
+      const resArticle = await api.get(`${process.env.NEXT_PUBLIC_API_ADMIN}/articles`, {
+        params: { deleted: true },
+      });
       setArticles(resArticle.data.data);
     } catch (err) {
       console.error('Error fetching articles:', err);
-      openNotification('error', 'Lỗi', 'Không thể tải danh sách bài viết. Vui lòng thử lại sau.');
+      openNotification('error', 'Error', 'Failed to load article list. Please try again later.');
     } finally {
-      setLoading(false); }
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -46,7 +49,7 @@ export default function Trash() {
 
   const handleDeleteSelected = async () => {
     if (rowSelected.length === 0) {
-      openNotification('error', 'Lỗi', 'Vui lòng chọn ít nhất một bài viết để xóa');
+      openNotification('error', 'Error', 'Please select at least one article to delete.');
       return;
     }
     try {
@@ -54,12 +57,16 @@ export default function Trash() {
       for (const id of rowSelected) {
         await api.delete(`${process.env.NEXT_PUBLIC_API_ADMIN}/articles/deleteHard/${id}`);
       }
-      openNotification('success', 'Thành công', 'Xóa bài viết thành công');
+      openNotification('success', 'Success', 'Articles deleted permanently.');
       fetchAPI();
       setRowSelected([]);
       setHaveSelected(false);
     } catch (err: any) {
-      openNotification('error', 'Lỗi', err.response?.data?.message || 'Không thể xóa bài viết. Vui lòng thử lại sau.');
+      openNotification(
+        'error',
+        'Error',
+        err.response?.data?.message || 'Unable to delete articles. Please try again later.'
+      );
     } finally {
       setLoading(false);
     }
@@ -67,7 +74,7 @@ export default function Trash() {
 
   const handleRecoverySelected = async () => {
     if (rowSelected.length === 0) {
-      openNotification('error', 'Lỗi', 'Vui lòng chọn ít nhất một bài viết để phục hồi');
+      openNotification('error', 'Error', 'Please select at least one article to restore.');
       return;
     }
 
@@ -76,18 +83,20 @@ export default function Trash() {
       for (const id of rowSelected) {
         await api.patch(`${process.env.NEXT_PUBLIC_API_ADMIN}/articles/recovery/${id}`);
       }
-      openNotification('success', 'Thành công', 'Phục hồi bài viết thành công');
-
+      openNotification('success', 'Success', 'Articles restored successfully.');
       fetchAPI();
       setRowSelected([]);
       setHaveSelected(false);
     } catch (err: any) {
-      openNotification('error', 'Lỗi', err.response?.data?.message || 'Không thể phục hồi bài viết. Vui lòng thử lại sau.');
+      openNotification(
+        'error',
+        'Error',
+        err.response?.data?.message || 'Unable to restore articles. Please try again later.'
+      );
     } finally {
       setLoading(false);
     }
   };
-
 
   const handleSizeChange = (e: RadioChangeEvent) => {
     setSize(e.target.value);
@@ -95,23 +104,29 @@ export default function Trash() {
 
   const columns = [
     {
-      title: 'Tiêu đề',
+      title: 'Title',
       dataIndex: 'title',
       width: '35%',
       key: 'title',
       sorter: (a: ArticleType, b: ArticleType) => a.title.localeCompare(b.title),
     },
     {
-      title: 'Giới thiệu',
+      title: 'Introduction',
       dataIndex: 'introduction',
       key: 'introduction',
     },
     {
-      title: 'Hành động',
+      title: 'Actions',
       key: 'actions',
       width: '10%',
       render: (_: any, record: ArticleType) => (
-        <Action record={record} onChangeData={fetchAPI} url={'articles'} openNotification={openNotification} recovery={true} />
+        <Action
+          record={record}
+          onChangeData={fetchAPI}
+          url={'articles'}
+          openNotification={openNotification}
+          recovery={true}
+        />
       ),
     },
   ];
@@ -141,17 +156,17 @@ export default function Trash() {
         ></Button>
 
         <Form layout="inline" className="table-demo-control-bar" style={{ marginBottom: 0 }}>
-          <Form.Item label="Size">
+          <Form.Item label="Table Size">
             <Radio.Group value={size} onChange={handleSizeChange}>
               <Radio.Button value="large">Large</Radio.Button>
-              <Radio.Button value="middle">Middle</Radio.Button>
+              <Radio.Button value="middle">Medium</Radio.Button>
               <Radio.Button value="small">Small</Radio.Button>
             </Radio.Group>
           </Form.Item>
         </Form>
 
         <Popconfirm
-          title="Bạn có chắc chắn muốn xóa vĩnh viễn bài viết đã chọn?"
+          title="Are you sure you want to permanently delete the selected articles?"
           onConfirm={() => handleDeleteSelected()}
         >
           <Button
@@ -164,7 +179,7 @@ export default function Trash() {
             size="middle"
             icon={<FaTrash />}
           >
-            <span className="btn-text">Xóa</span>
+            <span className="btn-text">Delete</span>
           </Button>
         </Popconfirm>
 
@@ -178,7 +193,7 @@ export default function Trash() {
           size="middle"
           icon={<FaTrashRestore />}
         >
-          Phục hồi
+          Restore
         </Button>
       </div>
 

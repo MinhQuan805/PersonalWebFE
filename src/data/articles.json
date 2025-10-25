@@ -1,12 +1,12 @@
 {
   "tags": [
-    { "label": "Notes", "value": "Notes"},
-    { "label": "Hệ điều hành", "value": "Hệ điều hành" },
-    { "label": "Mạng máy tính", "value": "Mạng máy tính" },
+    { "label": "Notes", "value": "Notes" },
+    { "label": "Operating System", "value": "Operating System" },
+    { "label": "Computer Networks", "value": "Computer Networks" },
     { "label": "Database", "value": "Database" },
-    { "label": "Bảo mật", "value": "Bảo mật" },
-    { "label": "Hướng đối tượng", "value": "Hướng đối tượng" },
-    { "label": "Cấu trúc dữ liệu", "value": "Cấu trúc dữ liệu" },
-    { "label": "Giải thuật", "value": "Giải thuật" }
+    { "label": "Security", "value": "Security" },
+    { "label": "Object-Oriented Programming", "value": "Object-Oriented Programming" },
+    { "label": "Data Structures", "value": "Data Structures" },
+    { "label": "Algorithms", "value": "Algorithms" }
   ]
 }

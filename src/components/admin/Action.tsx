@@ -9,6 +9,7 @@ import api from '@/config/api';
 import axios from 'axios';
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error';
+
 export type ActionProps = {
   record?: any;
   onChangeData: () => void;
@@ -19,14 +20,14 @@ export type ActionProps = {
 
 function Action({ record, onChangeData, url, openNotification, recovery = false }: ActionProps) {
   const router = useRouter();
+  const action_url = `${process.env.NEXT_PUBLIC_API_ADMIN}/${url}`;
 
-  const action_url = `${process.env.NEXT_PUBLIC_API_ADMIN}/${url}`
   const handleDeleteSoft = async () => {
     const res = await api.delete(`${action_url}/deleteSoft/${record._id}`);
     if (res.data.success) {
-      openNotification('success', 'Thành công', res.data.message);
+      openNotification('success', 'Success', res.data.message);
     } else {
-      openNotification('error', 'Lỗi', res.data.message);
+      openNotification('error', 'Error', res.data.message);
     }
     onChangeData();
   };
@@ -34,9 +35,9 @@ function Action({ record, onChangeData, url, openNotification, recovery = false 
   const handleDeleteHard = async () => {
     const res = await api.delete(`${url === 'users' ? url : action_url}/deleteHard/${record._id}`);
     if (res.data.success) {
-      openNotification('success', 'Thành công', res.data.message);
+      openNotification('success', 'Success', res.data.message);
     } else {
-      openNotification('error', 'Lỗi', res.data.message);
+      openNotification('error', 'Error', res.data.message);
     }
     onChangeData();
   };
@@ -44,9 +45,9 @@ function Action({ record, onChangeData, url, openNotification, recovery = false 
   const handleRecovery = async () => {
     const res = await api.patch(`${action_url}/recovery/${record._id}`);
     if (res.data.success) {
-      openNotification('success', 'Thành công', res.data.message);
+      openNotification('success', 'Success', res.data.message);
     } else {
-      openNotification('error', 'Lỗi', res.data.message);
+      openNotification('error', 'Error', res.data.message);
     }
     onChangeData();
   };
@@ -60,6 +61,7 @@ function Action({ record, onChangeData, url, openNotification, recovery = false 
     const response = await axios.get(`${action_url}/detail/${record._id}`);
     console.log(response.data);
   };
+
   const items: MenuProps['items'] = recovery
     ? [
         {
@@ -67,14 +69,14 @@ function Action({ record, onChangeData, url, openNotification, recovery = false 
           danger: true,
           label: (
             <Popconfirm
-              title="Bạn có chắc chắn muốn xóa vĩnh viễn?"
+              title="Are you sure you want to permanently delete?"
               onConfirm={handleDeleteHard}
-              okText="Xóa"
-              cancelText="Hủy"
+              okText="Delete"
+              cancelText="Cancel"
             >
               <span>
                 <DeleteOutlined style={{ color: 'red', marginRight: 8 }} />
-                Xóa vĩnh viễn
+                Delete Permanently
               </span>
             </Popconfirm>
           ),
@@ -84,7 +86,7 @@ function Action({ record, onChangeData, url, openNotification, recovery = false 
           label: (
             <span onClick={handleRecovery}>
               <FaTrashRestore style={{ color: 'green', marginRight: 8 }} />
-              Phục hồi
+              Restore
             </span>
           ),
         },
@@ -97,7 +99,7 @@ function Action({ record, onChangeData, url, openNotification, recovery = false 
                 label: (
                   <span onClick={handleDetail}>
                     <FaInfoCircle style={{ color: 'green', marginRight: 15 }} />
-                    Chi tiết
+                    Details
                   </span>
                 ),
               },
@@ -108,7 +110,7 @@ function Action({ record, onChangeData, url, openNotification, recovery = false 
           label: (
             <span onClick={handleUpdate}>
               <EditOutlined style={{ color: 'orange', marginRight: 8 }} />
-              Sửa
+              Edit
             </span>
           ),
         },
@@ -117,14 +119,14 @@ function Action({ record, onChangeData, url, openNotification, recovery = false 
           danger: true,
           label: (
             <Popconfirm
-              title="Bạn có chắc chắn muốn xóa?"
+              title="Are you sure you want to delete?"
               onConfirm={url === `users` ? handleDeleteHard : handleDeleteSoft}
-              okText="Xóa"
-              cancelText="Hủy"
+              okText="Delete"
+              cancelText="Cancel"
             >
               <span>
                 <DeleteOutlined style={{ color: 'red', marginRight: 8 }} />
-                Xóa
+                Delete
               </span>
             </Popconfirm>
           ),
@@ -132,22 +134,20 @@ function Action({ record, onChangeData, url, openNotification, recovery = false 
       ];
 
   return (
-    <>
-      <Dropdown trigger={['click']} menu={{ items }}>
-        <Button
-          type="text"
-          icon={<MoreOutlined style={{ fontSize: '20px' }} />}
-          style={{
-            border: 'none',
-            boxShadow: 'none',
-            color: 'black',
-            outline: 'none',
-            padding: 0,
-            background: 'transparent',
-          }}
-        />
-      </Dropdown>
-    </>
+    <Dropdown trigger={['click']} menu={{ items }}>
+      <Button
+        type="text"
+        icon={<MoreOutlined style={{ fontSize: '20px' }} />}
+        style={{
+          border: 'none',
+          boxShadow: 'none',
+          color: 'black',
+          outline: 'none',
+          padding: 0,
+          background: 'transparent',
+        }}
+      />
+    </Dropdown>
   );
 }
 

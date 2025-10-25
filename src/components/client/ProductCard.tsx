@@ -6,6 +6,7 @@ import { ProductType } from '@/lib/models/product.model';
 import { sendGAEvent } from '@next/third-parties/google';
 import { FaGithub } from 'react-icons/fa';
 import personal from '@/data/personal.json';
+
 const { Paragraph } = Typography;
 
 type Props = {
@@ -33,17 +34,19 @@ const ProductCard: React.FC<Props> = ({ product, style }) => {
           {product.shortDescription}
         </Paragraph>
         <div className={style.action}>
-          <Button className={style.productButton}
+          <Button
+            className={style.productButton}
             onClick={() => handleLearnMore(product.title, product.github)}
             style={{ background: '#eaf3fa', color: '#222' }}
             icon={<FaGithub />}
-          > Tìm hiểu
+          >
+            Learn More
           </Button>
           <a
             href={`https://mail.google.com/mail/?view=cm&fs=1&to=${personal.about.info.email}&su=${encodeURIComponent(
-              `Feedback cho sản phẩm ${product.title}`
+              `Feedback for product ${product.title}`
             )}&body=${encodeURIComponent(
-              `Xin chào Quân,\nTôi muốn góp ý về sản phẩm ${product.title}...`
+              `Hi Quan,\nI’d like to give feedback about your product ${product.title}...`
             )}`}
             target="_blank"
             rel="noopener noreferrer"

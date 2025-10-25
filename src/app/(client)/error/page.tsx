@@ -13,7 +13,7 @@ const ErrorPageContent = () => {
     <Result
       status="error"
       title={msg || "Something went wrong"}
-      subTitle="Vui lòng thử lại"
+      subTitle="Try later"
       extra={
         <Button type="primary" onClick={() => router.push('/')}>
           Back to Home

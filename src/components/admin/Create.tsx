@@ -12,14 +12,14 @@ export const CreateNewData = async ({ action_url, data, openNotification }: Crea
     const response = await api.post(`${action_url}/create`, data);
 
     if (response.data.success) {
-      openNotification('success', 'Thành công', response.data.message);
+      openNotification('success', 'Success', response.data.message);
       return true;
     } else {
-      openNotification('error', 'Lỗi', response.data.message);
+      openNotification('error', 'Error', response.data.message);
       return false;
     }
   } catch (error: any) {
-    openNotification('error', 'Lỗi', error.response?.data?.message || 'Có lỗi xảy ra');
+    openNotification('error', 'Error', error.response?.data?.message || 'Có lỗi xảy ra');
     return false;
   }
 };

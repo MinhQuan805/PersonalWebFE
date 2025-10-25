@@ -24,8 +24,8 @@ const PAGE_SIZE = 5;
 export default function Home() {
   const router = useRouter();
   
-  // Lấy dữ liệu từ Redux
-  const { products, loadingProducts} = useProducts();
+  // Get data from Redux
+  const { products, loadingProducts } = useProducts();
   const { articles, loadingArticles } = useArticles();
 
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
@@ -34,7 +34,8 @@ export default function Home() {
   const [page, setPage] = useState(1);
 
   const [api, contextHolder] = notification.useNotification();
-  // Lọc + sort articles
+
+  // Filter + sort articles
   const filteredArticles = (() => {
     let result = [...articles];
 
@@ -77,11 +78,11 @@ export default function Home() {
     <div className="article-main">
       {contextHolder}
       <div className="article-banner">
-        <h1 className="hero-title">BÀI VIẾT</h1>
+        <h1 className="hero-title">ARTICLES</h1>
       </div>
       <Spin spinning={loadingProducts || loadingArticles}>
         <div className="highlight-container">
-          <Title level={4} style={{ marginRight: 'auto' }}>BÀI VIẾT NỔI BẬT</Title>
+          <Title level={4} style={{ marginRight: 'auto' }}>FEATURED ARTICLES</Title>
           <Row gutter={[24, 24]} className='highlight-row'>
             {articles
               .filter(item => item.outstand)
@@ -102,7 +103,7 @@ export default function Home() {
                         onClick={(e) => { e.stopPropagation(); readArticle(article); }}
                         className="highlight-button"
                       >
-                        Đọc bài viết
+                        Read Article
                       </Button>
                     </div>
                   </div>
@@ -111,34 +112,37 @@ export default function Home() {
           </Row>
         </div>
 
-        {/* Danh sách bài viết */}
+        {/* Article List */}
         <Row gutter={0} className={OverrideStyle.articleMain}>
           <Col md={24} lg={16} className={OverrideStyle.columnLeft}>
-            {/* Bộ lọc */}
+            {/* Filters */}
             <div className={OverrideStyle.articleHeader}>
-              <Title level={4} className={OverrideStyle.articleHeaderLeft}>DÀNH CHO BẠN</Title>
+              <Title level={4} className={OverrideStyle.articleHeaderLeft}>RECOMMENDED FOR YOU</Title>
               <div className={OverrideStyle.articleHeaderRight}>
                 <Input.Search
                   className="custom-search"
-                  placeholder="Tìm kiếm"
+                  placeholder="Search"
                   onSearch={setKeyword}
                   onChange={(e) => setKeyword(e.target.value)}
                   value={keyword}
                 />
                 <Dropdown menu={{ items: [
-                  { label: <span style={{ color: selectedTag === null ? '#1890ff' : undefined }}>Tất cả</span>, key: "" },
+                  { label: <span style={{ color: selectedTag === null ? '#1890ff' : undefined }}>All</span>, key: "" },
                   { type: 'divider' as const },
                   ...articleConfig.tags.map(tag => ({
-                  label: ( <span style={{ color: selectedTag === tag.value ? '#1890ff' : undefined }}>{tag.label}</span> ), key: tag.value,})),
-                ], onClick: ({ key }) => setSelectedTag(key || null) }} trigger={['click']}>
+                  label: ( <span style={{ color: selectedTag === tag.value ? '#1890ff' : undefined }}>{tag.label}</span> ), key: tag.value,}))],
+                  onClick: ({ key }) => setSelectedTag(key || null)
+                }} trigger={['click']}>
                   <Button className="button-filter"><FaFilter /></Button>
                 </Dropdown>
                 <Dropdown menu={{ items: [
-                  { label: <span style={{ color: selectedSort === "createdAt-desc" ? '#1890ff' : undefined }}>Mới nhất</span>, key: 'createdAt-desc' },
-                  { label: <span style={{ color: selectedSort === "createdAt-asc" ? '#1890ff' : undefined }}>Cũ nhất</span>, key: 'createdAt-asc' },
-                  { label: <span style={{ color: selectedSort === "title-asc" ? '#1890ff' : undefined }}>Tên A → Z</span>, key: 'title-asc' },
-                  { label: <span style={{ color: selectedSort === "title-desc" ? '#1890ff' : undefined }}>Tên Z → A</span>, key: 'title-desc' },
-                ], onClick: ({ key }) => setSelectedSort(key) }} trigger={['click']}>
+                  { label: <span style={{ color: selectedSort === "createdAt-desc" ? '#1890ff' : undefined }}>Newest</span>, key: 'createdAt-desc' },
+                  { label: <span style={{ color: selectedSort === "createdAt-asc" ? '#1890ff' : undefined }}>Oldest</span>, key: 'createdAt-asc' },
+                  { label: <span style={{ color: selectedSort === "title-asc" ? '#1890ff' : undefined }}>Title A → Z</span>, key: 'title-asc' },
+                  { label: <span style={{ color: selectedSort === "title-desc" ? '#1890ff' : undefined }}>Title Z → A</span>, key: 'title-desc' },
+                ],
+                onClick: ({ key }) => setSelectedSort(key)
+                }} trigger={['click']}>
                   <Button className="button-filter"><TbArrowsSort /></Button>
                 </Dropdown>
               </div>

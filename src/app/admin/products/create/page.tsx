@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { Button, Col, DatePicker, Form, Input, Radio, Row, Switch, Upload, InputNumber, notification } from 'antd';
+import { Button, Col, DatePicker, Form, Input, Radio, Row, Switch, Upload, InputNumber } from 'antd';
 import type { UploadProps, UploadFile } from 'antd/es/upload/interface';
 import type { CheckboxGroupProps } from 'antd/es/checkbox';
 import TextEditor from '@/components/admin/TextEditor';
@@ -14,7 +14,6 @@ import { CreateNewData } from '@/components/admin/Create';
 
 export default function CreateProduct() {
   const router = useRouter();
-  const [fileList, setFileList] = useState<any[]>([]);
   const [thumbnailFileList, setThumbnailFileList] = useState<any[]>([]);
   const [logoFileList, setLogoFileList] = useState<any[]>([]);
   const [form] = Form.useForm();
@@ -24,12 +23,12 @@ export default function CreateProduct() {
 
   const action_url = '/admin/products';
 
-  // Upload ảnh (thumbnail, logo)
+  // Upload images (thumbnail, logo)
   const { customUpload, onPreview } = UploadImage(action_url);
 
   const options: CheckboxGroupProps<string>['options'] = [
-    { label: 'Hoạt động', value: 'active' },
-    { label: 'Không hoạt động', value: 'inactive' },
+    { label: 'Active', value: 'active' },
+    { label: 'Inactive', value: 'inactive' },
   ];
 
   const handleCreate = async () => {
@@ -49,7 +48,7 @@ export default function CreateProduct() {
       status: form.getFieldValue('status'),
       createdAt: createdAt ? createdAt.toDate() : new Date(),
     };
-    const success = await CreateNewData({action_url, data, openNotification});
+    const success = await CreateNewData({ action_url, data, openNotification });
     if (success) {
       router.push(action_url);
     }
@@ -83,7 +82,7 @@ export default function CreateProduct() {
             Cancel
           </Button>
           <Button type="primary" htmlType="submit">
-            Tạo sản phẩm
+            Create Product
           </Button>
         </div>
 
@@ -91,19 +90,19 @@ export default function CreateProduct() {
           <Col span={12}>
             <Form.Item
               name="title"
-              label="Tên sản phẩm"
-              rules={[{ required: true, message: 'Vui lòng nhập tên sản phẩm' }]}
+              label="Product Name"
+              rules={[{ required: true, message: 'Please enter the product name' }]}
             >
-              <Input placeholder="Nhập tên sản phẩm" />
+              <Input placeholder="Enter product name" />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
               name="position"
-              label="Vị trí"
+              label="Position"
               style={{ marginLeft: 100, width: '30%' }}
             >
-              <InputNumber placeholder="Nhập vị trí" style={{ width: '100%' }} />
+              <InputNumber placeholder="Enter position" style={{ width: '100%' }} />
             </Form.Item>
           </Col>
         </Row>
@@ -112,26 +111,26 @@ export default function CreateProduct() {
           <Col span={12}>
             <Form.Item
               name="shortDescription"
-              label="Mô tả ngắn"
-              rules={[{ required: true, message: 'Vui lòng nhập mô tả ngắn' }]}
+              label="Short Description"
+              rules={[{ required: true, message: 'Please enter a short description' }]}
             >
-              <Input.TextArea rows={4} placeholder="Nhập mô tả ngắn" />
+              <Input.TextArea rows={4} placeholder="Enter short description" />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
               name="introduction"
-              label="Giới thiệu"
-              rules={[{ required: true, message: 'Vui lòng nhập phần giới thiệu' }]}
+              label="Introduction"
+              rules={[{ required: true, message: 'Please enter the introduction' }]}
             >
-              <Input.TextArea rows={4} placeholder="Nhập phần giới thiệu" />
+              <Input.TextArea rows={4} placeholder="Enter introduction" />
             </Form.Item>
           </Col>
         </Row>
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
           <Col span={12}>
-            <Form.Item name="thumbnail" label="Ảnh bìa">
+            <Form.Item name="thumbnail" label="Thumbnail">
               <Upload
                 name="thumbnail"
                 customRequest={customUpload}
@@ -179,45 +178,39 @@ export default function CreateProduct() {
             <Form.Item
               name="github"
               label="GitHub URL"
-              rules={[{ type: 'url', message: 'Vui lòng nhập URL hợp lệ' }]}
+              rules={[{ type: 'url', message: 'Please enter a valid URL' }]}
             >
-              <Input placeholder="Nhập URL GitHub" />
+              <Input placeholder="Enter GitHub URL" />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item
-              name="website"
-              label="Website URL"
-            >
-              <Input placeholder="Nhập URL Website" />
+            <Form.Item name="website" label="Website URL">
+              <Input placeholder="Enter Website URL" />
             </Form.Item>
           </Col>
         </Row>
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
           <Col span={12}>
-            <Form.Item
-              name="video"
-              label="Video"
-            >
-              <Input placeholder="Nhập Url Youtube" />
+            <Form.Item name="video" label="Video">
+              <Input placeholder="Enter Youtube URL" />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="status" label="Trạng thái">
-              <Radio.Group block options={options} defaultValue="ongoing" />
+            <Form.Item name="status" label="Status">
+              <Radio.Group block options={options} defaultValue="active" />
             </Form.Item>
           </Col>
         </Row>
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
           <Col span={12}>
-            <Form.Item name="createdAt" label="Ngày tạo">
+            <Form.Item name="createdAt" label="Created Date">
               <DatePicker />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="outstand" label="Nổi bật" valuePropName="checked">
+            <Form.Item name="outstand" label="Featured" valuePropName="checked">
               <Switch />
             </Form.Item>
           </Col>
@@ -225,7 +218,7 @@ export default function CreateProduct() {
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
           <Col span={24}>
-            <Form.Item name="content" label="Nội dung">
+            <Form.Item name="content" label="Content">
               <TextEditor
                 editorRef={editorRef}
                 value={editorContent}

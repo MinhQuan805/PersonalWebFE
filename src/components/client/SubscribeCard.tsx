@@ -3,8 +3,7 @@ import { Form, Input, Button, Typography } from 'antd';
 import AOS from 'aos';
 import { useEffect, useState } from 'react';
 import { NotificationInstance } from 'antd/es/notification/interface';
-import { FaBell, FaCode } from 'react-icons/fa';
-
+import { FaBell } from 'react-icons/fa';
 import axios from 'axios';
 import { IoCodeSharp, IoCodeSlash } from 'react-icons/io5';
 
@@ -25,9 +24,18 @@ const SubscribeCard: React.FC<Props> = ({ api }: Props) => {
     setLoading(true);
     try {
       const res = await axios.post(`${process.env.NEXT_PUBLIC_API_GET}/subscribe`, { email });
-      api.success({ message: res.data.message || 'Đăng ký thành công!', placement: 'topRight', duration: 3 });
+      api.success({
+        message: res.data.message || 'Subscription successful!',
+        placement: 'topRight',
+        duration: 3,
+      });
     } catch (err: any) {
-      api.error({ message: 'Lỗi', description: err.response?.data?.error || 'Không thể đăng ký', placement: 'topRight', duration: 3 });
+      api.error({
+        message: 'Error',
+        description: err.response?.data?.error || 'Unable to subscribe',
+        placement: 'topRight',
+        duration: 3,
+      });
     } finally {
       setLoading(false);
     }
@@ -42,38 +50,39 @@ const SubscribeCard: React.FC<Props> = ({ api }: Props) => {
     >
       <Title level={2} className="newsletter-title" style={{ marginBottom: 20 }}>
         <IoCodeSharp className="newsletter-logo" />
-          Bạn muốn khám phá <span className="newsletter-highlight"> Source Code </span> của trang này? 
+        Do you want to explore the <span className="newsletter-highlight"> Source Code </span> of this site?
         <IoCodeSlash className="newsletter-logo" />
       </Title>
+
       <div className="newsletter-section">
         <p style={{ color: '#666', marginBottom: 20, fontSize: 22 }}>
-          Đăng ký để nhận source code ngay trong hộp thư của bạn!
+          Subscribe to receive the source code directly in your inbox!
         </p>
+
         <Form
-          layout='inline'
+          layout="inline"
           onFinish={(values) => handleSubscribe(values.email)}
           style={{ justifyContent: 'center', marginTop: 20 }}
         >
           <div className="newsletter-receiver">
-            <Form.Item
-              name="email"
-            >
+            <Form.Item name="email">
               <Input
-                placeholder="Email của bạn"
+                placeholder="Your email"
                 size="large"
                 className="newsletter-input"
-                aria-label="Nhập email để đăng ký nhận source code"
+                aria-label="Enter your email to subscribe to the source code"
               />
             </Form.Item>
+
             <Form.Item data-aos="zoom-in" data-aos-delay="100">
               <Button
                 htmlType="submit"
                 size="large"
                 className="newsletter-btn"
                 loading={loading}
-                aria-label="Đăng ký nhận source code"
+                aria-label="Subscribe to receive source code"
               >
-                <FaBell /> Đăng ký
+                <FaBell /> Subscribe
               </Button>
             </Form.Item>
           </div>

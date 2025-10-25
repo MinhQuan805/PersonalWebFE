@@ -30,24 +30,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     //   onClick: () => router.push('/admin'),
     // },
     {
-      label: 'Bài viết',
+      label: 'Articles',
       icon: <FaNewspaper />,
       key: 'articles',
       children: [
         {
-          label: 'Danh sách',
+          label: 'List',
           icon: <FaNewspaper />,
           key: '/admin/articles',
           onClick: () => router.push('/admin/articles'),
         },
         {
-          label: 'Tạo mới',
+          label: 'Create New',
           icon: <FaPlus />,
           key: '/admin/articles/create',
           onClick: () => router.push('/admin/articles/create'),
         },
         {
-          label: 'Thùng rác',
+          label: 'Trash',
           icon: <FaTrash />,
           key: '/admin/articles/trash',
           onClick: () => router.push('/admin/articles/trash'),
@@ -55,24 +55,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       ],
     },
     {
-      label: 'Sản Phẩm',
+      label: 'Products',
       icon: <AiOutlineProduct />,
       key: 'products',
       children: [
         {
-          label: 'Danh sách',
+          label: 'List',
           icon: <AiOutlineProduct />,
           key: '/admin/products',
           onClick: () => router.push('/admin/products'),
         },
         {
-          label: 'Tạo mới',
+          label: 'Create New',
           icon: <FaPlus />,
           key: '/admin/products/create',
           onClick: () => router.push('/admin/products/create'),
         },
         {
-          label: 'Thùng rác',
+          label: 'Trash',
           icon: <FaTrash />,
           key: '/admin/products/trash',
           onClick: () => router.push('/admin/products/trash'),
@@ -80,7 +80,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       ],
     },
     {
-      label: 'Tài khoản',
+      label: 'Users',
       icon: <FaUser />,
       key: '/admin/users',
       onClick: () => router.push('/admin/users'),

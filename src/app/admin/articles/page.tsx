@@ -2,20 +2,19 @@
 
 import { useEffect, useState } from 'react';
 import 'antd/dist/reset.css';
-import { Table, Form, Radio, Badge, Button, Popconfirm, Input, notification } from 'antd';
+import { Table, Form, Radio, Badge, Button, Popconfirm, Input } from 'antd';
 import type { TableProps, RadioChangeEvent } from 'antd';
 import type { TableRowSelection } from 'antd/es/table/interface';
 import type { SortOrder } from 'antd/es/table/interface';
 import type { ArticleType } from '@/lib/models/article.model';
-import useAppNotification from '@/components/useAppNotification'
+import useAppNotification from '@/components/useAppNotification';
 import Action from '@/components/admin/Action';
 import { PlusOutlined } from '@ant-design/icons';
 import { FaTrash } from 'react-icons/fa';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import '@/styles/admin/article/article.css';
 import api from '@/config/api';
-import axios from 'axios';
-import { RxUpdate } from 'react-icons/rx';
+
 type SizeType = TableProps['size'];
 
 export default function Article() {
@@ -40,7 +39,7 @@ export default function Article() {
       }
     } catch (err) {
       console.error('Error fetching articles:', err);
-      openNotification('error', 'Lỗi', 'Không thể tải danh sách bài viết. Vui lòng thử lại sau.');
+      openNotification('error', 'Error', 'Unable to load article list. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -60,7 +59,7 @@ export default function Article() {
 
   const handleDeleteSelected = async () => {
     if (rowSelected.length === 0) {
-      openNotification('error', 'Lỗi', 'Vui lòng chọn ít nhất một bài viết để xóa');
+      openNotification('error', 'Error', 'Please select at least one article to delete');
       return;
     }
     try {
@@ -68,12 +67,12 @@ export default function Article() {
       for (const id of rowSelected) {
         await api.delete(`${process.env.NEXT_PUBLIC_API_ADMIN}/articles/deleteSoft/${id}`);
       }
-      openNotification('success', 'Thành công', 'Xóa bài viết thành công');
+      openNotification('success', 'Success', 'Selected articles deleted successfully');
       fetchAPI();
       setRowSelected([]);
       setHaveSelected(false);
     } catch (err: any) {
-      openNotification('error', 'Lỗi', err.response?.data?.message || 'Không thể xóa bài viết. Vui lòng thử lại sau.');
+      openNotification('error', 'Error', err.response?.data?.message || 'Unable to delete articles. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -81,53 +80,53 @@ export default function Article() {
 
   const columns = [
     {
-      title: 'Tiêu đề',
+      title: 'Title',
       dataIndex: 'title',
       key: 'title',
       sorter: (a: ArticleType, b: ArticleType) => a.title.localeCompare(b.title),
     },
     {
-      title: 'Vị trí',
+      title: 'Position',
       dataIndex: 'position',
       key: 'position',
       sorter: (a: ArticleType, b: ArticleType) => a.position - b.position,
       sortDirections: ['descend'] as SortOrder[],
     },
     {
-      title: 'Giới thiệu',
+      title: 'Introduction',
       dataIndex: 'introduction',
       key: 'introduction',
       className: 'introduction-column',
     },
     {
-      title: 'Tình trạng',
+      title: 'Status',
       dataIndex: 'status',
       key: 'status',
       filters: [
-        { text: 'Hoạt động', value: 'active' },
-        { text: 'Không hoạt động', value: 'inactive' },
-        { text: 'Đang hoàn thành', value: 'ongoing' },
+        { text: 'Active', value: 'active' },
+        { text: 'Inactive', value: 'inactive' },
+        { text: 'Ongoing', value: 'ongoing' },
       ],
       filterSearch: true,
       onFilter: (value: any, record: ArticleType) => record.status === value,
       render: (_: any, record: ArticleType) => {
         let color = 'gray';
-        let text = 'Không xác định';
+        let text = 'Unknown';
         if (record.status === 'active') {
           color = 'green';
-          text = 'Hoạt động';
+          text = 'Active';
         } else if (record.status === 'inactive') {
           color = 'red';
-          text = 'Không hoạt động';
+          text = 'Inactive';
         } else {
           color = 'blue';
-          text = 'Đang hoàn thành';
+          text = 'Ongoing';
         }
         return <Badge color={color} text={text} />;
       },
     },
     {
-      title: 'Hành động',
+      title: 'Actions',
       key: 'actions', 
       width: '10%',
       render: (_: any, record: ArticleType) => (
@@ -169,7 +168,7 @@ export default function Article() {
 
         <div className="btn-action-container">
           <Input.Search
-            placeholder="Tìm kiếm"
+            placeholder="Search"
             variant="underlined"
             style={{ width: 200 }}
             onSearch={handleSearch}
@@ -177,12 +176,12 @@ export default function Article() {
           />
 
           <Button
-            style={{ color: '#006effff', marginLeft: 20, borderRadius: 45, border: '1px solid #006effff' }}
+            style={{ color: '#006eff', marginLeft: 20, borderRadius: 45, border: '1px solid #006eff' }}
             size="middle"
             icon={<PlusOutlined />}
             onClick={() => router.push('/admin/articles/create')}
           >
-            <span className="btn-text">Tạo mới</span>
+            <span className="btn-text">Create New</span>
           </Button>
 
           <Button
@@ -191,21 +190,21 @@ export default function Article() {
             icon={<FaTrash />}
             onClick={() => router.push('/admin/articles/trash')}
           >
-            <span className="btn-text">Thùng rác</span>
+            <span className="btn-text">Trash</span>
           </Button>
         </div>
 
         {haveSelected && (
           <Popconfirm
-            title="Bạn có chắc chắn muốn xóa bài viết đã chọn?"
+            title="Are you sure you want to delete the selected articles?"
             onConfirm={handleDeleteSelected}
           >
             <Button
-              style={{ color: 'red', borderRadius: 40, border: '1px solid rgb(255, 0, 0)' }}
+              style={{ color: 'red', borderRadius: 40, border: '1px solid red' }}
               size="middle"
               icon={<FaTrash />}
             >
-              <span className="btn-text">Xóa</span>
+              <span className="btn-text">Delete</span>
             </Button>
           </Popconfirm>
         )}

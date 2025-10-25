@@ -1,12 +1,12 @@
 "use client";
 
-import { Card, Typography, Row, Col, Button, Avatar } from "antd";
+import { Card, Typography, Row, Col, Avatar } from "antd";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import personal from "@/data/personal.json";
 import "@/styles/client/home/testimonial.css";
 
-// import css của swiper
+// import Swiper CSS
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -17,7 +17,7 @@ export default function Testimonials() {
   return (
     <div className="testimonial-section">
       <div className="home-heading">
-        <div>Cảm nhận của khách hàng</div>
+        <div>Customer Testimonials</div>
       </div>
 
       <Swiper

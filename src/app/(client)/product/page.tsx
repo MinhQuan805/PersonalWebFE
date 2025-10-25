@@ -25,7 +25,7 @@ export default function Product() {
   if (loadingProducts || !products || products.length === 0) {
     return (
       <div style={{ textAlign: 'center', marginTop: 100 }}>
-        <Spin tip="Đang tải..." size="large">
+        <Spin tip="Loading..." size="large">
           <div style={{ minHeight: 200 }} />
         </Spin>
       </div>
@@ -36,7 +36,7 @@ export default function Product() {
     <div className={styles.productContainer}>
       {/* Tiêu đề */}
       <div className={styles.titleHeader}>
-        <div>Dự án của tôi</div>
+        <div>My Projects</div>
       </div>
 
       {isMobile && (

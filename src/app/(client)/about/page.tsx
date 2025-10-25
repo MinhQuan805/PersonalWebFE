@@ -1,10 +1,11 @@
 'use client';
 
-import { Row, Col, Typography, Button} from 'antd';
+import { Row, Col, Typography, Button } from 'antd';
 const { Title, Paragraph } = Typography;
 import '@/styles/client/about/about.css';
 import { TbBrandGithubFilled } from 'react-icons/tb';
 import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
+
 export default function Home() {
   return (
     <div className="about-container">
@@ -14,13 +15,14 @@ export default function Home() {
             <img src="/image/general/avatar.jpg" alt="Minh Quan" className="intro-image" />
           </div>
         </Col>
+
         <Col xs={24} md={14}>
           <Title className="intro-title">
-            <span style={{ fontSize: 30, fontWeight: 700 }}>Welcome bạn</span>
+            <span style={{ fontSize: 30, fontWeight: 700 }}>Welcome</span>
           </Title>
 
           <Title className="intro-title">
-            <span style={{ fontSize: 25, fontWeight: 700 }}>Mình là </span>
+            <span style={{ fontSize: 25, fontWeight: 700 }}>I’m </span>
             <span
               style={{
                 fontSize: 45,
@@ -30,35 +32,44 @@ export default function Home() {
                 display: "inline-block"
               }}
             >
-              Minh Quân
+              Minh Quan
             </span>
           </Title>
 
-          <Title
-            className="intro-title"
-          >
-            <span style={{ fontSize: 25, fontWeight: 700}}>- Sinh viên trường UIT, một người trẻ trên hành trình học hỏi và kiếm thu nhập</span>
+          <Title className="intro-title">
+            <span style={{ fontSize: 25, fontWeight: 700 }}>
+              - A student at UIT, a young person on a journey of learning and building an income.
+            </span>
           </Title>
 
           <div className="intro-icon">
-              <Button href="https://www.linkedin.com/in/qu%C3%A2n-v%C3%B5-821704325/" icon={<FaLinkedinIn style={{ color: '#1890ff' }} />} />
-              <Button href="https://github.com/MinhQuan805"><TbBrandGithubFilled style={{ color: '#1890ff', height: 20, width: 20 }} /></Button>
-              <Button href="https://www.facebook.com/quan.minh.780514/" icon={<FaFacebookF style={{ color: '#1890ff' }} />} />
+            <Button
+              href="https://www.linkedin.com/in/qu%C3%A2n-v%C3%B5-821704325/"
+              icon={<FaLinkedinIn style={{ color: '#1890ff' }} />}
+            />
+            <Button href="https://github.com/MinhQuan805">
+              <TbBrandGithubFilled style={{ color: '#1890ff', height: 20, width: 20 }} />
+            </Button>
+            <Button
+              href="https://www.facebook.com/quan.minh.780514/"
+              icon={<FaFacebookF style={{ color: '#1890ff' }} />}
+            />
           </div>
+
           <Paragraph className="intro-description">
-            Ở những năm tuổi thiếu niên thì mình luôn khát khao tạo nên một điều gì đó thật sự có ý nghĩa và tạo dấu ấn cho những năm tháng của mình.
+            During my teenage years, I always longed to create something truly meaningful and leave a mark on my youth.
           </Paragraph>
 
           <Paragraph className="intro-description">
-            Nhưng khi lớn lên, va chạm với rất nhiều thử thách và thất bại rất nhiều lần thì mình mới thấy bản thân thật sự nhỏ bé biết bao.
+            But as I grew up and faced many challenges and failures, I realized how small and inexperienced I really was.
           </Paragraph>
 
           <Paragraph className="intro-description">
-            Giờ đây, ở những tuổi 20s, mình đang cặm cụi từng bước một để biến những giấc mơ của mình không chỉ còn trong những trang giấy. Và đây là nơi để mình chia sẻ hành trình đó.
+            Now, in my 20s, I’m steadily working step by step to turn my dreams into reality — no longer just words on paper. 
+            And this is the place where I share that journey.
           </Paragraph>
-
         </Col>
       </Row>
     </div>
-  )
+  );
 }

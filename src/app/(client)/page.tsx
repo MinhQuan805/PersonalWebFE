@@ -53,7 +53,7 @@ const missions = [
     icon: <FaLightbulb className="mission-home-icon" />, 
     title: 'Solve', 
     description: (color: string) => (
-      <>Luôn <span style={{ color, fontWeight: 700 }}>đổi mới</span> giải quyết thách thức.</>
+      <>Always <span style={{ color, fontWeight: 700 }}>innovate</span> to overcome challenges.</>
     )
   },
   { 
@@ -61,7 +61,7 @@ const missions = [
     icon: <FaPencilRuler className="mission-home-icon" />, 
     title: 'UX', 
     description: (color: string) => (
-      <>Sản phẩm <span style={{ color, fontWeight: 700 }}>thân thiện</span> với người dùng.</>
+      <>Create products that are <span style={{ color, fontWeight: 700 }}>user-friendly</span>.</>
     )
   },
   { 
@@ -69,7 +69,7 @@ const missions = [
     icon: <FaSeedling className="mission-home-icon" />, 
     title: 'Grow', 
     description: (color: string) => (
-      <>Không ngừng <span style={{ color, fontWeight: 700 }}>học hỏi</span> và phát triển.</>
+      <>Continuously <span style={{ color, fontWeight: 700 }}>learn</span> and grow.</>
     )
   },
   { 
@@ -77,13 +77,10 @@ const missions = [
     icon: <FaShieldAlt className="mission-home-icon" />, 
     title: 'Secure', 
     description: (color: string) => (
-      <>Đặt <span style={{ color, fontWeight: 700 }}>an toàn</span> lên hàng đầu.</>
+      <>Always put <span style={{ color, fontWeight: 700 }}>security</span> first.</>
     )
   }
 ];
-
-
-
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -98,11 +95,11 @@ export default function Home() {
   const newArticles = articles.slice(0, 4);
 
   useEffect(() => {
-  AOS.init({
-    duration: 800,
-    once: true,  
-  });
-}, []);
+    AOS.init({
+      duration: 800,
+      once: true,  
+    });
+  }, []);
 
   const onFinish = (values: any) => {
     sendGAEvent('event', 'contact_form_submitted', { subject: values.subject || '' });
@@ -140,7 +137,7 @@ export default function Home() {
             </Title>
 
             <Title className="intro-title">
-              <span style={{ fontSize: 30, fontWeight: 700 }}>Mình là </span>
+              <span style={{ fontSize: 30, fontWeight: 700 }}>I’m </span>
               <span className="intro-name">
                 {personal.intro.name}
               </span>
@@ -204,7 +201,7 @@ export default function Home() {
       {/* Missions Section */}
       <div className="missions-container">
         <div className="home-heading">
-          <div>Nguyên tắc</div>
+          <div>Principles</div>
         </div>
         <div className="missions-section">
           <Row gutter={[20, 20]} justify="center">
@@ -232,9 +229,9 @@ export default function Home() {
       {/* Products Section */}
       <div className="product-home-container" data-aos="fade-up" data-aos-delay="100">
         <div className="home-heading">
-          <div>Sản Phẩm</div>
+          <div>Products</div>
         </div>
-        <Spin tip="Đang tải sản phẩm..." size="large" spinning={loadingProducts}>
+        <Spin tip="Loading products..." size="large" spinning={loadingProducts}>
           <div className="product-home-section">
             <div className="transition">
               <Steps
@@ -272,8 +269,8 @@ export default function Home() {
                         <Title level={1} className="product-home-title">{products[currentStep].shortDescription}</Title>
                         <Paragraph className="product-home-description">{products[currentStep].introduction}</Paragraph>
                         <div style={{ display: 'flex', justifyContent: 'center'}}>
-                        <Button type="primary" size="large" className="product-home-button"
-                          onClick={() => handleLearnMore(products[currentStep].title, products[currentStep].github)}>Khám phá</Button>
+                          <Button type="primary" size="large" className="product-home-button"
+                            onClick={() => handleLearnMore(products[currentStep].title, products[currentStep].github)}>Explore</Button>
                         </div>
                       </div>
                     </motion.div>
@@ -305,14 +302,14 @@ export default function Home() {
             <Row align="middle" gutter={[24, 0]}>
               <Col xs={24} md={13}>
                 <div className="article-home-content">
-                  <Title level={2}>Hành trình tích lũy kiến thức và tài chính của tôi</Title>
+                  <Title level={2}>My Journey of Knowledge and Financial Growth</Title>
                   <Paragraph className='product-home-description'>
-                    Việc phát triển năng lực là một hành trình dài, và đây là nơi để tôi chia sẻ hành trình phát triển kỹ năng của mình
+                    Developing competence is a long journey — this is where I share my growth and learning experiences.
                   </Paragraph>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Button
                       onClick={handleArticleClick} className={ArticleStyle.articleButton}
-                      style={{ fontSize: 17, width: 150, height: 40, paddingLeft: 30, paddingRight: 30 }}>Cùng đồng hành</Button>
+                      style={{ fontSize: 17, width: 150, height: 40, paddingLeft: 30, paddingRight: 30 }}>Join Me</Button>
                   </div>
                 </div>
               </Col>
@@ -326,7 +323,7 @@ export default function Home() {
         </div>
 
         {/* Featured Articles */}
-        <Spin tip="Đang tải bài viết..." size="large" spinning={loadingArticles} className="inLoading">
+        <Spin tip="Loading articles..." size="large" spinning={loadingArticles} className="inLoading">
           <ArticleHighlight articles={newArticles} style={ArticleStyle} />
         </Spin>
       </div>
@@ -335,14 +332,14 @@ export default function Home() {
       {/* Pricing Section */}
       <div className="pricing-container" data-aos="fade-up" data-aos-delay="100">
         <div className="home-heading">
-          <div>Dịch vụ</div>
+          <div>Services</div>
         </div>
         <div className="pricing-description">
           <p>
-            Bạn đang phát triển dự án phần mềm chất lượng và cần một người đồng hành tin cậy?
+            Are you building a high-quality software project and looking for a reliable partner?
           </p>
           <p>
-            Mình mang đến dịch vụ
+            I offer services in
           </p>
         </div>
         <Card className="pricing-card">
@@ -350,27 +347,27 @@ export default function Home() {
             <Col xs={24} md={12}>
               <Title level={2}>Backend Development</Title>
               <ul className="pricing-features">
-                <li className="pricing-text"><IoMdRocket className="pricing-icon"/>   Hiệu suất vượt trội</li>
-                <li className="pricing-text"><FaLink className="pricing-icon"/>   Tích hơp dễ dàng</li>
-                <li className="pricing-text"><IoExpand className="pricing-icon"/>   Mở rộng linh hoạt</li>
-                <li className="pricing-text"><FaShieldAlt className="pricing-icon"/>   Bảo mật mạnh mẽ</li>
+                <li className="pricing-text"><IoMdRocket className="pricing-icon"/>   Exceptional performance</li>
+                <li className="pricing-text"><FaLink className="pricing-icon"/>   Easy integration</li>
+                <li className="pricing-text"><IoExpand className="pricing-icon"/>   Scalable structure</li>
+                <li className="pricing-text"><FaShieldAlt className="pricing-icon"/>   Strong security</li>
               </ul>
             </Col>
             <Col xs={24} md={12} style={{ textAlign: "center" }}>
               <div className="pricing-old">
                 <span className="old-price">$10</span>
-                <span className="price-unit">/ngày</span>
+                <span className="price-unit">/day</span>
               </div>
               <div className="pricing-price">
                 <span className="price-amount">$5</span>
-                <span className="price-unit">/ngày</span>
+                <span className="price-unit">/day</span>
               </div>
               <Button 
                 type="primary" size="large" shape="round" className="pricing-button" 
                 onClick={() => {
                   document.querySelector(".contact-container")?.scrollIntoView({ behavior: "smooth" });
                 }}>
-                Get Started !
+                Get Started!
               </Button>
             </Col>
           </Row>
@@ -381,11 +378,11 @@ export default function Home() {
       {/* Contact Section */}
       <div className="contact-container" data-aos="fade-up" data-aos-delay="100">
         <div className="home-heading">
-          <div>Đồng hành cùng mình</div>
+          <div>Work With Me</div>
         </div>
         <Row className="contact-wrapper">
           <Col xs={24} md={10} className="contact-info">
-            <h2>Thông tin liên hệ</h2>
+            <h2>Contact Information</h2>
             <div className="contact-detail">
               <PhoneOutlined />
               <span>{personal.about.info.phone}</span>
@@ -410,7 +407,7 @@ export default function Home() {
               <Form layout="vertical" form={form} onFinish={onFinish}>
                 <Row gutter={16}>
                   <Col span={12}>
-                    <Form.Item label="Họ và tên" name="name" rules={[{ required: true, message: 'Vui lòng nhập tên' }]}>
+                    <Form.Item label="Full Name" name="name" rules={[{ required: true, message: 'Please enter your name' }]}>
                       <Input variant="borderless" className="underline-input" />
                     </Form.Item>
                   </Col>
@@ -420,15 +417,15 @@ export default function Home() {
                     </Form.Item>
                   </Col>
                 </Row>
-                <Form.Item label="Tiêu đề" name="subject">
+                <Form.Item label="Subject" name="subject">
                   <Input variant="borderless" className="underline-input" />
                 </Form.Item>
-                <Form.Item label="Lời nhắn" name="message">
+                <Form.Item label="Message" name="message">
                   <Input.TextArea rows={5} />
                 </Form.Item>
                 <Form.Item>
                   <Button type="primary" htmlType="submit" className="send-button">
-                    Gửi
+                    Send
                   </Button>
                 </Form.Item>
               </Form>

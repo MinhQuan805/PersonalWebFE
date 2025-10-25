@@ -37,7 +37,7 @@ export default function User() {
         setOriginalUser(userData);
       }
     } catch (err) {
-      openNotification('error', 'Lỗi', 'Không thể tải danh sách người dùng. Vui lòng thử lại sau.');
+      openNotification('error', 'Error', 'Cannot load user list. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -63,20 +63,20 @@ export default function User() {
 
   const handleDeleteSelected = async () => {
     if (rowSelected.length === 0) {
-      openNotification('error', 'Lỗi', 'Vui lòng chọn ít nhất một người dùng để xóa');
+      openNotification('error', 'Error', 'Please select at least one user to delete');
       return;
     }
     try {
       setLoading(true);
       for (const id of rowSelected) {
-        const res = await api.delete(`/users/deleteHard/${id}`);
+        await api.delete(`/users/deleteHard/${id}`);
       }
-      openNotification('success', 'Thành công', 'Xóa người dùng thành công');
+      openNotification('success', 'Success', 'Selected users have been deleted');
       fetchAPI();
       setRowSelected([]);
       setHaveSelected(false);
     } catch (err: any) {
-      openNotification('error', 'Lỗi', err.response?.data?.message || 'Không thể xóa người dùng. Vui lòng thử lại sau.');
+      openNotification('error', 'Error', err.response?.data?.message || 'Cannot delete users. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -84,7 +84,7 @@ export default function User() {
 
   const columns = [
     {
-      title: 'Họ và tên',
+      title: 'Full Name',
       dataIndex: 'title',
       key: 'title',
       sorter: (a: UserType, b: UserType) => a.title.localeCompare(b.title),
@@ -95,18 +95,18 @@ export default function User() {
       key: 'email',
     },
     {
-      title: 'Vai trò',
+      title: 'Role',
       dataIndex: 'role',
       key: 'role',
       filters: [
         { text: 'Admin', value: 'admin' },
-        { text: 'User', value: 'user' },
+        { text: 'Client', value: 'client' },
       ],
       filterSearch: true,
       onFilter: (value: any, record: UserType) => record.status === value,
       render: (_: any, record: UserType) => {
         let color = 'gray';
-        let text = 'Không xác định';
+        let text = 'Unknown';
         if (record.role === 'admin') {
           color = 'blue';
           text = 'Admin';
@@ -118,30 +118,30 @@ export default function User() {
       },
     },
     {
-      title: 'Tình trạng',
+      title: 'Status',
       dataIndex: 'status',
       key: 'status',
       filters: [
-        { text: 'Hoạt động', value: 'active' },
-        { text: 'Không hoạt động', value: 'inactive' },
+        { text: 'Active', value: 'active' },
+        { text: 'Inactive', value: 'inactive' },
       ],
       filterSearch: true,
       onFilter: (value: any, record: UserType) => record.status === value,
       render: (_: any, record: UserType) => {
         let color = 'gray';
-        let text = 'Không xác định';
+        let text = 'Unknown';
         if (record.status === 'active') {
           color = 'green';
-          text = 'Hoạt động';
+          text = 'Active';
         } else if (record.status === 'inactive') {
           color = 'red';
-          text = 'Không hoạt động';
+          text = 'Inactive';
         }
         return <Badge color={color} text={text} />;
       },
     },
     {
-      title: 'Hành động',
+      title: 'Actions',
       key: 'actions',
       width: '10%',
       render: (_: any, record: UserType) => {
@@ -162,13 +162,13 @@ export default function User() {
   const onFinish = async (data: any) => {
     try {
       const response = await api.post(`/users/register`, data);
-      openNotification('success', 'Thành công', response.data.message);
+      openNotification('success', 'Success', response.data.message);
       setOpen(false);
       form.resetFields();
       fetchAPI();
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Đăng ký thất bại';
-      openNotification('error', 'Lỗi', errorMessage);
+      const errorMessage = err.response?.data?.message || 'Registration failed';
+      openNotification('error', 'Error', errorMessage);
     }
   };
 
@@ -185,14 +185,13 @@ export default function User() {
     setKeyword(value);
   };
 
-
   const isAction: RadioGroupProps['options'] = [
-    { label: 'Hoạt động', value: 'active' },
-    { label: 'Không hoạt động', value: 'inactive' },
+    { label: 'Active', value: 'active' },
+    { label: 'Inactive', value: 'inactive' },
   ];
   const isUser: RadioGroupProps['options'] = [
-    { label: 'Người dùng', value: 'client' },
-    { label: 'Quản trị', value: 'admin' },
+    { label: 'Client', value: 'client' },
+    { label: 'Admin', value: 'admin' },
   ];
 
   return (
@@ -210,42 +209,42 @@ export default function User() {
         </Form>
         <div className="btn-action-container">
           <Input.Search
-            placeholder="Tìm kiếm"
+            placeholder="Search"
             variant="underlined"
             style={{ width: 200 }}
             onSearch={handleSearch}
             onChange={(e) => handleSearch(e.target.value)}
           />
           <Button
-            style={{ color: '#006effff', marginLeft: 20, borderRadius: 45, border: '1px solid #006effff' }}
+            style={{ color: '#006eff', marginLeft: 20, borderRadius: 45, border: '1px solid #006eff' }}
             size="middle"
             icon={<PlusOutlined />}
             onClick={showLoading}
           >
-            <span className="btn-text">Tạo người dùng mới</span>
+            <span className="btn-text">Create New User</span>
           </Button>
         </div>
         {haveSelected && (
-          <Popconfirm title="Bạn có chắc chắn muốn xóa người dùng đã chọn?" onConfirm={handleDeleteSelected}>
+          <Popconfirm title="Are you sure you want to delete selected users?" onConfirm={handleDeleteSelected}>
             <Button
-              style={{ color: 'red', marginLeft: 20, borderRadius: 40, border: '1px solid rgb(255, 0, 0)' }}
+              style={{ color: 'red', marginLeft: 20, borderRadius: 40, border: '1px solid red' }}
               size="middle"
               icon={<FaTrash />}
             >
-              <span className="btn-text">Xóa</span>
+              <span className="btn-text">Delete</span>
             </Button>
           </Popconfirm>
         )}
       </div>
       <Modal
-        title={<p>Tạo người dùng</p>}
+        title={<p>Create User</p>}
         footer={
           <>
             <Button type="primary" onClick={showLoading}>
-              Tải lại
+              Reload
             </Button>
             <Button type="primary" htmlType="submit" form="userForm">
-              Tạo tài khoản
+              Create Account
             </Button>
           </>
         }
@@ -263,24 +262,24 @@ export default function User() {
             status: 'active',
           }}
         >
-          <Form.Item label="Tên" name="title" rules={[{ required: true, message: 'Vui lòng nhập tên!' }]}>
-            <Input placeholder="Nhập tên" />
+          <Form.Item label="Full Name" name="title" rules={[{ required: true, message: 'Please enter name!' }]}>
+            <Input placeholder="Enter name" />
           </Form.Item>
 
-          <Form.Item label="Email" name="email" rules={[{ type: 'email', message: 'Email không hợp lệ!' }]}>
-            <Input placeholder="Nhập email" />
+          <Form.Item label="Email" name="email" rules={[{ type: 'email', message: 'Invalid email!' }]}>
+            <Input placeholder="Enter email" />
           </Form.Item>
           <Form.Item
             label="Password"
             name="password"
-            rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
+            rules={[{ required: true, message: 'Please enter password!' }]}
           >
-            <Input.Password placeholder="Nhập password" />
+            <Input.Password placeholder="Enter password" />
           </Form.Item>
-          <Form.Item name="status" label="Trạng thái">
+          <Form.Item name="status" label="Status">
             <Radio.Group block options={isAction} defaultValue="active" />
           </Form.Item>
-          <Form.Item name="role" label="Vai trò">
+          <Form.Item name="role" label="Role">
             <Radio.Group block options={isUser} defaultValue="client" />
           </Form.Item>
         </Form>

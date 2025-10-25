@@ -1,15 +1,22 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import {  Button, Col, DatePicker, Form,
-          Input, Radio, Row, Switch, Upload,
-          InputNumber, notification,
-          Select,
+import {
+  Button,
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  Radio,
+  Row,
+  Switch,
+  Upload,
+  InputNumber,
+  Select,
 } from 'antd';
-import type { UploadProps, UploadFile } from 'antd/es/upload/interface';
+import type { UploadProps } from 'antd/es/upload/interface';
 import type { CheckboxGroupProps } from 'antd/es/checkbox';
 import TextEditor from '@/components/admin/TextEditor';
-import api from '@/config/api'
 import { useRouter } from 'next/navigation';
 import '@/styles/admin/article/article.css';
 import useAppNotification from '@/components/useAppNotification';
@@ -24,10 +31,10 @@ export default function CreateArticle() {
   const editorRef = useRef<any>(null);
   const [editorContent, setEditorContent] = useState('');
 
-  const action_url = '/admin/articles'
+  const action_url = '/admin/articles';
   const { openNotification, contextHolder } = useAppNotification();
 
-  // Upload ảnh
+  // Handle image upload
   const onChange: UploadProps['onChange'] = ({ file, fileList: newFileList }) => {
     if (file.status === 'done' && file.response) {
       file.url = file.response.url;
@@ -38,10 +45,11 @@ export default function CreateArticle() {
   const { customUpload, onPreview } = UploadImage(action_url);
 
   const options: CheckboxGroupProps<string>['options'] = [
-    { label: 'Hoạt động', value: 'active' },
-    { label: 'Không hoạt động', value: 'inactive' },
-    { label: 'Đang hoàn thành', value: 'ongoing' },
+    { label: 'Active', value: 'active' },
+    { label: 'Inactive', value: 'inactive' },
+    { label: 'In Progress', value: 'ongoing' },
   ];
+
   const handleCreate = async () => {
     const createdAt = form.getFieldValue('createdAt');
     const data = {
@@ -57,7 +65,8 @@ export default function CreateArticle() {
       createdAt: createdAt ? createdAt.toDate() : new Date(),
       tags: form.getFieldValue('tags') || [],
     };
-    const success = await CreateNewData({action_url, data, openNotification});
+
+    const success = await CreateNewData({ action_url, data, openNotification });
     if (success) {
       router.push(action_url);
     }
@@ -91,7 +100,7 @@ export default function CreateArticle() {
             Cancel
           </Button>
           <Button type="primary" htmlType="submit">
-            Tạo bài báo
+            Create Article
           </Button>
         </div>
 
@@ -99,34 +108,34 @@ export default function CreateArticle() {
           <Col span={12}>
             <Form.Item
               name="title"
-              label="Tiêu đề"
-              rules={[{ required: true, message: 'Vui lòng nhập tiêu đề' }]}
+              label="Title"
+              rules={[{ required: true, message: 'Please enter the title' }]}
             >
-              <Input placeholder="Nhập tiêu đề" />
+              <Input placeholder="Enter article title" />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
               name="position"
-              label="Vị trí"
+              label="Position"
               style={{ marginLeft: 100, width: '30%' }}
             >
-              <InputNumber placeholder="Nhập vị trí" style={{ width: '100%' }} />
+              <InputNumber placeholder="Enter position" style={{ width: '100%' }} />
             </Form.Item>
           </Col>
         </Row>
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
           <Col span={24}>
-            <Form.Item name="introduction" label="Giới thiệu">
-              <Input.TextArea rows={4} placeholder="Nhập phần giới thiệu" />
+            <Form.Item name="introduction" label="Introduction">
+              <Input.TextArea rows={4} placeholder="Enter a short introduction" />
             </Form.Item>
           </Col>
         </Row>
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
           <Col span={12}>
-            <Form.Item name="thumbnail" label="Ảnh bìa">
+            <Form.Item name="thumbnail" label="Thumbnail">
               <Upload
                 customRequest={customUpload}
                 listType="picture-card"
@@ -141,10 +150,10 @@ export default function CreateArticle() {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="createdAt" label="Ngày tạo">
+            <Form.Item name="createdAt" label="Created Date">
               <DatePicker />
             </Form.Item>
-            <Form.Item name="outstand" label="Nổi bật" valuePropName="checked">
+            <Form.Item name="outstand" label="Featured" valuePropName="checked">
               <Switch />
             </Form.Item>
           </Col>
@@ -152,7 +161,7 @@ export default function CreateArticle() {
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
           <Col span={12}>
-            <Form.Item name="status" label="Trạng thái">
+            <Form.Item name="status" label="Status">
               <Radio.Group block options={options} defaultValue="ongoing" />
             </Form.Item>
           </Col>
@@ -160,15 +169,12 @@ export default function CreateArticle() {
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
           <Col span={18}>
-            <Form.Item
-              name="tags"
-              label="Thể loại"
-            >
+            <Form.Item name="tags" label="Tags">
               <Select
                 mode="multiple"
                 allowClear
                 style={{ width: '100%' }}
-                placeholder="Chọn thể loại bài báo"
+                placeholder="Select article tags"
                 options={articles.tags}
               />
             </Form.Item>
@@ -177,7 +183,7 @@ export default function CreateArticle() {
 
         <Row gutter={16} style={{ marginBottom: 10 }}>
           <Col span={24}>
-            <Form.Item name="content" label="Nội dung">
+            <Form.Item name="content" label="Content">
               <TextEditor
                 editorRef={editorRef}
                 value={editorContent}
@@ -189,5 +195,4 @@ export default function CreateArticle() {
       </Form>
     </>
   );
-};
-
+}
